@@ -1,0 +1,7 @@
+.next
+.github
+node_modules
+dist
+coverage
+public
+pnpm-lock.yaml

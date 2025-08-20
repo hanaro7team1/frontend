@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "semi": true,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "printWidth": 100,
+
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+
+  "importOrder": [
+    "^next$",
+    "^next/(.*)$",
+    "^react$",
+    "^react/(.*)$",
+    "^@/lib/(.*)$",
+    "^@/apis/(.*)$",
+    "^@/components/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/utils/(.*)$",
+    "^@/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
