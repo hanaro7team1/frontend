@@ -12,11 +12,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang='ko'>
+      <body className='flex h-screen items-center justify-center overflow-hidden antialiased'>
+        <div className='bg-white-afa h-full w-full overflow-y-auto py-4 shadow-[0_0_10px_rgba(0,0,0,0.3)] sm:max-w-sm [&::-webkit-scrollbar]:hidden'>
+          {children}
+        </div>
       </body>
     </html>
   );
