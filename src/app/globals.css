@@ -3,6 +3,28 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --code-theme1: #00a49d;
+  --color-green-49d: var(--code-theme1);
+  --code-theme2: #a6dedc;
+  --color-green-edc: var(--code-theme2);
+  --code-theme3: #d9f2f1;
+  --color-green-2f1: var(--code-theme3);
+
+  --code-theme4: #454444;
+  --color-black-444: var(--code-theme4);
+  --code-theme5: #262626;
+  --color-black-626: var(--code-theme5);
+
+  --code-theme6: #848484;
+  --color-gray-484: var(--code-theme6);
+  --code-theme7: #707070;
+  --color-gray-070: var(--code-theme7);
+
+  --code-theme8: #f6985a;
+  --color-orange-85a: var(--code-theme8);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
