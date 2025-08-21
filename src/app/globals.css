@@ -162,3 +162,7 @@
   font-family: 'Hana2-Regular';
   src: url('/fonts/Hana2-Regular.ttf') format('truetype');
 }
+
+button {
+  @apply cursor-pointer;
+}
