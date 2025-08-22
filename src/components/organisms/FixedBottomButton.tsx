@@ -1,7 +1,7 @@
 'use client';
 
 import { PropsWithChildren } from 'react';
-import { Button } from '../molecules';
+import { Button } from '../atoms';
 
 type Props = {
   greenBtnText: string;
