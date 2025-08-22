@@ -19,6 +19,7 @@ type Props = {
  * @param greenBtnType - 초록색 버튼의 타입 (회색 버튼은 'button' 고정)
  * @returns
  */
+
 export default function FixedBottomButton({
   greenBtnText,
   grayBtnText,
