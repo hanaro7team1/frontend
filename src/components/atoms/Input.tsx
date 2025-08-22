@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 // input 컴포넌트의 기본 스타일
 const baseStyle = `
   w-full px-4 py-3 rounded-[10px]
-  bg-white shadow-[0px_0px_5px_rgba(0,0,0,0.15)]
+  bg-white shadow-[0_0_5px_rgba(0,0,0,0.15)]
   font-[Hana2-CM] text-black-626 placeholder:text-black-626/40
   focus:outline-none focus:ring-0
 `;
@@ -27,6 +27,7 @@ type Props = {
   onKeyDown?: KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> &
   Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'>;
+
 /**
  * @param placeholder - placeholder 안내 문구
  * @param tag - 사용할 태그 ('input' 또는 'textarea')
