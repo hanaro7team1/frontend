@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Txt } from '../atoms';
@@ -20,7 +20,7 @@ type Props = {
  */
 export default function Header({ title, showBackButton = false, className }: Props) {
   const router = useRouter();
-  const handleBack = async () => router.back();
+  const handleBack = () => router.back();
 
   return (
     <header
@@ -34,7 +34,7 @@ export default function Header({ title, showBackButton = false, className }: Pro
     >
       {showBackButton && (
         <button onClick={handleBack}>
-          <Image src='/icons/Ic_ChevronLeft_big.svg' alt='뒤로가기' width={40} height={40} />
+          <ChevronLeft size={40} />
         </button>
       )}
       <Txt size={24} className={cn('flex-1', { 'text-white': !showBackButton })}>
