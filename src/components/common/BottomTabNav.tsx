@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { TABS } from '@/constants/BottomTabNav';
+import { TABS } from '@/constants/common/BottomTabNav';
 import { BottomTabNavBtn } from '../common';
 
 type TabName = keyof typeof TABS;
