@@ -8,6 +8,6 @@ export const TAB_DEFAULT_COLOR = '#707070';
 export const TABS = {
   메인: { route: '/', icon: Home },
   숙박: { route: '/stays', icon: MoonStar },
-  매물: { route: '/realEstate', icon: MapPinHouse },
+  매물: { route: '/realEstates', icon: MapPinHouse },
   축제: { route: '/festivals', icon: PartyPopper },
 } as const;
