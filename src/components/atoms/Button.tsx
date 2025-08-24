@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Txt } from '../atoms';
+import { Txt } from '.';
 
 const Color = {
   green: ['bg-green-49d', 'text-white'],

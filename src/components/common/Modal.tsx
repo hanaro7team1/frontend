@@ -1,8 +1,7 @@
 'use client';
 
 import { MouseEventHandler, PropsWithChildren, useEffect, useRef } from 'react';
-import { Txt } from '../atoms';
-import { Button } from '../molecules';
+import { Button, Txt } from '../atoms';
 
 type Props = {
   greenBtnText: string;

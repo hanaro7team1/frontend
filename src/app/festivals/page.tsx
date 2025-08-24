@@ -1,4 +1,4 @@
-import { BottomTabNav, Header } from '@/components/organisms';
+import { BottomTabNav, Header } from '@/components/common';
 
 export default function FestivalsPage() {
   return (

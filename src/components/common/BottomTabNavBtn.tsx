@@ -5,7 +5,7 @@ import {
   TAB_ICON_SIZE,
   TAB_SELECTED_COLOR,
   TAB_TEXT_SIZE,
-} from '@/constants/BottomTabNav';
+} from '@/constants/common/BottomTabNav';
 import { Txt } from '../atoms';
 
 type TabName = keyof typeof TABS;
