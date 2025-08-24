@@ -7,9 +7,9 @@ import StepProgressBar from '@/components/common/StepProgressBar';
 const stepMap: Record<string, number> = {
   address: 1,
   photos: 2,
-  info: 3,
-  description: 4,
-  confirm: 5,
+  capacity: 3,
+  owner: 4,
+  description: 5,
 };
 
 export default function RegisterLayout({ children }: { children: React.ReactNode }) {
