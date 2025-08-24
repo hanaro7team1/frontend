@@ -5,6 +5,7 @@ import { Txt } from '.';
 
 const Color = {
   green: ['bg-green-49d', 'text-white'],
+  pink70: ['bg-pink-a76/70', 'text-white'],
   gray: ['bg-gray-070', 'text-white'],
   gray40: ['bg-black-626/40', 'text-white'],
   gray50: ['bg-black-626/50', 'text-white'],
@@ -27,7 +28,7 @@ type Props = {
  * onClick: 버튼 클릭 이벤트
  * disabled: 버튼 비활성화 여부
  * type: 버튼 타입
- * icon: 텍스트 옆에 아이콘이 있는 버튼
+ * icon: 텍스트 옆에 아이콘이 있는 버튼 (왼쪽 고정)
  * className: 추가 스타일 클래스
  */
 export default function Button({
@@ -43,7 +44,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        'flex w-full items-center justify-center rounded-[10px] py-[11px]',
+        'relative flex w-full items-center justify-center rounded-[10px] py-[11px]',
         Color[color][0],
         {
           'opacity-50': disabled,
@@ -56,8 +57,9 @@ export default function Button({
       disabled={disabled}
       {...props}
     >
-      {icon}
-      <Txt className={Color[color][1]} size={22}>
+      {icon && <span className='absolute left-6 flex items-center'>{icon}</span>}
+
+      <Txt className={Color[color][1]} size={24}>
         {title}
       </Txt>
     </button>
