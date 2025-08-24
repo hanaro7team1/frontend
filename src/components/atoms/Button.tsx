@@ -4,11 +4,9 @@ import { cn } from '@/lib/utils';
 import { Txt } from '.';
 
 const BgColor = {
-  green: ['bg-green-49d'],
-  pink70: ['bg-pink-a76/70'],
-  gray: ['bg-gray-070'],
-  gray40: ['bg-black-626/40'],
-  gray50: ['bg-black-626/50'],
+  green: 'bg-green-49d',
+  pink: 'bg-pink-a76/70',
+  gray: 'bg-black-626/40',
 };
 
 type Props = {
