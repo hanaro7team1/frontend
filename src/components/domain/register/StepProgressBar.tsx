@@ -1,7 +1,7 @@
 'use client';
 
 import { STEPS } from '@/constants/common/StepCircle';
-import StepCircle from './StepCircle';
+import { StepCircle } from '.';
 
 type Props = {
   currentStep: number;

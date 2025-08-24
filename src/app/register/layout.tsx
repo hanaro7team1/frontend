@@ -2,7 +2,7 @@
 
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { Header } from '@/components/common';
-import StepProgressBar from '@/components/common/StepProgressBar';
+import StepProgressBar from '@/components/domain/register/StepProgressBar';
 
 const stepMap: Record<string, number> = {
   address: 1,
