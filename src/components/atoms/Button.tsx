@@ -3,18 +3,18 @@
 import { cn } from '@/lib/utils';
 import { Txt } from '.';
 
-const Color = {
-  green: ['bg-green-49d', 'text-white'],
-  pink70: ['bg-pink-a76/70', 'text-white'],
-  gray: ['bg-gray-070', 'text-white'],
-  gray40: ['bg-black-626/40', 'text-white'],
-  gray50: ['bg-black-626/50', 'text-white'],
+const BgColor = {
+  green: ['bg-green-49d'],
+  pink70: ['bg-pink-a76/70'],
+  gray: ['bg-gray-070'],
+  gray40: ['bg-black-626/40'],
+  gray50: ['bg-black-626/50'],
 };
 
 type Props = {
   title: string;
   className?: string;
-  color?: keyof typeof Color;
+  color?: keyof typeof BgColor;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: 'button' | 'submit' | 'reset';
@@ -45,7 +45,7 @@ export default function Button({
     <button
       className={cn(
         'relative flex w-full items-center justify-center rounded-[10px] py-[11px]',
-        Color[color][0],
+        BgColor[color],
         {
           'opacity-50': disabled,
           'cursor-pointer': !disabled,
@@ -59,7 +59,7 @@ export default function Button({
     >
       {icon && <span className='absolute left-6 flex items-center'>{icon}</span>}
 
-      <Txt className={Color[color][1]} size={24}>
+      <Txt className='text-white' size={24}>
         {title}
       </Txt>
     </button>
