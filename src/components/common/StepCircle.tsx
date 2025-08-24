@@ -11,14 +11,13 @@ type Props = {
 export default function StepCircle({ stepNumber, stepName, isActive }: Props) {
   return (
     <div className='relative z-10 flex flex-col items-center px-1'>
-      <div className='bg-gray-6d6 inline-flex h-10 w-10 items-center justify-center rounded-full'>
-        <Txt
-          className={cn('text-white', {
-            'text-green-49d': isActive,
-          })}
-        >
-          {stepNumber}
-        </Txt>
+      <div
+        className={cn(
+          'bg-gray-6d6 inline-flex h-10 w-10 items-center justify-center rounded-full',
+          { 'bg-green-49d': isActive },
+        )}
+      >
+        <Txt className='text-white'>{stepNumber}</Txt>
       </div>
       <div className='text-center leading-tight'>
         <Txt
