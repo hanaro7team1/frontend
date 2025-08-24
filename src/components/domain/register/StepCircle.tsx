@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
+import { Txt } from '@/components/atoms';
 import { STEP_TEXT_SIZE } from '@/constants/common/StepCircle';
-import Txt from '../atoms/Text';
 
 type Props = {
   stepNumber: number;
