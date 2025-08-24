@@ -9,7 +9,7 @@ type Props = {
 
 export default function StepProgressBar({ currentStep }: Props) {
   return (
-    <div className='relative w-full py-4'>
+    <div className='bg-gray-484/5 relative w-full py-4'>
       <div className='bg-gray-6d6 absolute inset-x-[10%] top-8 h-[2px]' aria-hidden />
       <div className='mx-auto grid w-full max-w-[680px] grid-cols-5'>
         {STEPS.map((name, idx) => (
