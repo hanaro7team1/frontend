@@ -5,7 +5,7 @@ import { Txt } from '.';
 
 const BgColor = {
   green: 'bg-green-49d',
-  pink: 'bg-pink-a76/70',
+  pink: 'bg-pink-09f',
   gray: 'bg-black-626/40',
 };
 

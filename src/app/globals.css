@@ -28,6 +28,8 @@
 
   --code-theme10: #f14a76;
   --color-pink-a76: var(--code-theme10);
+  --code-theme11: #f5809f; /* #f14a76 70%와 같음 */
+  --color-pink-09f: var(--code-theme11);
 }
 
 @theme inline {
