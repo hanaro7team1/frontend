@@ -25,6 +25,9 @@
 
   --code-theme8: #f6985a;
   --color-orange-85a: var(--code-theme8);
+
+  --code-theme9: #f14a76;
+  --color-pink-a76: var(--code-theme9);
 }
 
 @theme inline {
