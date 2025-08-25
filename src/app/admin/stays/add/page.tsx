@@ -1,8 +1,12 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
 import { clampNum } from '@/lib/utils';
 import { STEPS } from '@/constants/admin/add/AdminStayAdd';
 
 export default function AdminStayAddPage({ searchParams }: { searchParams: { step?: string } }) {
-  const n = parseInt(searchParams.step ?? '', 10) || 1;
+  const search = useSearchParams();
+  const n = Number(search.get('step') ?? '');
   const stepNum = clampNum({ n });
   const View = STEPS[stepNum - 1];
   return (
