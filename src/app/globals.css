@@ -20,12 +20,14 @@
   --color-gray-484: var(--code-theme6);
   --code-theme7: #707070;
   --color-gray-070: var(--code-theme7);
+  --code-theme9: #d6d6d6;
+  --color-gray-6d6: var(--code-theme9);
 
   --code-theme8: #f6985a;
   --color-orange-85a: var(--code-theme8);
 
-  --code-theme9: #f14a76;
-  --color-pink-a76: var(--code-theme9);
+  --code-theme10: #f14a76;
+  --color-pink-a76: var(--code-theme10);
   --code-theme11: #f5809f; /* #f14a76 70%와 같음 */
   --color-pink-09f: var(--code-theme11);
 }
