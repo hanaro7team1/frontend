@@ -7,40 +7,51 @@ import { Txt } from '../atoms';
 
 type Props = {
   title: string;
-  showBackButton?: boolean;
+  bgColor?: 'white' | 'green' | 'pink';
+  withoutBorder?: boolean;
   className?: string;
 };
 
 /**
  * 헤더 컴포넌트
- * @param title - 헤더 제목
- * @param showBackButton - 뒤로가기 버튼 표시 여부. true일 때는 흰색 배경. 기본값은 false
+ * @param title - 헤더 텍스트
+ * @param bgColor - 헤더 배경색. 'white', 'green', 'pink'. 기본값은 'white'
+ * @param withoutBorder - 흰색 배경일 때, 헤더 하단의 border를 없앨지 여부. 기본값은 false
  * @param className - 추가 스타일 클래스
  * @returns
  */
-export default function Header({ title, showBackButton = false, className }: Props) {
+export default function Header({
+  title,
+  bgColor = 'white',
+  withoutBorder = false,
+  className,
+}: Props) {
   const router = useRouter();
   const handleBack = () => router.back();
+
+  const isWhiteBg = bgColor === 'white';
 
   return (
     <header
       className={cn(
-        'bg-green-49d flex h-14 items-center px-2',
+        'sticky top-0 z-50 flex h-14 w-full items-center bg-white px-2',
         {
-          'border-black-626/15 border-b bg-white': showBackButton,
+          'border-black-626/15 border-b': isWhiteBg && !withoutBorder,
+          'bg-pink-09f': bgColor === 'pink',
+          'bg-green-49d': bgColor === 'green',
         },
         className,
       )}
     >
-      {showBackButton && (
+      {isWhiteBg && (
         <button onClick={handleBack}>
           <ChevronLeft size={40} />
         </button>
       )}
-      <Txt size={24} className={cn('flex-1', { 'text-white': !showBackButton })}>
+      <Txt size={24} className={cn('flex-1', { 'text-white': !isWhiteBg })}>
         {title}
       </Txt>
-      {showBackButton && <div className='w-[40px]' />}
+      {isWhiteBg && <div className='w-[40px]' />}
     </header>
   );
 }
