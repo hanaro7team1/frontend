@@ -1,7 +1,3 @@
-export default function HomePage() {
-  return (
-    <main className="p-8">
-      <h1 className="text-2xl font-bold">Hana SIDO</h1>
-    </main>
-  );
+export default function SplashPage() {
+  return <div>스플래시</div>;
 }
