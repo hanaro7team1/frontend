@@ -12,7 +12,7 @@ export default function AddAdress() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className='flex flex-col gap-4 p-4'>
+    <div>
       <Txt className='text-left'>사랑방의 주소를 찾아 주세요</Txt>
       <div className='mb-4 flex gap-2'>
         <Input placeholder={'우측 버튼을 누르고 주소를 찾아 주세요'} value={addr} readOnly />
