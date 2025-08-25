@@ -1,26 +1,24 @@
-import { CameraIcon } from 'lucide-react';
+'use client';
+
 import { Txt } from '@/components/atoms';
+import { usePhotoUpload } from '@/hooks/admin/usePhotoUpload';
 import { SLOT_COUNT } from '@/constants/admin/add/AddPhoto';
-import PhotoUploadComponent from './PhotoUploadComponent';
+import HiddenFileInput from './HiddenFileInput';
+import PhotoGrid from './PhotoGrid';
+import UploadBarButton from './UploadBarButton';
 
 export default function AddPhoto() {
+  const { urls, inputRef, openPicker, onInputChange, removeAt } = usePhotoUpload(SLOT_COUNT);
+
   return (
     <>
-      <Txt align='left'>사랑방 내부/외부 사진을 첨부해 주세요</Txt>
-      <div className='border-gray-6d6 grid grid-cols-3 grid-rows-2 gap-2 rounded-[10px] border p-2'>
-        {Array.from({ length: SLOT_COUNT }).map((_, idx) => (
-          <div key={idx} className='aspect-square'>
-            <PhotoUploadComponent />
-          </div>
-        ))}
-      </div>
-      <button
-        title='사진찍기/앨범에서 올리기'
-        className='border-gray-6d6 text-black-626 flex justify-center gap-3 rounded-[10px] border bg-white p-3'
-      >
-        <CameraIcon size={30} color='var(--code-theme5)' />
-        <Txt>사진 찍기/앨범에서 올리기</Txt>
-      </button>
+      <Txt align='left'>사랑방의 내부 외부 사진을 첨부해 주세요</Txt>
+      {/* inputRef로 제어, 빈 그리드나 하단 버튼을 누를 시 openPicker 열리는 구조 (input은 하나고 여러 버튼이 접근 가능함)  */}
+      <HiddenFileInput inputRef={inputRef} onChange={onInputChange} capture='environment' />
+      {/* 현재까지 선택된 사진 그리드 형식으로 보여줌 없을 시 사진 업로드 그리드  */}
+      <PhotoGrid urls={urls} onPick={openPicker} onRemoveAt={removeAt} />
+      {/* 사진 업로드용 버튼, 그리드와 같은 동작을 함  */}
+      <UploadBarButton onClick={openPicker} />
     </>
   );
 }
