@@ -10,7 +10,7 @@ export default function AddOwner() {
           님
         </Txt>
       </div>
-      <Txt align='left'>사랑방의 최대 수용 가능 인원은 몇 명인가요</Txt>
+      <Txt align='left'>사랑방 주인의 전화번호를 입력하세요</Txt>
       <Input placeholder='예시) 01012345567' />
     </>
   );
