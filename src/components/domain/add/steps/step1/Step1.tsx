@@ -12,9 +12,9 @@ export default function AddAdress() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
+    <>
       <Txt className='text-left'>사랑방의 주소를 찾아 주세요</Txt>
-      <div className='mb-4 flex gap-2'>
+      <div className='mb-10 flex gap-2'>
         <Input placeholder={'우측 버튼을 누르고 주소를 찾아 주세요'} value={addr} readOnly />
         <SearchButton onClick={() => setOpen(true)} />
       </div>
@@ -27,6 +27,6 @@ export default function AddAdress() {
           setAddr(address);
         }}
       />
-    </div>
+    </>
   );
 }
