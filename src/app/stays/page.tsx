@@ -18,7 +18,7 @@ export default async function StaysPage({ searchParams }: Props) {
 
   return (
     <div>
-      <Header title='사랑방 찾기' bgColor='green' />
+      <Header title='사랑방 찾기' bgColor={isAdmin ? 'pink' : 'green'} />
       <main className='relative'>
         <RoomTypeFilter roomType={roomType} />
         <StayOptionFilters stayOption={{ location, schedule, peopleCount }} />
