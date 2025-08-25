@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
+import { ChangeEvent, RefObject } from 'react';
 
 type Props = {
-  inputRef: React.RefObject<HTMLInputElement | null>;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  inputRef: RefObject<HTMLInputElement | null>;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   accept?: string;
   multiple?: boolean;
   capture?: 'environment' | 'user' | boolean;

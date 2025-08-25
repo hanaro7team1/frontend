@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { SLOT_COUNT } from '@/constants/admin/add/AddPhoto';
 
 export function usePhotoUpload(max = SLOT_COUNT) {
@@ -27,7 +27,7 @@ export function usePhotoUpload(max = SLOT_COUNT) {
     [max],
   );
 
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     appendFiles(Array.from(e.target.files ?? []));
   };
 
