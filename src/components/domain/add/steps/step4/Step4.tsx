@@ -1,6 +1,6 @@
 import { Input, Txt } from '@/components/atoms';
 
-export default function AddInfo() {
+export default function AddOwner() {
   return (
     <>
       <Txt align='left'>사랑방 주인의 성함은 무엇인가요</Txt>
