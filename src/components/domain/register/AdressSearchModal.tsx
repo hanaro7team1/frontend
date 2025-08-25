@@ -14,7 +14,7 @@ const DaumPostcodeEmbed = dynamic(
 type Props = {
   open: boolean;
   onClose: () => void;
-  onSelect: (payload: { zip: string; address: string; type: 'R' | 'J'; raw: Address }) => void;
+  onSelect: (payload: { address: string; type: 'R' | 'J'; raw: Address }) => void;
 };
 
 export default function AddressSearchModal({ open, onClose, onSelect }: Props) {
@@ -27,7 +27,6 @@ export default function AddressSearchModal({ open, onClose, onSelect }: Props) {
     const composed = base + extra;
 
     onSelect({
-      zip: data.zonecode,
       address: composed,
       type: data.addressType as 'R' | 'J',
       raw: data,
@@ -37,7 +36,7 @@ export default function AddressSearchModal({ open, onClose, onSelect }: Props) {
 
   return (
     <div>
-      <div className='absolute inset-0 bg-black/40' onClick={onClose} />
+      <div className='bg-black-626/40 absolute inset-0 z-100' onClick={onClose} />
       <div className='fixed top-24 left-1/2 z-[100] w-5/6 -translate-x-1/2 sm:w-sm'>
         <Header title={'주소 찾기'}></Header>
         <div className='grid h-[480px] place-items-center bg-white'>

@@ -11,9 +11,8 @@ export default function AddressPage() {
   const router = useRouter();
 
   //addr (주소) zip (우편번호)
-  //주소 + 상세 주소 + 우편 번호 -> DB로 넘겨 주기
+  //주소 -> DB로 넘겨 주기
   const [addr, setAddr] = useState('');
-  const [zip, setZip] = useState('');
   const [open, setOpen] = useState(false);
 
   return (
@@ -33,14 +32,13 @@ export default function AddressPage() {
       <FixedBottomButton
         greenBtnText='다음'
         grayBtnText='취소'
-        onClickGreenBtn={() => router.push('/register/capacity')}
+        onClickGreenBtn={() => router.push('/register/photos')}
       />
       <AddressSearchModal
         open={open}
         onClose={() => setOpen(false)}
-        onSelect={({ address, zip }) => {
+        onSelect={({ address }) => {
           setAddr(address);
-          setZip(zip);
         }}
       />
     </div>
