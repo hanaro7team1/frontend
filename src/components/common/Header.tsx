@@ -25,7 +25,7 @@ export default function Header({ title, showBackButton = false, className }: Pro
   return (
     <header
       className={cn(
-        'bg-green-49d flex h-14 items-center px-2',
+        'sticky top-0 z-50 flex h-14 w-full items-center bg-white px-2',
         {
           'border-black-626/15 border-b bg-white': showBackButton,
         },
