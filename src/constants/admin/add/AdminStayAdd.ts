@@ -1,4 +1,4 @@
-import AddCapacity from '@/components/domain/add/steps/Step3';
+import AddCapacity from '@/components/domain/add/step3/Step3';
 import AddInfo from '@/components/domain/add/steps/Step4';
 import AddDescription from '@/components/domain/add/steps/Step5';
 import AddAdress from '@/components/domain/add/steps/step1/Step1';
