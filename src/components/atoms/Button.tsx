@@ -6,7 +6,7 @@ import { Txt } from '.';
 const BgColor = {
   green: 'bg-green-49d',
   pink: 'bg-pink-09f',
-  gray: 'bg-black-626/40',
+  gray: 'bg-black-626/45',
 };
 
 type Props = {
