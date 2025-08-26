@@ -36,7 +36,7 @@ export const signUpValidator = z
     password: passwordSchema,
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine(({ password, confirmPassword }) => password === confirmPassword, {
     message: '입력하신 비밀번호와 다릅니다.',
     path: ['confirmPassword'],
   });
@@ -48,13 +48,13 @@ export const changePasswordValidator = z
     newPassword: passwordSchema,
     confirmPassword: z.string(),
   })
-  .refine((data) => data.newPassword === data.confirmPassword, {
+  .refine(({ newPassword, confirmPassword }) => newPassword === confirmPassword, {
     message: '새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.',
     path: ['confirmPassword'],
   });
 
 export const checkIdValidation = (id: string) => {
-  const result = idSchema.safeParse(name);
+  const result = idSchema.safeParse(id);
   return {
     valid: result.success,
     message: result.success ? '' : result.error.issues[0]?.message || '',
