@@ -19,7 +19,7 @@ export default function Tag({ label, className }: Props) {
         className,
       )}
     >
-      <Txt size={20} weight='cm' align='center'>
+      <Txt>
         {label}
       </Txt>
     </span>

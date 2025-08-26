@@ -17,7 +17,7 @@ export default function EditButton({ onClick, className }: Props) {
         className,
       )}
     >
-      <Txt size={16} weight='cm' className='text-white'>
+      <Txt size={16} className='text-white'>
         변경하기
       </Txt>
     </button>

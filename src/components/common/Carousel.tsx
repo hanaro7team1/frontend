@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Txt } from '../atoms';
@@ -22,8 +23,8 @@ export default function Carousel({ images, className }: Props) {
   };
 
   return (
-    <div className={cn('relative flex w-full justify-center mt-5', className)}>
-      <img
+    <div className={cn('relative mt-5 flex w-full justify-center', className)}>
+      <Image
         src={images[current]}
         alt={`carousel-${current}`}
         className='h-[202px] w-[342px] object-cover'
@@ -37,7 +38,7 @@ export default function Carousel({ images, className }: Props) {
       />
 
       <div className='bg-black-626/45 absolute -bottom-10 left-1/2 -translate-x-1/2 rounded px-2.5 py-0.5'>
-        <Txt className={'text-white'} size={16} weight='cm'>
+        <Txt className={'text-white'} size={16}>
           {current + 1}/{images.length}
         </Txt>
       </div>

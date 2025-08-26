@@ -1,11 +1,11 @@
 import Txt from '@/components/atoms/Text';
 
 type Props = {
-  items: string[];
+  item: string;
   mode: 'city' | 'countryside';
 };
 
-export default function StayDescription({ items, mode }: Props) {
+export default function StayDescription({ item, mode }: Props) {
   return (
     <div
       className={
@@ -15,11 +15,9 @@ export default function StayDescription({ items, mode }: Props) {
       }
     >
       <div className='flex flex-col'>
-        {items.map((item, idx) => (
-          <Txt key={idx} size={18} weight='cm' align='left' className='text-gray-070'>
-            {item}
-          </Txt>
-        ))}
+        <Txt size={18} align='left' className='text-gray-070'>
+          {item}
+        </Txt>
       </div>
     </div>
   );

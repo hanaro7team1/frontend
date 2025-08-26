@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 type Props = {
@@ -28,7 +29,7 @@ export default function CarouselArrow({ direction, onClick, disabled, className 
         className,
       )}
     >
-      <img src={iconSrc} alt={`${direction} arrow`} className='h-13.5 w-6.5' />
+      <Image src={iconSrc} alt={`${direction} arrow`} className='h-13.5 w-6.5' />
     </button>
   );
 }

@@ -21,17 +21,11 @@ export default function StayDetailPage({ params }: { params: Props }) {
     images: ['/images/sample1.png', '/images/sample2.png'],
     capacity: 4,
     area: 24,
-    description: [
-      '전기가 아닌 진짜 온돌집',
-      '집근처에 맹꽁이가 아름답게 울음',
-      '옆집 토마토밭 체험 가능',
-      '전기가 아닌 진짜 온돌집',
-      '집근처에 맹꽁이가 아름답게 울음',
-      '옆집 토마토밭 체험 가능',
-      '옆집 토마토밭 체험 가능',
-      '옆집 토마토밭 체험 가능',
-    ],
+    description:
+      '전기가 아닌 진짜 온돌집 집근처에 맹꽁이가 아름답게 울음 옆집 토마토밭 체험 가능 전기가 아닌 진짜 온돌집 집근처에 맹꽁이가 아름답게 울음 옆집 토마토밭 체험 가능 옆집 토마토밭 체험 가능 옆집 토마토밭 체험 가능',
   };
+
+  const { title, address, images, capacity, area, description } = stay;
 
   // TODO: 실제 로그인 사용자에 따라 mode 분기
   const mode: 'city' | 'countryside' = 'city';
@@ -43,12 +37,12 @@ export default function StayDetailPage({ params }: { params: Props }) {
       </header>
 
       <main className='flex-1'>
-        <Carousel images={stay.images} />
+        <Carousel images={images} />
 
         <div className='mt-8 space-y-5 p-5'>
-          <StayHeader title={stay.title} address={stay.address} />
-          <StayInfoChips capacity={stay.capacity} area={stay.area} />
-          <StayDescription items={stay.description} mode={mode} />
+          <StayHeader title={title} address={address} />
+          <StayInfoChips capacity={capacity} area={area} />
+          <StayDescription items={description} mode={mode} />
         </div>
       </main>
 

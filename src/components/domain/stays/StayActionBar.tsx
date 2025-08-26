@@ -32,20 +32,16 @@ export default function StayActionBar({
         <div className='border-black-626/15 fixed right-0 bottom-0 left-0 border-t bg-white'>
           <div className='border-black-626/15 m-4 space-y-4 rounded-[15px] border px-6.5 py-5'>
             <div className='flex items-center gap-4'>
-              <Txt size={16} weight='cm'>
-                일정
-              </Txt>
+              <Txt size={16}>일정</Txt>
               <div className='flex items-center gap-4'>
-                <Txt size={20}>25.09.20 - 25.09.23</Txt>
+                <Txt>25.09.20 - 25.09.23</Txt>
                 <EditButton />
               </div>
             </div>
             <div className='flex items-center gap-4'>
-              <Txt size={16} weight='cm'>
-                인원
-              </Txt>
+              <Txt size={16}>인원</Txt>
               <div className='flex items-center gap-4'>
-                <Txt size={20}>2명</Txt>
+                <Txt>2명</Txt>
                 <EditButton />
               </div>
             </div>
