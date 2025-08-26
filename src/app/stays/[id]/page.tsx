@@ -32,7 +32,7 @@ export default async function StayDetailPage({ params }: Props) {
 
   return (
     <div className='flex flex-col'>
-      <header className='shrink-0'>
+      <header>
         <Header title='사랑방 자세히 보기' />
       </header>
 
@@ -46,7 +46,7 @@ export default async function StayDetailPage({ params }: Props) {
         </div>
       </main>
 
-      <footer className='shrink-0'>
+      <footer>
         <StayActionBar mode={mode} />
       </footer>
     </div>
