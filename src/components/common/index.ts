@@ -1,3 +1,4 @@
+export { default as BottomSheet } from './BottomSheet';
 export { default as BottomTabNav } from './BottomTabNav';
 export { default as BottomTabNavBtn } from './BottomTabNavBtn';
 export { default as FixedBottomButton } from './FixedBottomButton';
