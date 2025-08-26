@@ -18,7 +18,7 @@ export default function RoomItem({ data }: { data: RoomInfo }) {
           width={0}
           height={0}
           sizes='100vw'
-          className='h-auto w-full'
+          className='h-[140px] w-full'
         />
         <div className='space-y-4 p-3'>
           <div className='flex items-start justify-between pl-1'>
