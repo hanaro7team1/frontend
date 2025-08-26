@@ -26,8 +26,8 @@ export default function AddLayout({ children }: { children: React.ReactNode }) {
   const nextStep = () =>
     currentStep === TOTAL_STEP_NUM ? router.push('/admin/stays') : handleStep(currentStep + 1);
 
-  const grayButtonTitle = currentStep === FIRST_STEP_NUM ? '취소' : '이전';
-  const pinkButtonTitle = currentStep === TOTAL_STEP_NUM ? '등록 완료' : '다음';
+  const leftButtonTxt = currentStep === FIRST_STEP_NUM ? '취소' : '이전';
+  const rightButtonTxt = currentStep === TOTAL_STEP_NUM ? '등록 완료' : '다음';
 
   return (
     <>
@@ -35,8 +35,8 @@ export default function AddLayout({ children }: { children: React.ReactNode }) {
       <StepProgressBar currentStep={currentStep} />
       {children}
       <FixedBottomButton
-        leftBtnText={grayButtonTitle}
-        rightBtnText={pinkButtonTitle}
+        leftBtnText={leftButtonTxt}
+        rightBtnText={rightButtonTxt}
         isPink={true}
         onClickRightBtn={nextStep}
         onClickLeftBtn={prevStep}

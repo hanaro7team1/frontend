@@ -17,7 +17,7 @@ export default function SingUpLayout({ children }: { children: React.ReactNode }
 
   const handleStep = (next: number) => {
     const q = new URLSearchParams(search.toString());
-    q.set('step', String(clampNum({ n: next })));
+    q.set('step', String(clampNum({ n: next, max: TOTAL_SIGN_UP_NUM })));
     router.push(`${pathName}?${q.toString()}`);
   };
 
@@ -28,14 +28,17 @@ export default function SingUpLayout({ children }: { children: React.ReactNode }
   const nextStep = () =>
     currentStep === TOTAL_SIGN_UP_NUM ? router.push('/admin') : handleStep(currentStep + 1);
 
+  const leftButtonTxt = currentStep === FIRST_STEP_NUM ? '취소' : '이전';
+  const rightButtonTxt = currentStep === TOTAL_SIGN_UP_NUM ? '가입 완료' : '다음';
+
   return (
     <>
       <Header title={'회원 가입'} bgColor='pink' />
       <StepProgressBar currentStep={currentStep} isSignUp={true} />
       {children}
       <FixedBottomButton
-        leftBtnText={'취소'}
-        rightBtnText={'다음으로'}
+        leftBtnText={leftButtonTxt}
+        rightBtnText={rightButtonTxt}
         isPink={true}
         onClickRightBtn={nextStep}
         onClickLeftBtn={prevStep}
