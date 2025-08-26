@@ -1,11 +1,10 @@
-import Button from '@/components/atoms/Button';
-import Txt from '@/components/atoms/Text';
-import { Header } from '@/components/common';
-import Carousel from '@/components/common/Carousel';
-import StayActionBar from '@/components/domain/stays/StayActionBar';
-import StayDescription from '@/components/domain/stays/StayDescription';
-import StayHeader from '@/components/domain/stays/StayHeader';
-import StayInfoChips from '@/components/domain/stays/StayInfoChips';
+import { Carousel, Header } from '@/components/common';
+import {
+  StayActionBar,
+  StayDescription,
+  StayHeader,
+  StayInfoChips,
+} from '@/components/domain/stays';
 
 export default function StayDetailPage({ params }: { params: { id: string } }) {
   // TODO: 실제 API 연동 → getStay(stayId)
