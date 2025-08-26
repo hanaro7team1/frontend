@@ -21,24 +21,30 @@ export default function ReservationStats({ booked, staying, completed }: Props) 
       </div>
 
       {/* 예약 통계 */}
-      <div className='flex justify-between text-center'>
+      <div className='flex items-center justify-between text-center'>
         <div className='flex flex-1 flex-col'>
-          <Txt size={32} weight='bold'>
+          <Txt size={32} weight='bold' align='center'>
             {booked}
           </Txt>
-          <Txt size={16}>예약됨</Txt>
+          <Txt size={16} align='center'>
+            예약됨
+          </Txt>
         </div>
         <div className='flex flex-1 flex-col'>
-          <Txt size={32} weight='bold'>
+          <Txt size={32} weight='bold' align='center'>
             {staying}
           </Txt>
-          <Txt size={16}>방문 중</Txt>
+          <Txt size={16} align='center'>
+            방문 중
+          </Txt>
         </div>
         <div className='flex flex-1 flex-col'>
-          <Txt size={32} weight='bold'>
+          <Txt size={32} weight='bold' align='center'>
             {completed}
           </Txt>
-          <Txt size={16}>방문 완료</Txt>
+          <Txt size={16} align='center'>
+            방문 완료
+          </Txt>
         </div>
       </div>
 
