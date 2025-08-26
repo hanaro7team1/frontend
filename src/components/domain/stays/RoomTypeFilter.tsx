@@ -3,11 +3,6 @@ import { cn } from '@/lib/utils';
 import { Txt } from '@/components/atoms';
 import { RoomType } from '@/types/stays';
 
-type Props = {
-  roomType?: RoomType;
-  isAdmin: boolean;
-};
-
 const URL = {
   ROOM_TYPE_WITHHOST: '/stays?roomType=하숙형',
   ROOM_TYPE_WITHOUTHOST: '/stays?roomType=독립형',
@@ -17,6 +12,11 @@ const ROOM_TYPES = [
   { label: '하숙형', href: URL.ROOM_TYPE_WITHHOST },
   { label: '독립형', href: URL.ROOM_TYPE_WITHOUTHOST },
 ];
+
+type Props = {
+  roomType?: RoomType;
+  isAdmin: boolean;
+};
 
 export default async function RoomTypeFilter({ roomType, isAdmin }: Props) {
   return (

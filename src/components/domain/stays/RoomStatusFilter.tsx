@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Txt } from '@/components/atoms';
-import { HEADER_HEIGHT } from '@/constants/common/BottomTabNav';
 import { RoomStatus } from '@/types/stays';
 
 const URL = {
@@ -24,9 +23,7 @@ type Props = {
 
 export default async function RoomStatusFilter({ roomStatus }: Props) {
   return (
-    <div
-      className={`border-black-626/15 sticky top-[${HEADER_HEIGHT}px] flex flex-row border-b bg-white`}
-    >
+    <div className={`border-black-626/15 sticky top-[50px] flex flex-row border-b bg-white`}>
       {ROOM_STATUSES.map(({ label, href }) => {
         const isActive = roomStatus === label || (!roomStatus && label === '전체');
 
