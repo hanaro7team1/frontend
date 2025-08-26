@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { clampNum } from '@/lib/utils';
 import { STEPS } from '@/constants/admin/add/AdminStayAdd';
 
-export default function AdminStayAddPage({ searchParams }: { searchParams: { step?: string } }) {
+export default function AdminStayAddPage() {
   const search = useSearchParams();
   const n = Number(search.get('step') ?? '');
   const stepNum = clampNum({ n });
