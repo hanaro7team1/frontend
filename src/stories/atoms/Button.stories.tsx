@@ -47,14 +47,14 @@ export const Green: Story = {
 export const Pink: Story = {
   args: {
     title: '시골 관리자',
-    color: 'pink70',
+    color: 'pink',
   },
 };
 
 export const Gray: Story = {
   args: {
     title: '취소',
-    color: 'gray40',
+    color: 'gray',
   },
 };
 
@@ -68,7 +68,7 @@ export const Disabled: Story = {
 export const WithIcon: Story = {
   args: {
     title: '로그인 하러 가기',
-    color: 'pink70',
+    color: 'pink',
     icon: <span>🔓</span>,
   },
 };
