@@ -6,7 +6,11 @@ import {
   StayInfoChips,
 } from '@/components/domain/stays';
 
-export default function StayDetailPage({ params }: { params: { id: string } }) {
+type Props = {
+  id: string;
+};
+
+export default function StayDetailPage({ params }: { params: Props }) {
   // TODO: 실제 API 연동 → getStay(stayId)
   const stayId = params.id;
 
