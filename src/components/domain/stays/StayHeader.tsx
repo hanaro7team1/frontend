@@ -1,5 +1,4 @@
 import { HomeIcon } from 'lucide-react';
-import Image from 'next/image';
 import Txt from '@/components/atoms/Text';
 import StatusCapsule from './StatusCapsule';
 
