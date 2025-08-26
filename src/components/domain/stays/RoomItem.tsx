@@ -4,11 +4,13 @@ import { ShadowBox, Txt } from '@/components/atoms';
 import { OpenDateModalBtn, StatusCapsule } from '.';
 import { RoomInfo } from '../../../../public/dummy';
 
-export default function RoomItem({ data }: { data: RoomInfo }) {
+type Props = {
+  data: RoomInfo;
+  isAdmin: boolean;
+};
+
+export default function RoomItem({ data, isAdmin }: Props) {
   const { id, name, location, hostName, status, imgUrl } = data;
-
-  const isAdmin = false; // TODO: 추후에 세션에서 관리자 여부 읽어오기
-
   return (
     <ShadowBox>
       <Link href={`/stays/${id}`}>
