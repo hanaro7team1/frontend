@@ -25,16 +25,12 @@ export default function LoanCard({ onClick }: Props) {
       </div>
 
       <div className='ml-3 flex flex-col'>
-        <Txt size={22} align='left'>
-          슬기로운 귀촌 생활
-        </Txt>
-        <Txt size={22} align='left' className='text-green-49d'>
+        <Txt size={22}>슬기로운 귀촌 생활</Txt>
+        <Txt size={22} className='text-green-49d'>
           하나 전세금안심대출
         </Txt>
         <div className='mt-3 flex items-center gap-1' onClick={() => alert('상담하러 가기 클릭')}>
-          <Txt size={18} align='left'>
-            상담하러 가기
-          </Txt>
+          <Txt size={18}>상담하러 가기</Txt>
           <ChevronRight size={20} />
         </div>
       </div>

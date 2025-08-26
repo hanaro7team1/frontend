@@ -13,15 +13,15 @@ export default function Bankbook({ accountName, accountNumber, balance }: Props)
   const router = useRouter();
   return (
     <ShadowBox className='bg-white p-4'>
-      <div className='flex gap-4 items-center'>
-        <Txt size={22} align='left' className='text-black-444'>
+      <div className='flex items-center gap-4'>
+        <Txt size={22} className='text-black-444'>
           {accountName}
         </Txt>
-        <Txt size={18} align='left' className='text-gray-070'>
+        <Txt size={18} className='text-gray-070'>
           {accountNumber}
         </Txt>
       </div>
-      <Txt size={30} weight='bold' align='left' className='mt-3.5 ml-3'>
+      <Txt size={30} weight='bold' className='mt-3.5 ml-3'>
         {balance}
       </Txt>
 

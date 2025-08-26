@@ -17,7 +17,7 @@ export default function ReservationStats({ booked, staying, completed }: Props) 
     <ShadowBox className='space-y-5 bg-white p-5'>
       <div className='flex items-center gap-2'>
         <Calendar size={24} />
-        <Txt align='left'>예약 현황</Txt>
+        <Txt>예약 현황</Txt>
       </div>
 
       {/* 예약 통계 */}

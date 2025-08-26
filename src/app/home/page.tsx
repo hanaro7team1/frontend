@@ -26,7 +26,7 @@ export default async function HomePage({ params }: Props) {
       <div className='from-green-49d/13 absolute top-0 z-0 h-49 w-full bg-gradient-to-b to-white' />
       <header className='z-1 flex items-center justify-center'>
         <Image src='/images/Img_SIDO_LOGO.png' alt='시도 로고' width={86} height={86} />
-        <Txt size={22} weight='medium' align='left'>
+        <Txt size={22} weight='medium'>
           하는 {user} 님, 환영합니다
         </Txt>
       </header>

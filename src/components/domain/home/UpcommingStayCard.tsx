@@ -19,7 +19,7 @@ export default function RecentStayCard({ id, name, dateRange, imgUrl }: Props) {
       <div className='mb-3 flex items-center gap-2'>
         {/* TODO: 실제 예약 상태 연동 */}
         <StatusCapsule status={'방문 중'} />
-        <Txt size={22} weight='bold' align='left'>
+        <Txt size={22} weight='bold'>
           지금 머무르고 있어요
         </Txt>
       </div>
@@ -36,12 +36,8 @@ export default function RecentStayCard({ id, name, dateRange, imgUrl }: Props) {
       />
 
       <div className='mb-4 flex flex-col'>
-        <Txt size={22} align='left'>
-          {name}
-        </Txt>
-        <Txt size={18} align='left'>
-          {dateRange}
-        </Txt>
+        <Txt size={22}>{name}</Txt>
+        <Txt size={18}>{dateRange}</Txt>
       </div>
 
       <Button
