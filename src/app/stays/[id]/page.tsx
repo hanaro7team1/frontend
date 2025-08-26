@@ -7,12 +7,12 @@ import {
 } from '@/components/domain/stays';
 
 type Props = {
-  id: string;
+  params: Promise<{ id: string }>;
 };
 
-export default function StayDetailPage({ params }: { params: Props }) {
+export default async function StayDetailPage({ params }: Props) {
   // TODO: 실제 API 연동 → getStay(stayId)
-  const stayId = params.id;
+  const { id: stayId } = await params;
 
   const stay = {
     id: stayId,
