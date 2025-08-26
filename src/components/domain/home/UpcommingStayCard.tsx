@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button, ShadowBox, Txt } from '@/components/atoms';
-import { StatusCapsule } from '../../stays';
+import { StatusCapsule } from '../stays';
 
 type Props = {
   id: string; // 예약 번호
