@@ -23,7 +23,7 @@ export default function Carousel({ images, className }: Props) {
   };
 
   return (
-    <div className={cn('relative mt-5 flex w-full justify-center', className)}>
+    <div className={cn('relative mt-5 flex w-full h-50 justify-center', className)}>
       <Image
         src={images[current]}
         alt={`carousel-${current}`}

@@ -17,7 +17,7 @@ export default function CountrysideActionBar({ onEdit, onDelete }: Props) {
 
   return (
     <>
-      <div className='border-black-626/15 fixed right-0 bottom-0 left-0 flex gap-3 border-t bg-white p-4'>
+      <div className='border-black-626/15 fixed bottom-0 flex max-w-[412px] gap-3 border-t bg-white p-4'>
         <Button title='사랑방 삭제하기' color='gray' onClick={handleOpenModal} />
         <Button title='내용 수정하기' color='pink' onClick={onEdit} />
       </div>

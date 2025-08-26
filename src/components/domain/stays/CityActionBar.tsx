@@ -19,7 +19,7 @@ export default function CityActionBar({ onReserve, onInquiry }: Props) {
 
   return (
     <>
-      <div className='border-black-626/15 fixed right-0 bottom-0 left-0 border-t bg-white'>
+      <div className='border-black-626/15 fixed bottom-0 max-w-[412px] border-t bg-white'>
         {/* 일정/인원 블록 */}
         <div className='border-black-626/15 m-4 space-y-4 rounded-[15px] border px-6.5 py-5'>
           <div className='flex items-center gap-4'>
