@@ -29,7 +29,7 @@ export default function CarouselArrow({ direction, onClick, disabled, className 
         className,
       )}
     >
-      <Image src={iconSrc} alt={`${direction} arrow`} className='h-13.5 w-6.5' />
+      <Image src={iconSrc} alt={`${direction} arrow`} width={22} height={51} />
     </button>
   );
 }

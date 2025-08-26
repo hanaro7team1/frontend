@@ -10,15 +10,13 @@ export default function StayHeader({ title, address }: Props) {
   return (
     <div className='flex flex-col gap-2'>
       <div className='flex items-center gap-2'>
-        <Image src='/icons/Ic_House_big.svg' alt='home-icon' className='w-7' />
+        <Image src='/icons/Ic_House_big.svg' alt='home-icon' width={28} height={27} />
         <Txt size={25} weight='bold' align='left'>
           {title}
         </Txt>
       </div>
 
-      <Txt align='left'>
-        {address}
-      </Txt>
+      <Txt align='left'>{address}</Txt>
     </div>
   );
 }

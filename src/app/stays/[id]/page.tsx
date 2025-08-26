@@ -42,7 +42,7 @@ export default function StayDetailPage({ params }: { params: Props }) {
         <div className='mt-8 space-y-5 p-5'>
           <StayHeader title={title} address={address} />
           <StayInfoChips capacity={capacity} area={area} />
-          <StayDescription items={description} mode={mode} />
+          <StayDescription item={description} mode={mode} />
         </div>
       </main>
 

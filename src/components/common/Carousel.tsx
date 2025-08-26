@@ -27,7 +27,9 @@ export default function Carousel({ images, className }: Props) {
       <Image
         src={images[current]}
         alt={`carousel-${current}`}
-        className='h-[202px] w-[342px] object-cover'
+        width={342}
+        height={202}
+        className='object-cover'
       />
 
       <CarouselArrow direction='left' onClick={prevSlide} disabled={current === 0} />
