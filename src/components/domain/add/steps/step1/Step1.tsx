@@ -1,8 +1,7 @@
 'use client';
 
-import { Search } from 'lucide-react';
 import { useState } from 'react';
-import { Button, Input, Txt } from '@/components/atoms';
+import { Input, Txt } from '@/components/atoms';
 import AddressSearchModal from '@/components/domain/add/steps/step1/AdressSearchModal';
 import { SearchButton } from './SearchButton';
 

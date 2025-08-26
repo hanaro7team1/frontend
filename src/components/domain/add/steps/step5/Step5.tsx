@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Input, Txt } from '@/components/atoms';
 import { MAX_LENGTH } from '@/constants/admin/add/AddDescription';

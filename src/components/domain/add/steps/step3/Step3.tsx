@@ -9,7 +9,7 @@ export default function AddCapacity() {
 
   return (
     <>
-      <Txt align='left'>사랑방의 최대 수용 가능 인원은 몇 명인가요</Txt>
+      <Txt align='left'>사랑방의 최대 수용 가능 인원은 몇 명인가요?</Txt>
       <div className='mb-10 flex justify-between px-[81px]'>
         <button onClick={() => setCount((prev) => Math.max(0, prev - 1))}>
           <CircleMinus size={40} color='var(--code-theme6)' />
