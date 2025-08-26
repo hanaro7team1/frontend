@@ -55,7 +55,7 @@ export default function StayOptionFilters({ stayOption }: Props) {
           <button
             key={key}
             onClick={onClick}
-            className='border-black-626/15 flex w-full flex-col gap-4 rounded-[15px] border bg-white p-2'
+            className='border-black-626/15 flex w-full flex-col justify-between gap-3 rounded-[15px] border bg-white p-2'
           >
             <Txt className='text-gray-070'>{label}</Txt>
             <Txt size={valueSize} className={valueSize === 16 ? 'leading-4' : ''}>
