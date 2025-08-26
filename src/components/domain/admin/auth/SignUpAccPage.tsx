@@ -1,9 +1,9 @@
 import { Input, Txt } from '@/components/atoms';
-import useValidation from '@/hooks/auth/useValidation';
+import { useSignUpForm } from '@/contexts/SignUpFormContext';
 import { PasswordField } from './PasswordField';
 
 export default function SignUpAccPage() {
-  const { form, errors, handleChange } = useValidation();
+  const { form, errors, handleChange } = useSignUpForm();
 
   // TODO: 회원가입 API 호출
 
