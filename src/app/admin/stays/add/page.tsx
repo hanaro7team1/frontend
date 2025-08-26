@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { clampNum } from '@/lib/utils';
-import { STEPS } from '@/constants/admin/add/AdminStayAdd';
+import { STEPS } from '@/constants/admin/Admin';
 
 export default function AdminStayAddPage() {
   const search = useSearchParams();

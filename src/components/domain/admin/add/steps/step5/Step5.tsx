@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Input, Txt } from '@/components/atoms';
-import { MAX_LENGTH } from '@/constants/admin/add/AddDescription';
+import { MAX_LENGTH } from '@/constants/admin/Admin';
 import AiInfo from './AiInfo';
 
 export default function AddDescription() {

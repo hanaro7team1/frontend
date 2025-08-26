@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { clampNum } from '@/lib/utils';
 import { FixedBottomButton, Header } from '@/components/common';
 import { StepProgressBar } from '@/components/domain/admin/add';
-import { FIRST_STEP_NUM, TOTAL_STEP_NUM } from '@/constants/admin/add/AdminStayAdd';
+import { FIRST_STEP_NUM, TOTAL_SIGN_UP_NUM, TOTAL_STEP_NUM } from '@/constants/admin/Admin';
 
 export default function SingUpLayout({ children }: { children: React.ReactNode }) {
   const search = useSearchParams();
@@ -26,7 +26,7 @@ export default function SingUpLayout({ children }: { children: React.ReactNode }
 
   //TODO: admin인지 아닌지 구분해서 홈으로 보내 주기
   const nextStep = () =>
-    currentStep === TOTAL_STEP_NUM ? router.push('/admin') : handleStep(currentStep + 1);
+    currentStep === TOTAL_SIGN_UP_NUM ? router.push('/admin') : handleStep(currentStep + 1);
 
   return (
     <>

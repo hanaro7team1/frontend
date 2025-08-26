@@ -2,7 +2,7 @@
 
 import { Txt } from '@/components/atoms';
 import { usePhotoUpload } from '@/hooks/admin/usePhotoUpload';
-import { SLOT_COUNT } from '@/constants/admin/add/AddPhoto';
+import { SLOT_COUNT } from '@/constants/admin/Admin';
 import HiddenFileInput from './HiddenFileInput';
 import PhotoGrid from './PhotoGrid';
 import UploadBarButton from './UploadBarButton';
