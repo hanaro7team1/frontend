@@ -28,6 +28,7 @@ export default async function RoomTypeFilter({ roomType, isAdmin }: Props) {
           <Link
             key={label}
             href={href}
+            replace
             className='relative mx-4 flex h-[50px] w-full flex-col items-center justify-center'
           >
             <Txt
