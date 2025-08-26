@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Input, Txt } from '@/components/atoms';
-import AddressSearchModal from '@/components/domain/add/steps/step1/AdressSearchModal';
+import AddressSearchModal from '@/components/domain/admin/add/steps/step1/AdressSearchModal';
 import { SearchButton } from './SearchButton';
 
 export default function AddAdress() {

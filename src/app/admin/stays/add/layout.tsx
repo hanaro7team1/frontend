@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { clampNum } from '@/lib/utils';
 import { FixedBottomButton, Header } from '@/components/common';
-import { StepProgressBar } from '@/components/domain/add';
+import { StepProgressBar } from '@/components/domain/admin/add';
 import { FIRST_STEP_NUM, TOTAL_STEP_NUM } from '@/constants/admin/add/AdminStayAdd';
 
 export default function AddLayout({ children }: { children: React.ReactNode }) {
