@@ -17,14 +17,12 @@ export default async function StaysPage({ searchParams }: Props) {
   const isAdmin = false; // TODO: 추후에 세션에서 관리자 여부 읽어오기
 
   return (
-    <div>
+    <>
       <Header title='사랑방 찾기' bgColor={isAdmin ? 'pink' : 'green'} />
-      <main className='relative'>
-        <RoomTypeFilter roomType={roomType} />
-        <StayOptionFilters stayOption={{ location, schedule, peopleCount }} />
-        <RoomList />
-      </main>
+      <RoomTypeFilter roomType={roomType} isAdmin={isAdmin} />
+      <StayOptionFilters stayOption={{ location, schedule, peopleCount }} />
+      <RoomList />
       {!isAdmin && <BottomTabNav />}
-    </div>
+    </>
   );
 }
