@@ -49,23 +49,26 @@ export default function StayOptionFilters({ stayOption }: Props) {
 
   return (
     <div className='border-black-626/15 sticky top-[50px] z-50 flex gap-2 border-b bg-white px-4 py-3 shadow-[0_1px_5px_rgba(0,0,0,0.15)]'>
-      {FILTERS.map(({ key, label, defaultValue, valueSize = 18, onClick }) => (
-        <button
-          key={key}
-          onClick={onClick}
-          className='border-black-626/15 flex w-full flex-col gap-4 rounded-[15px] border bg-white p-2'
-        >
-          <Txt className='text-gray-070'>{label}</Txt>
-          <Txt size={valueSize} className={valueSize === 16 ? 'leading-4' : ''}>
-            {defaultValue}
-          </Txt>
-          <div className='bg-black-626/45 mt-1 rounded-full p-0.5'>
-            <Txt size={18} className='text-white'>
-              변경하기
+      {FILTERS.map((filter) => {
+        const { key, label, defaultValue, valueSize = 18, onClick } = filter;
+        return (
+          <button
+            key={key}
+            onClick={onClick}
+            className='border-black-626/15 flex w-full flex-col gap-4 rounded-[15px] border bg-white p-2'
+          >
+            <Txt className='text-gray-070'>{label}</Txt>
+            <Txt size={valueSize} className={valueSize === 16 ? 'leading-4' : ''}>
+              {defaultValue}
             </Txt>
-          </div>
-        </button>
-      ))}
+            <div className='bg-black-626/45 mt-1 rounded-full p-0.5'>
+              <Txt size={18} className='text-white'>
+                변경하기
+              </Txt>
+            </div>
+          </button>
+        );
+      })}
     </div>
   );
 }
