@@ -18,8 +18,11 @@ export default function InfoRow({ icon: Icon, label, value }: Props) {
         </Txt>
       </div>
       <div className='flex'>
+        {label === '면적' && <Txt>약&nbsp;</Txt>}
         <Txt size={value.length > 14 ? 16 : 20}>{value}</Txt>
         {label === '이름' && <Txt className='text-gray-070'>&nbsp;님</Txt>}
+        {label === '면적' && <Txt>평</Txt>}
+        {label === '최대 수용 인원' && <Txt>명</Txt>}
       </div>
     </div>
   );
