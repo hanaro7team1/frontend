@@ -2,8 +2,6 @@
 
 import { ChevronRight } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
 import { Txt } from '@/components/atoms';
 import { BottomSheet } from '@/components/common';
 import {
@@ -22,8 +20,6 @@ export default function BottomSheetLocation() {
 
   const prevSearchParam = searchParams.get('location');
 
-  const [openedItem, setOpenedItem] = useState<string | undefined>(prevSearchParam?.split(' ')[0]);
-
   const handleDone = (selectedRegion: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('location', selectedRegion);
@@ -40,7 +36,6 @@ export default function BottomSheetLocation() {
         <Accordion
           type='single'
           collapsible
-          onValueChange={setOpenedItem}
           defaultValue={prevSearchParam ? prevSearchParam.split(' ')[0] : undefined}
         >
           {Object.entries(dummyRegions).map(([region, detailRegions]) => (
