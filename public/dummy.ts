@@ -68,3 +68,17 @@ export const dummyRooms: RoomInfo[] = [
     imgUrl: '/images/dummy_image.png',
   },
 ];
+
+export const dummyReservationDetail = {
+  stayPicURL: '/images/sample1.png',
+  stayId: 2,
+  stayName: '가람마을 사랑방 3호',
+  stayAddress: '경상북도 안동시 임하면 천등산길 124-16',
+  guestName: '윤서연',
+  schedule: '25.09.09 (화) - 25.09.13 (토)',
+  peopleCount: '2명',
+  doWork: '희망 안 함',
+  guestTel: '010-1234-5678',
+  hostName: '김갑순',
+  hostTel: '010-8765-4321',
+};
