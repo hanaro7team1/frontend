@@ -13,7 +13,7 @@ export default function StayHeader({ title, address }: Props) {
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-2'>
           <HomeIcon className='text-gray-070' />
-          <Txt size={25} weight='bold' align='left'>
+          <Txt size={25} weight='bold'>
             {title}
           </Txt>
         </div>
@@ -23,7 +23,7 @@ export default function StayHeader({ title, address }: Props) {
         </div>
       </div>
 
-      <Txt align='left'>{address}</Txt>
+      <Txt>{address}</Txt>
     </div>
   );
 }

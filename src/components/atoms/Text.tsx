@@ -24,7 +24,7 @@ type Props = {
 export default function Txt({
   size = 20,
   weight = 'cm',
-  align = 'center',
+  align = 'left',
   className,
   children,
   ...props
