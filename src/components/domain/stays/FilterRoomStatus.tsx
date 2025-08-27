@@ -8,7 +8,7 @@ type Props = {
   roomStatus: RoomStatus;
 };
 
-export default async function RoomStatusFilter({ roomStatus }: Props) {
+export default async function FilterRoomStatus({ roomStatus }: Props) {
   return (
     <div className={`border-black-626/15 sticky top-[50px] flex flex-row border-b bg-white`}>
       {ROOM_STATUSES.map(({ label, href }) => {

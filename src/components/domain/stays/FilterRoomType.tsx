@@ -9,7 +9,7 @@ type Props = {
   isAdmin: boolean;
 };
 
-export default async function RoomTypeFilter({ searchParams, isAdmin }: Props) {
+export default async function FilterRoomType({ searchParams, isAdmin }: Props) {
   const params = new URLSearchParams();
   const { roomType } = searchParams;
   // 기존 파라미터들 유지

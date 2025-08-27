@@ -1,5 +1,5 @@
 import { BottomTabNav, Header } from '@/components/common';
-import { RoomList, RoomTypeFilter, StayOptionFilters } from '@/components/domain/stays';
+import { FilterRoomType, FilterStayOptions, RoomList } from '@/components/domain/stays';
 import { StaysSearchParams } from '@/types/stays';
 
 type Props = {
@@ -14,8 +14,8 @@ export default async function StaysPage({ searchParams }: Props) {
   return (
     <>
       <Header title='사랑방 찾기' bgColor={isAdmin ? 'pink' : 'green'} />
-      <RoomTypeFilter searchParams={params} isAdmin={isAdmin} />
-      <StayOptionFilters searchParams={params} />
+      <FilterRoomType searchParams={params} isAdmin={isAdmin} />
+      <FilterStayOptions searchParams={params} />
       <RoomList />
       {!isAdmin && <BottomTabNav />}
     </>

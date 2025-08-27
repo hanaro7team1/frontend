@@ -9,7 +9,7 @@ type Props = {
   searchParams: StaysSearchParams;
 };
 
-export default function StayOptionFilters({ searchParams }: Props) {
+export default function FilterStayOptions({ searchParams }: Props) {
   const { location, schedule, peopleCount } = searchParams;
   const [today, twoDaysLater] = getDefaultDates();
 
