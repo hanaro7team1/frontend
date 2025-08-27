@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Button from '@/components/atoms/Button';
-import Modal from '@/components/common/Modal';
+import { FixedBottomButton, Modal } from '@/components/common';
 
 type Props = {
   onEdit?: () => void;
@@ -17,10 +16,13 @@ export default function CountrysideActionBar({ onEdit, onDelete }: Props) {
 
   return (
     <>
-      <div className='border-black-626/15 fixed bottom-0 w-full flex gap-3 border-t bg-white p-4'>
-        <Button title='사랑방 삭제하기' color='gray' onClick={handleOpenModal} />
-        <Button title='내용 수정하기' color='pink' onClick={onEdit} />
-      </div>
+      <FixedBottomButton
+        leftBtnText='사랑방 삭제하기'
+        rightBtnText='내용 수정하기'
+        isPink
+        onClickLeftBtn={handleOpenModal}
+        onClickRightBtn={onEdit ?? (() => {})}
+      />
 
       {/* 삭제 확인 모달 */}
       {isModalOpen && (
@@ -39,3 +41,5 @@ export default function CountrysideActionBar({ onEdit, onDelete }: Props) {
     </>
   );
 }
+
+

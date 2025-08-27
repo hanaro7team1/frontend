@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import { Txt } from '@/components/atoms';
-import Button from '@/components/atoms/Button';
-import Modal from '@/components/common/Modal';
+import { FixedBottomButton, Modal } from '@/components/common';
 import EditButton from './EditButton';
 
 type Props = {
@@ -19,33 +18,36 @@ export default function CityActionBar({ onReserve, onInquiry }: Props) {
 
   return (
     <>
-      <div className='border-black-626/15 fixed bottom-0 w-full border-t bg-white'>
-        {/* 일정/인원 블록 */}
-        <div className='border-black-626/15 m-4 space-y-4 rounded-[15px] border px-6.5 py-5'>
-          <div className='flex items-center gap-4'>
-            <Txt size={16}>일정</Txt>
-            <div className='flex items-center gap-4'>
-              <Txt>25.09.20 - 25.09.23</Txt>
-              <EditButton />
+      <FixedBottomButton
+        leftBtnText='전화로 문의하기'
+        rightBtnText='예약하기'
+        onClickLeftBtn={handleOpenModal}
+        onClickRightBtn={onReserve ?? (() => {})}
+      >
+        <div className='border-black-626/15 space-y-4 rounded-[15px] border px-6.5 py-5'>
+          {/* 일정 */}
+          <div className='flex items-center gap-3'>
+            <div className='flex items-center gap-4 min-w-fit'>
+              <Txt size={16} align='center'>
+                일정
+              </Txt>
+              <Txt align='center'>25.09.20 - 25.09.23</Txt>
             </div>
+            <EditButton />
           </div>
-          <div className='flex items-center gap-4'>
-            <Txt size={16}>인원</Txt>
+
+          {/* 인원 */}
+          <div className='flex items-center gap-3'>
             <div className='flex items-center gap-4'>
-              <Txt>2명</Txt>
-              <EditButton />
+              <Txt size={16} align='center'>인원</Txt>
+              <Txt align='center'>2명</Txt>
             </div>
+            <EditButton />
           </div>
         </div>
+      </FixedBottomButton>
 
-        {/* 하단 버튼 */}
-        <div className='flex gap-3 px-4 pb-3'>
-          <Button title='전화로 문의하기' color='gray' onClick={handleOpenModal} />
-          <Button title='예약하기' color='green' onClick={onReserve} />
-        </div>
-      </div>
-
-      {/* 전화 문의 모달 */}
+      {/* 전화 확인 모달 */}
       {isModalOpen && (
         <Modal
           grayBtnText='취소'
