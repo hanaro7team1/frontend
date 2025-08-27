@@ -11,36 +11,44 @@ export default function AdminMyPage() {
     pwd: "Aaaaaa.1234"
   }
 
-
-// className = `${}`
+  const Size1 = "block mx-auto w-[348px] h-[152px] ";
+  const Size2 = "flex justify-center absolute bottom-5 left-1/2 -translate-x-1/2 w-[330px] h-[50px]";
+  const inPosission = "absolute top-[19px] left-[26px] flex items-center justify-center gap-6"
 
   return (
     <>
-    
       <Header bgColor="pink" title="내 정보" />
       
-      <div>
-        {hostMember.villageName} 관리자
+      <div className='h-[135px] w-full flex items-center justify-center mb-[35px] bg-[#8484841A]'>
+        <div>
+          <Txt size={30}>{hostMember.villageName} 관리자</Txt>
+        </div>
       </div>
 
-      <div>
-        <ShadowBox>
-          <Txt size={24}>{hostMember.phone}</Txt>
-          
-          <Button title="전화번호 변경" onClick={() => router.push('/admin/mypage/contract')}/>
+      <div className="flex flex-col gap-9 mb-[150px]">
+        <ShadowBox className={`relative ${Size1}`}>
+          <div className ={`${inPosission}`}>
+            <Txt size={24}>{hostMember.phone}</Txt>
+          </div>
+          <Button title="전화번호 변경" color = "gray" className = {`${Size2}`} onClick={() => router.push('/admin/mypage/contract')}/>
         </ShadowBox>
-      </div>
 
-      <div>
-        <ShadowBox >
-          <Button title="비밀번호 변경" onClick={() => router.push('/admin/mypage/pwd')}/>
+        <ShadowBox className={`relative ${Size1}`}>
+          <div className ={`${inPosission}`}>
+            <Txt size={24}>비밀번호자리</Txt>
+          </div>
+          <Button title="비밀번호 변경" color = "gray" className = {`${Size2}`} onClick={() => router.push('/admin/mypage/pwd')}/>
         </ShadowBox>
+      
+        <Button color="gray" title="뒤로가기" className = "mx-auto flex justify-center w-[348px] h-[50px]" onClick={() => router.push('/admin')}/>
+        
       </div>
-
-      <Button color="pink" title="뒤로가기" onClick={() => router.push('/admin')}/>
-
-      <button type='button' onClick={() => router.push('/admin')}
-        className='underline'>탈퇴하기</button>
+      
+        <button type='button' onClick={() => router.push('/admin/mypage/quit')}
+          className="mt-[150px] block w-fit mx-auto 
+            bg-transparent text-gray-600 underline underline-offset-4 decoration-gray-600 decoration-2">
+              탈퇴하기
+        </button>
     </>
   );
 }
