@@ -1,3 +1,19 @@
-export default function AdminStaysPage() {
-  return <div>시골 관리자의 사랑방 목록 (관리) 화면</div>;
+import { Header } from '@/components/common';
+import { RoomList, RoomStatusFilter } from '@/components/domain/stays';
+import { RoomStatus } from '@/types/stays';
+
+type Props = {
+  searchParams: Promise<{ roomStatus: RoomStatus }>;
+};
+
+export default async function AdminStaysPage({ searchParams }: Props) {
+  const { roomStatus } = await searchParams;
+
+  return (
+    <>
+      <Header title='우리 마을 사랑방' withoutBorder />
+      <RoomStatusFilter roomStatus={roomStatus} />
+      <RoomList isAdmin />
+    </>
+  );
 }

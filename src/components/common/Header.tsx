@@ -34,7 +34,7 @@ export default function Header({
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 flex h-14 w-full items-center bg-white px-2',
+        'sticky top-0 z-50 flex h-[50px] w-full items-center bg-white px-2',
         {
           'border-black-626/15 border-b': isWhiteBg && !withoutBorder,
           'bg-pink-09f': bgColor === 'pink',
