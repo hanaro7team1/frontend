@@ -13,7 +13,7 @@ export default function EditButton({ onClick, className }: Props) {
     <button
       onClick={onClick}
       className={cn(
-        'bg-black-626/45 flex h-[30px] w-[81px] flex-shrink-0 items-center justify-center rounded-full',
+        'bg-black-626/45 flex flex-shrink-0 items-center justify-center rounded-full px-4 py-1.5',
         className,
       )}
     >

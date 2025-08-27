@@ -48,7 +48,7 @@ export default function Header({
           <ChevronLeft size={40} />
         </button>
       )}
-      <Txt size={24} className={cn('flex-1', { 'text-white': !isWhiteBg })}>
+      <Txt size={24} align='center' className={cn('flex-1', { 'text-white': !isWhiteBg })}>
         {title}
       </Txt>
       {isWhiteBg && <div className='w-[40px]' />}
