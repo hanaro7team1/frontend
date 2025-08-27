@@ -11,8 +11,8 @@ export default function AdminMyPage() {
     pwd: "Aaaaaa.1234"
   }
 
-  const Size1 = "block mx-auto w-[348px] h-[152px] ";
-  const Size2 = "flex justify-center absolute bottom-5 left-1/2 -translate-x-1/2 w-[330px] h-[50px]";
+  const boxSet = "block mx-auto w-[348px] h-[152px] ";
+  const buttonSet = "flex justify-center absolute bottom-5 left-1/2 -translate-x-1/2 w-[330px] h-[50px]";
   const inPosission = "absolute top-[19px] left-[26px] flex items-center justify-center gap-6"
 
   return (
@@ -26,25 +26,25 @@ export default function AdminMyPage() {
       </div>
 
       <div className="flex flex-col gap-9 mb-[150px]">
-        <ShadowBox className={`relative ${Size1}`}>
+        <ShadowBox className={`relative ${boxSet}`}>
           <div className ={`${inPosission}`}>
             <Txt size={24}>{hostMember.phone}</Txt>
           </div>
-          <Button title="전화번호 변경" color = "gray" className = {`${Size2}`} onClick={() => router.push('/admin/mypage/contact')}/>
+          <Button title="전화번호 변경" color = "gray" className = {`${buttonSet}`} onClick={() => router.push('/admin/mypage/contact')}/>
         </ShadowBox>
 
-        <ShadowBox className={`relative ${Size1}`}>
+        <ShadowBox className={`relative ${boxSet}`}>
           <div className ={`${inPosission}`}>
             <Txt size={24}>{"*".repeat(hostMember.pwd.length)}</Txt>
           </div>
-          <Button title="비밀번호 변경" color = "gray" className = {`${Size2}`} onClick={() => router.push('/admin/mypage/pwd')}/>
+          <Button title="비밀번호 변경" color = "gray" className = {`${buttonSet}`} onClick={() => router.push('/admin/mypage/pwd')}/>
         </ShadowBox>    
       </div>
-      
-        <button type='button' onClick={() => router.push('/admin/mypage/quit')}
-          className="font-[Hana2-CM] mt-[200px] block w-fit mx-auto 
-            bg-transparent text-gray-600 underline underline-offset-4 decoration-gray-600 decoration-2">
-              탈퇴하기
+
+        <button type="button" onClick={() => router.push('/admin/mypage/quit')}
+          className="font-[Hana2-CM] mt-[200px] block w-fit mx-auto bg-transparent
+                      underline underline-offset-4 text-[#26262673] decoration-[#26262673]">
+          탈퇴하기
         </button>
     </>
   );
