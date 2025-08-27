@@ -6,7 +6,7 @@ export default function AdminQuitPage() {
 
   return (
     <div>
-      <Header title="회원 탈퇴" />
+      <Header className="mb-[50px]" title="회원 탈퇴" />
 
       
 

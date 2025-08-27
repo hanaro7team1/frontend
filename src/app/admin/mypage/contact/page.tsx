@@ -12,9 +12,9 @@ const router = useRouter();
 
   return (
     <div>
-      <Header title="전화번호 변경" />
+      <Header className="mb-[50px]" title="전화번호 변경"/>
       
-      <div>
+      <div >
         <Txt size={24}>기존 전화번호</Txt>
         <Txt size={24}>{hostMember.phone}</Txt>
       </div>

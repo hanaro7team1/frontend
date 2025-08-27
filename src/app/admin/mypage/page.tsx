@@ -35,14 +35,14 @@ export default function AdminMyPage() {
 
         <ShadowBox className={`relative ${Size1}`}>
           <div className ={`${inPosission}`}>
-            <Txt size={24}>비밀번호자리</Txt>
+            <Txt size={24}>{"*".repeat(hostMember.pwd.length)}</Txt>
           </div>
           <Button title="비밀번호 변경" color = "gray" className = {`${Size2}`} onClick={() => router.push('/admin/mypage/pwd')}/>
         </ShadowBox>    
       </div>
       
         <button type='button' onClick={() => router.push('/admin/mypage/quit')}
-          className="mt-[200px] block w-fit mx-auto 
+          className="font-[Hana2-CM] mt-[200px] block w-fit mx-auto 
             bg-transparent text-gray-600 underline underline-offset-4 decoration-gray-600 decoration-2">
               탈퇴하기
         </button>
