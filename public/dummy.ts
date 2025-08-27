@@ -82,3 +82,14 @@ export const dummyReservationDetail = {
   hostName: '김갑순',
   hostTel: '010-8765-4321',
 };
+
+export const stayDetail = {
+  stayPicURL: '/images/sample1.png',
+  stayId: 2,
+  stayName: '가람마을 사랑방 3호',
+  stayAddress: '경상북도 안동시 임하면 천등산길 124-16',
+  capacity: 4,
+  area: 24,
+  description:
+    '전기가 아닌 진짜 온돌집 집근처에 맹꽁이가 아름답게 울음 옆집 토마토밭 체험 가능 전기가 아닌 진짜 온돌집 집근처에 맹꽁이가 아름답게 울음 옆집 토마토밭 체험 가능 옆집 토마토밭 체험 가능 옆집 토마토밭 체험 가능',
+};
