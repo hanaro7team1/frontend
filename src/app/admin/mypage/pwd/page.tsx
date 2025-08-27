@@ -6,7 +6,7 @@ export default function AdminPwdPage() {
 
   return (
     <>
-      <Header bgColor="pink" title="비밀번호 변경" />
+      <Header title="비밀번호 변경" />
     
     <div className = "ml-12">
       <div>

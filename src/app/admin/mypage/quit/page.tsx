@@ -6,7 +6,7 @@ export default function AdminQuitPage() {
 
   return (
     <div>
-      <Header bgColor="pink" title="회원 탈퇴" />
+      <Header title="회원 탈퇴" />
 
       
 

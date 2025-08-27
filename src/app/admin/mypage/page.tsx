@@ -17,7 +17,7 @@ export default function AdminMyPage() {
 
   return (
     <>
-      <Header bgColor="pink" title="내 정보" />
+      <Header title="내 정보" />
       
       <div className='h-[135px] w-full flex items-center justify-center mb-[35px] bg-[#8484841A]'>
         <div>
@@ -30,7 +30,7 @@ export default function AdminMyPage() {
           <div className ={`${inPosission}`}>
             <Txt size={24}>{hostMember.phone}</Txt>
           </div>
-          <Button title="전화번호 변경" color = "gray" className = {`${Size2}`} onClick={() => router.push('/admin/mypage/contract')}/>
+          <Button title="전화번호 변경" color = "gray" className = {`${Size2}`} onClick={() => router.push('/admin/mypage/contact')}/>
         </ShadowBox>
 
         <ShadowBox className={`relative ${Size1}`}>
@@ -38,14 +38,11 @@ export default function AdminMyPage() {
             <Txt size={24}>비밀번호자리</Txt>
           </div>
           <Button title="비밀번호 변경" color = "gray" className = {`${Size2}`} onClick={() => router.push('/admin/mypage/pwd')}/>
-        </ShadowBox>
-      
-        <Button color="gray" title="뒤로가기" className = "mx-auto flex justify-center w-[348px] h-[50px]" onClick={() => router.push('/admin')}/>
-        
+        </ShadowBox>    
       </div>
       
         <button type='button' onClick={() => router.push('/admin/mypage/quit')}
-          className="mt-[150px] block w-fit mx-auto 
+          className="mt-[200px] block w-fit mx-auto 
             bg-transparent text-gray-600 underline underline-offset-4 decoration-gray-600 decoration-2">
               탈퇴하기
         </button>
