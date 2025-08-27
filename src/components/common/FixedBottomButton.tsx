@@ -7,6 +7,7 @@ type Props = {
   rightBtnText: string;
   leftBtnText?: string;
   isPink?: boolean;
+  disabled?: boolean;
   onClickRightBtn: () => void;
   onClickLeftBtn?: () => void;
   greenBtnType?: 'button' | 'submit' | 'reset';
@@ -25,6 +26,7 @@ export default function FixedBottomButton({
   rightBtnText,
   leftBtnText,
   isPink = false,
+  disabled = false,
   onClickRightBtn,
   onClickLeftBtn,
   greenBtnType = 'button',
@@ -38,6 +40,7 @@ export default function FixedBottomButton({
         <Button
           title={rightBtnText}
           type={greenBtnType}
+          disabled={disabled}
           onClick={onClickRightBtn}
           color={isPink ? 'pink' : 'green'}
         />

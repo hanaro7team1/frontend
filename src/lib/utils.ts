@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { FIRST_STEP_NUM, TOTAL_STEP_NUM } from '@/constants/admin/add/AdminStayAdd';
+import { FIRST_STEP_NUM, TOTAL_STEP_NUM } from '@/constants/admin/Admin';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { SLOT_COUNT } from '@/constants/admin/add/AddPhoto';
+import { SLOT_COUNT } from '@/constants/admin/Admin';
 
 export function usePhotoUpload(max = SLOT_COUNT) {
   const [urls, setUrls] = useState<string[]>([]);
