@@ -5,9 +5,10 @@ export default function AdminPwdPage() {
   const classN: string = "test";
 
   return (
-    <div className = "ml-12">
+    <>
       <Header bgColor="pink" title="비밀번호 변경" />
     
+    <div className = "ml-12">
       <div>
         <Txt size={24}>기존 비밀번호</Txt>
         <Input placeholder="기존 비밀번호를 입력해 주세요" />
@@ -24,6 +25,7 @@ export default function AdminPwdPage() {
       </div>
 
       <Button title="변경하기" type="submit" color="pink"/>
-    </div>
+      </div>
+    </>
   );
 }
