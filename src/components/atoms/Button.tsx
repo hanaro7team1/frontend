@@ -11,6 +11,7 @@ const BgColor = {
 
 type Props = {
   title: string;
+  titleSize?: number;
   className?: string;
   color?: keyof typeof BgColor;
   disabled?: boolean;
@@ -31,6 +32,7 @@ type Props = {
  */
 export default function Button({
   title,
+  titleSize = 20,
   color = 'green',
   onClick,
   disabled = false,
@@ -42,7 +44,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        'relative flex w-full items-center justify-center rounded-[10px] py-[11px]',
+        'relative flex w-full items-center justify-center rounded-[10px] py-[12px]',
         BgColor[color],
         {
           'opacity-50': disabled,
@@ -57,7 +59,7 @@ export default function Button({
     >
       {icon && <span className='absolute left-6 flex items-center'>{icon}</span>}
 
-      <Txt className='text-white' size={24}>
+      <Txt className='text-white' size={titleSize}>
         {title}
       </Txt>
     </button>
