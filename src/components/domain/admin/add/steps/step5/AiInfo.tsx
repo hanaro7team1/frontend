@@ -4,7 +4,7 @@ import { Txt } from '@/components/atoms';
 export default function AiInfo() {
   return (
     <div className='border-green-49d relative w-full rounded-[10px] border p-[9px]'>
-      <Txt size={18} align='left'>
+      <Txt size={18} >
         AI가 소개글 초안을 작성했어요! <br /> 위 글상자를 눌러 내용을 수정할 수 있어요
       </Txt>
       <Image

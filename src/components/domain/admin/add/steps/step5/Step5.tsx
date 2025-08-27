@@ -9,7 +9,7 @@ export default function AddDescription() {
   const [text, setText] = useState('');
   return (
     <>
-      <Txt align='left'>사랑방에 대해서 상세하게 알려주세요</Txt>
+      <Txt>사랑방에 대해서 상세하게 알려주세요</Txt>
       <div className='relative w-full'>
         <Input
           placeholder={''}
