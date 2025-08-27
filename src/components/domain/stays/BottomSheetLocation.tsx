@@ -38,7 +38,7 @@ export default function BottomSheetLocation() {
           collapsible
           defaultValue={prevSearchParam ? prevSearchParam.split(' ')[0] : undefined}
         >
-          {Object.entries(dummyRegions).map(([region, detailRegions]) => (
+          {dummyRegions.map(({ region, detailRegions }) => (
             <AccordionItem key={region} value={region}>
               <AccordionTrigger className='px-2'>
                 <Txt>{region}</Txt>
