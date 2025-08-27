@@ -25,7 +25,9 @@ export default function BottomSheetPeopleCount() {
   return (
     <BottomSheet>
       <div className='flex flex-col gap-10 p-4'>
-        <Txt size={24}>숙박 인원을 선택하세요</Txt>
+        <Txt size={24} align='center'>
+          숙박 인원을 선택하세요
+        </Txt>
 
         <div className='flex justify-between px-20'>
           <button onClick={() => setCount((prev) => Math.max(1, prev - 1))}>

@@ -44,8 +44,10 @@ export default function StayOptionFilters({ searchParams }: Props) {
           key={key}
           className='border-black-626/15 flex w-full flex-col justify-between gap-3 rounded-[15px] border bg-white p-2'
         >
-          <Txt className='text-gray-070'>{label}</Txt>
-          <Txt size={valueSize} className={valueSize === 16 ? 'leading-4' : ''}>
+          <Txt align='center' className='text-gray-070'>
+            {label}
+          </Txt>
+          <Txt align='center' size={valueSize} className={valueSize === 16 ? 'leading-4' : ''}>
             {defaultValue + (label === '인원' ? '명' : '')}
           </Txt>
           {BottomSheetType}

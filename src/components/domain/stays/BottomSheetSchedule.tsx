@@ -38,7 +38,7 @@ export default function BottomSheetSchedule() {
   return (
     <BottomSheet>
       <div className='flex flex-col gap-4 p-4'>
-        <Txt size={24}>
+        <Txt size={24} align='center'>
           입실 날짜와 퇴실 날짜를
           <br />
           차례대로 선택하세요
