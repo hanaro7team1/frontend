@@ -16,8 +16,7 @@ type Props = {
  * @param className - 추가 스타일
  */
 export default function CarouselArrow({ direction, onClick, disabled, className }: Props) {
-  const iconSrc =
-    direction === 'left' ? '/icons/Ic_ChevronLeft_white.svg' : '/icons/Ic_ChevronRight_white.svg';
+  const iconSrc = direction === 'left' ? '/icons/Ic_ChevronLeft.svg' : '/icons/Ic_ChevronRight.svg';
 
   return (
     <button
