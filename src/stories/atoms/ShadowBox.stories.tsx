@@ -57,7 +57,7 @@ export const WithElements: Story = {
         </div>
 
         <button className='w-full rounded-[8px] bg-gray-400 py-2 text-center'>
-          <Txt size={20} weight='cm' className='text-white'>
+          <Txt className='text-white'>
             비밀 번호 변경
           </Txt>
         </button>

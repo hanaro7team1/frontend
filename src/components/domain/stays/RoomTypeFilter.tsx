@@ -1,0 +1,55 @@
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { Txt } from '@/components/atoms';
+import { RoomType } from '@/types/stays';
+
+const URL = {
+  ROOM_TYPE_WITHHOST: '/stays?roomType=하숙형',
+  ROOM_TYPE_WITHOUTHOST: '/stays?roomType=독립형',
+};
+
+const ROOM_TYPES = [
+  { label: '하숙형', href: URL.ROOM_TYPE_WITHHOST },
+  { label: '독립형', href: URL.ROOM_TYPE_WITHOUTHOST },
+];
+
+type Props = {
+  roomType?: RoomType;
+  isAdmin: boolean;
+};
+
+export default async function RoomTypeFilter({ roomType, isAdmin }: Props) {
+  return (
+    <div className='border-black-626/15 flex flex-row border-b bg-white'>
+      {ROOM_TYPES.map(({ label, href }) => {
+        const isActive = roomType === label || (!roomType && label === '하숙형');
+
+        return (
+          <Link
+            key={label}
+            href={href}
+            replace
+            className='relative mx-4 flex h-[50px] w-full flex-col items-center justify-center'
+          >
+            <Txt
+              className={cn('text-gray-070', {
+                'text-green-49d': isActive,
+                'text-pink-a76': isActive && isAdmin,
+              })}
+            >
+              {label}
+            </Txt>
+            {isActive && (
+              <div
+                className={cn('absolute bottom-[4px] h-[3px] w-full', {
+                  'bg-green-49d': isActive,
+                  'bg-pink-a76': isActive && isAdmin,
+                })}
+              />
+            )}
+          </Link>
+        );
+      })}
+    </div>
+  );
+}
