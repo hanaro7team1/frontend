@@ -18,7 +18,7 @@ export default function StayOptionFilters({ searchParams }: Props) {
       key: 'region',
       label: '지역',
       valueSize: 22,
-      defaultValue: location || '전남 해남',
+      defaultValue: location?.split(' ')[1] || '전체',
       BottomSheetType: <BottomSheetLocation />,
     },
     {
