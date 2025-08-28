@@ -1,5 +1,5 @@
 import { Header } from '@/components/common';
-import { RoomList, RoomStatusFilter } from '@/components/domain/stays';
+import { FilterRoomStatus, RoomList } from '@/components/domain/stays';
 import { RoomStatus } from '@/types/stays';
 
 type Props = {
@@ -12,7 +12,7 @@ export default async function AdminStaysPage({ searchParams }: Props) {
   return (
     <>
       <Header title='우리 마을 사랑방' withoutBorder />
-      <RoomStatusFilter roomStatus={roomStatus} />
+      <FilterRoomStatus roomStatus={roomStatus} />
       <RoomList isAdmin />
     </>
   );

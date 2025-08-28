@@ -16,7 +16,7 @@ export default function OpenDateModalBtn() {
       className='bg-pink-09f flex h-[50px] w-full items-center justify-center rounded-[10px] py-2'
       onClick={handleClick}
     >
-      <Txt className='leading-5 text-white' size={16}>
+      <Txt className='leading-5 text-white' align='center' size={16}>
         예약 가능 날짜
         <br /> 변경하기
       </Txt>

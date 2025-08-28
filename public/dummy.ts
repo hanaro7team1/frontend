@@ -1,4 +1,3 @@
-
 //추후 실제 DTO로 교체 예정
 export type ReservationInfo = {
   id: number;
@@ -68,3 +67,12 @@ export const dummyRooms: RoomInfo[] = [
     imgUrl: '/images/dummy_image.png',
   },
 ];
+
+type RegionData = Record<string, string[]>;
+export const dummyRegions: RegionData = {
+  전라북도: ['광주', '순천', '나주', '여수', '고흥', '광양'],
+  경상북도: ['대구', '포항', '경주', '구미', '안동', '영주'],
+  강원도: ['춘천', '원주', '강릉', '속초', '동해', '삼척'],
+  충청북도: ['청주', '충주', '제천', '음성', '진천', '단양'],
+  경기도: ['수원', '성남', '용인', '고양', '부천', '안양'],
+};

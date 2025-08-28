@@ -2,9 +2,13 @@ export { default as OpenDateModalBtn } from './OpenDateModalBtn';
 export { default as RoomItem } from './RoomItem';
 export { default as RoomList } from './RoomList';
 export { default as StatusCapsule } from './StatusCapsule';
-export { default as RoomTypeFilter } from './RoomTypeFilter';
-export { default as RoomStatusFilter } from './RoomStatusFilter';
-export { default as StayOptionFilters } from './StayOptionFilters';
+export { default as FilterRoomType } from './FilterRoomType';
+export { default as FilterRoomStatus } from './FilterRoomStatus';
+export { default as FilterStayOptions } from './FilterStayOptions';
+
+export { default as BottomSheetLocation } from './BottomSheetLocation';
+export { default as BottomSheetPeopleCount } from './BottomSheetPeopleCount';
+export { default as BottomSheetSchedule } from './BottomSheetSchedule';
 
 export { default as StayActionBar } from './StayActionBar';
 export { default as StayDescription } from './StayDescription';
