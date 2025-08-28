@@ -1,6 +1,6 @@
 'use client'
 import { useRouter} from 'next/navigation';
-import { Button, ShadowBox, Txt } from "@/components/atoms";
+import { Txt } from "@/components/atoms";
 import { Header } from "@/components/common";
 import Image from 'next/image';
 import ChangeBox from '@/components/domain/admin/mypage/ChangeBox';
@@ -10,7 +10,6 @@ export default function AdminMyPage() {
   const hostMember = {
     villageName: "가람마을",
     phone: "010-1234-1234",
-    pwd: "Aaaaaa.1234"
   }
 
   return (
@@ -29,7 +28,7 @@ export default function AdminMyPage() {
       </div>
 
         <button type="button" onClick={() => router.push('/admin/mypage/quit')}
-          className="font-[Hana2-CM] mt-[200px] block w-fit mx-auto bg-transparent
+          className="font-[Hana2-CM] mt-[150px] block w-fit mx-auto bg-transparent
                       underline underline-offset-4 text-[#26262673] decoration-[#26262673]">
           탈퇴하기
         </button>
