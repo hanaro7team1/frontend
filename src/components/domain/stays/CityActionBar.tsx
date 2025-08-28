@@ -8,7 +8,7 @@ import { BottomSheetPeopleCount, BottomSheetSchedule } from '@/components/domain
 import { formatDate, getDefaultDates } from '@/utils/stays/stays';
 
 type Props = {
-  id: string;
+  id: number;
   onReserve?: () => void;
   onInquiry?: () => void;
   schedule?: string;

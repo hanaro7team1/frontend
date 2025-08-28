@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { FixedBottomButton, Modal } from '@/components/common';
 
 type Props = {
-  id: string;
+  id: number;
   onEdit?: () => void;
   onDelete?: () => void;
 };
