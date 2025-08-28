@@ -5,20 +5,29 @@ import { useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
 import { BottomSheetPeopleCount, BottomSheetSchedule } from '@/components/domain/stays';
+import { formatDate, getDefaultDates } from '@/utils/stays/stays';
 
 type Props = {
   id: string;
   onReserve?: () => void;
   onInquiry?: () => void;
+  schedule?: string;
+  peopleCount?: string;
 };
 
-export default function CityActionBar({ id, onReserve, onInquiry }: Props) {
+export default function CityActionBar({ id, onReserve, onInquiry, schedule, peopleCount }: Props) {
   const router = useRouter();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
+
+  const [today, twoDaysLater] = getDefaultDates();
+  // URL의 schedule 값은 'YY.MM.DD\n-YY.MM.DD' 형태이므로, 표시를 위해 \n을 -로 바꿈.
+  const displaySchedule =
+    schedule?.replace('\n', '') ?? `${formatDate(today)} - ${formatDate(twoDaysLater)}`;
+  const displayPeopleCount = peopleCount ?? '2';
 
   return (
     <>
@@ -33,7 +42,7 @@ export default function CityActionBar({ id, onReserve, onInquiry }: Props) {
           <div className='flex items-center justify-between'>
             <div className='flex min-w-fit items-center gap-4'>
               <Txt size={16}>일정</Txt>
-              <Txt>25.09.20 - 25.09.23</Txt>
+              <Txt>{displaySchedule}</Txt>
             </div>
             <BottomSheetSchedule triggerBtnType='detail' />
           </div>
@@ -42,7 +51,7 @@ export default function CityActionBar({ id, onReserve, onInquiry }: Props) {
           <div className='flex items-center gap-3'>
             <div className='flex items-center gap-4'>
               <Txt size={16}>인원</Txt>
-              <Txt>2명</Txt>
+              <Txt>{displayPeopleCount}명</Txt>
             </div>
             <BottomSheetPeopleCount triggerBtnType='detail' />
           </div>
