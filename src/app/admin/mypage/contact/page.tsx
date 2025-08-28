@@ -3,6 +3,7 @@ import { Button, Input, Txt } from "@/components/atoms";
 import { Header } from "@/components/common";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import NoticeModal from "../NoticeModal";
 
 export default function AdminContactPage() {
   const router = useRouter();
@@ -12,9 +13,11 @@ export default function AdminContactPage() {
   }
   const [phone, setPhone] = useState(hostMember.phone);
   const [newPhone, setNewPhone] = useState("");
+  const [openNotice, setOpenNotice] = useState(false);
 
   const editPhone = () => {
     setPhone(newPhone.trim());
+    setOpenNotice(true);
   };
 
   const commonSize = "w-[320px] h-[50px]";
@@ -36,9 +39,10 @@ export default function AdminContactPage() {
             placeholder="변경할 전화번호를 입력하세요" className={`${commonSize}`}/>
         </div>
 
-        <Button onClick={editPhone} title="변경하기" color="pink" className={`${commonSize} mx-auto block`}/>
+        <Button title="변경하기" color="pink" className={`${commonSize} mx-auto block`} onClick={editPhone}/>
       </div>
-    
+
+      <NoticeModal open={openNotice} text="전화번호" />
     </div>
   );
 }
