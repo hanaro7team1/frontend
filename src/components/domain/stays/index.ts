@@ -10,7 +10,6 @@ export { default as BottomSheetLocation } from './BottomSheetLocation';
 export { default as BottomSheetPeopleCount } from './BottomSheetPeopleCount';
 export { default as BottomSheetSchedule } from './BottomSheetSchedule';
 
-export { default as EditButton } from './EditButton';
 export { default as StayActionBar } from './StayActionBar';
 export { default as StayDescription } from './StayDescription';
 export { default as StayHeader } from './StayHeader';

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
-import { BottomSheetPeopleCount, BottomSheetSchedule, EditButton } from '@/components/domain/stays';
+import { BottomSheetPeopleCount, BottomSheetSchedule } from '@/components/domain/stays';
 
 type Props = {
   id: string;
