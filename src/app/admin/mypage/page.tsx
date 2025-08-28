@@ -24,7 +24,7 @@ export default function AdminMyPage() {
 
       <div className='flex flex-col p-8 gap-9'>
           <ChangeBox buttonTxt={'전화번호 변경'} phoneNum={hostMember.phone}></ChangeBox>
-          <ChangeBox buttonTxt={'비밀번호 변경'} ></ChangeBox>
+          <ChangeBox buttonTxt={'비밀번호 변경'} />
       </div>
 
         <button type="button" onClick={() => router.push('/admin/mypage/quit')}
