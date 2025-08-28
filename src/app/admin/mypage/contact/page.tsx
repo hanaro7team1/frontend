@@ -2,12 +2,21 @@
 import { Button, Input, Txt } from "@/components/atoms";
 import { Header } from "@/components/common";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function AdminContactPage() {
-const router = useRouter();
+  const router = useRouter();
+
   const hostMember = {
     phone: "010-1234-1234"
   }
+  const [phone, setPhone] = useState(hostMember.phone);
+  const [newPhone, setNewPhone] = useState("");
+
+  const editPhone = () => {
+    setPhone(newPhone.trim());
+  };
+
   const commonSize = "w-[320px] h-[50px]";
   const setCenter = "w-[320px] mx-auto flex flex-col gap-[18px]";
 
@@ -18,15 +27,16 @@ const router = useRouter();
       <div className="flex flex-col gap-9">
         <div className= {`${setCenter}`}>
           <Txt size={24}>기존 전화번호</Txt>
-          <Txt size={24}>{hostMember.phone}</Txt>
+          <Txt size={24}>{phone}</Txt>
         </div>
 
         <div className= {`${setCenter} mb-[20px]`}>
           <Txt size={24}>변경할 전화번호</Txt>
-          <Input placeholder="변경할 전화번호를 입력하세요" className={`${commonSize}`}/>
+          <Input value={newPhone} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPhone(e.target.value)}
+            placeholder="변경할 전화번호를 입력하세요" className={`${commonSize}`}/>
         </div>
 
-        <Button title="변경하기" type="submit" color="pink" className={`${commonSize} mx-auto block`}/>
+        <Button onClick={editPhone} title="변경하기" color="pink" className={`${commonSize} mx-auto block`}/>
       </div>
     
     </div>
