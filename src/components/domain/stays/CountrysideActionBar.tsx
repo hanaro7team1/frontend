@@ -1,14 +1,17 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FixedBottomButton, Modal } from '@/components/common';
 
 type Props = {
+  id: string;
   onEdit?: () => void;
   onDelete?: () => void;
 };
 
-export default function CountrysideActionBar({ onEdit, onDelete }: Props) {
+export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
@@ -21,7 +24,12 @@ export default function CountrysideActionBar({ onEdit, onDelete }: Props) {
         rightBtnText='내용 수정하기'
         isPink
         onClickLeftBtn={handleOpenModal}
-        onClickRightBtn={onEdit ?? (() => {})}
+        onClickRightBtn={
+          onEdit ??
+          (() => {
+            router.push(`/admin/stays/${id}`);
+          })
+        }
       />
 
       {/* 삭제 확인 모달 */}
@@ -41,5 +49,3 @@ export default function CountrysideActionBar({ onEdit, onDelete }: Props) {
     </>
   );
 }
-
-

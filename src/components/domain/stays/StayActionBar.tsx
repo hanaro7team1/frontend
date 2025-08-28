@@ -3,6 +3,7 @@
 import { CityActionBar, CountrysideActionBar } from '@/components/domain/stays';
 
 type Props = {
+  id: string;
   mode: 'city' | 'countryside';
   onReserve?: () => void;
   onInquiry?: () => void;

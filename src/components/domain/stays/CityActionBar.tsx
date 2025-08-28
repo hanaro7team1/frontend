@@ -1,17 +1,23 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
-import EditButton from './EditButton';
+import { BottomSheetPeopleCount, BottomSheetSchedule, EditButton } from '@/components/domain/stays';
 
 type Props = {
+  id: string;
   onReserve?: () => void;
   onInquiry?: () => void;
 };
 
-export default function CityActionBar({ onReserve, onInquiry }: Props) {
+export default function CityActionBar({ id, onReserve, onInquiry }: Props) {
+  const router = useRouter();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+  const [isPeopleCountOpen, setIsPeopleCountOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -22,27 +28,25 @@ export default function CityActionBar({ onReserve, onInquiry }: Props) {
         leftBtnText='전화로 문의하기'
         rightBtnText='예약하기'
         onClickLeftBtn={handleOpenModal}
-        onClickRightBtn={onReserve ?? (() => {})}
+        onClickRightBtn={onReserve ?? (() => router.push(`/stays/${id}/booking`))}
       >
         <div className='border-black-626/15 space-y-4 rounded-[15px] border px-6.5 py-5'>
           {/* 일정 */}
-          <div className='flex items-center gap-3'>
-            <div className='flex items-center gap-4 min-w-fit'>
-              <Txt size={16} align='center'>
-                일정
-              </Txt>
-              <Txt align='center'>25.09.20 - 25.09.23</Txt>
+          <div className='flex items-center justify-between'>
+            <div className='flex min-w-fit items-center gap-4'>
+              <Txt size={16}>일정</Txt>
+              <Txt>25.09.20 - 25.09.23</Txt>
             </div>
-            <EditButton />
+            <EditButton onClick={() => setIsScheduleOpen(true)} />
           </div>
 
           {/* 인원 */}
           <div className='flex items-center gap-3'>
             <div className='flex items-center gap-4'>
-              <Txt size={16} align='center'>인원</Txt>
-              <Txt align='center'>2명</Txt>
+              <Txt size={16}>인원</Txt>
+              <Txt>2명</Txt>
             </div>
-            <EditButton />
+            <EditButton onClick={() => setIsPeopleCountOpen(true)} />
           </div>
         </div>
       </FixedBottomButton>
@@ -60,6 +64,24 @@ export default function CityActionBar({ onReserve, onInquiry }: Props) {
         >
           마을 이장님께 전화를 걸까요?
         </Modal>
+      )}
+
+      {/* 일정 변경 바텀시트 */}
+      {isScheduleOpen && (
+        <BottomSheetSchedule
+          open={isScheduleOpen}
+          onOpenChange={setIsScheduleOpen}
+          hasTrigger={false}
+        />
+      )}
+
+      {/* 인원 변경 바텀시트 */}
+      {isPeopleCountOpen && (
+        <BottomSheetPeopleCount
+          open={isPeopleCountOpen}
+          onOpenChange={setIsPeopleCountOpen}
+          hasTrigger={false}
+        />
       )}
     </>
   );
