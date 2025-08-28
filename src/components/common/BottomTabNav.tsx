@@ -20,7 +20,11 @@ export default function BottomTabNav() {
         const isSelected = pathname === route;
 
         return (
-          <button className='flex flex-col items-center px-6' onClick={() => router.replace(route)}>
+          <button
+            key={route}
+            className='flex flex-col items-center px-6'
+            onClick={() => router.replace(route)}
+          >
             <Icon
               size={TAB_ICON_SIZE}
               color={isSelected ? TAB_SELECTED_COLOR : TAB_DEFAULT_COLOR}
