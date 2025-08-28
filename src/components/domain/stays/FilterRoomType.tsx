@@ -10,16 +10,17 @@ type Props = {
 };
 
 export default async function FilterRoomType({ searchParams, isAdmin }: Props) {
-  const params = new URLSearchParams();
   const { roomType } = searchParams;
-  // 기존 파라미터들 유지
-  Object.entries(searchParams).forEach(([key, value]) => params.set(key, value));
+  const cleanSearchParams = Object.fromEntries(
+    Object.entries(searchParams).filter(([, value]) => typeof value === 'string'),
+  );
 
   return (
     <div className='border-black-626/15 flex flex-row border-b bg-white'>
       {ROOM_TYPES.map((label) => {
-        const isActive = label === roomType || (!roomType && label === '하숙형');
+        const params = new URLSearchParams(cleanSearchParams);
         params.set('roomType', label);
+        const isActive = label === roomType || (!roomType && label === '하숙형');
 
         return (
           <Link
