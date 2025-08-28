@@ -3,18 +3,19 @@ import { FilterRoomType, FilterStayOptions, RoomList } from '@/components/domain
 import { StaysSearchParams } from '@/types/stays';
 
 type Props = {
-  searchParams: StaysSearchParams;
+  searchParams: Promise<StaysSearchParams>;
 };
 
 export default async function StaysPage({ searchParams }: Props) {
+  const searchParam = await searchParams;
   const isAdmin = false; // TODO: 추후에 세션에서 관리자 여부 읽어오기
 
   return (
     <>
       <Header title='사랑방 찾기' bgColor={isAdmin ? 'pink' : 'green'} />
-      <FilterRoomType searchParams={searchParams} isAdmin={isAdmin} />
+      <FilterRoomType searchParams={searchParam} isAdmin={isAdmin} />
       <FilterStayOptions />
-      <RoomList searchParams={searchParams} />
+      <RoomList searchParams={searchParam} />
       {!isAdmin && <BottomTabNav />}
     </>
   );
