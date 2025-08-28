@@ -3,6 +3,7 @@ import { Button, Input, Txt } from "@/components/atoms";
 import { Header } from "@/components/common";
 import { useState } from "react";
 import NoticeModal from "../NoticeModal";
+import Image from "next/image";
 
 export default function AdminContactPage() {
   // db
@@ -28,7 +29,10 @@ export default function AdminContactPage() {
       <div className="flex flex-col gap-9">
         <div className= {`${setCenter}`}>
           <Txt size={24}>기존 전화번호</Txt>
-          <Txt size={24}>{phone}</Txt>
+          <div className="flex items-center gap-[5px]">
+            <Image src='/icons/Ic_Phone_big.svg' alt="수화기" width={35} height={35}/>
+            <Txt size={24}>{phone}</Txt>
+          </div>
         </div>
 
         <div className= {`${setCenter} mb-[20px]`}>
