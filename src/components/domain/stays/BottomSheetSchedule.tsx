@@ -11,12 +11,10 @@ import { SheetClose } from '@/components/ui/sheet';
 import { formatDate, getDefaultDates } from '@/utils/stays/stays';
 
 type Props = {
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  hasTrigger?: boolean;
+  triggerBtnType?: 'default' | 'detail';
 };
 
-export default function BottomSheetSchedule({ open, onOpenChange, hasTrigger = true }: Props) {
+export default function BottomSheetSchedule({ triggerBtnType }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -42,7 +40,7 @@ export default function BottomSheetSchedule({ open, onOpenChange, hasTrigger = t
   };
 
   return (
-    <BottomSheet open={open} onOpenChange={onOpenChange} hasTrigger={hasTrigger}>
+    <BottomSheet triggerBtnType={triggerBtnType}>
       <div className='flex flex-col gap-4 p-4'>
         <Txt size={24} align='center'>
           입실 날짜와 퇴실 날짜를

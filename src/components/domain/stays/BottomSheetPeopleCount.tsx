@@ -8,12 +8,10 @@ import { BottomSheet } from '@/components/common';
 import { SheetClose } from '@/components/ui/sheet';
 
 type Props = {
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  hasTrigger?: boolean;
+  triggerBtnType?: 'default' | 'detail';
 };
 
-export default function BottomSheetPeopleCount({ open, onOpenChange, hasTrigger }: Props) {
+export default function BottomSheetPeopleCount({ triggerBtnType }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -29,7 +27,7 @@ export default function BottomSheetPeopleCount({ open, onOpenChange, hasTrigger 
   };
 
   return (
-    <BottomSheet open={open} onOpenChange={onOpenChange} hasTrigger={hasTrigger}>
+    <BottomSheet triggerBtnType={triggerBtnType}>
       <div className='flex flex-col gap-10 p-4'>
         <Txt size={24} align='center'>
           숙박 인원을 선택하세요
