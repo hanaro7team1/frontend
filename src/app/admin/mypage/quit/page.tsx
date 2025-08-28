@@ -1,7 +1,14 @@
+'use client'
+
 import { Button, Input, Txt } from "@/components/atoms";
-import { Header } from "@/components/common";
+import { Header, Modal } from "@/components/common";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function AdminQuitPage() {
+  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {setIsModalOpen(true)};
 
   return (
     <>
@@ -10,8 +17,14 @@ export default function AdminQuitPage() {
       <div  className="p-8 flex flex-col gap-5">
         <Txt size={24}>비밀번호 확인</Txt>
         <Input placeholder="비밀번호를 입력해 주세요" />
-        <Button title="탈퇴하기" type="submit" color="pink" />
+        <Button title="탈퇴하기" type="submit" color="pink" onClick={openModal}/>
       </div>
+
+      {isModalOpen && (
+        <Modal grayBtnText="아니요" greenBtnText="네" onClickGrayBtn={() => !openModal} onClickGreenBtn={() => router.push('/admin/mypage')}>
+          정말 탈퇴하시겠어요?
+        </Modal>
+      )}
     </>
   );
 }

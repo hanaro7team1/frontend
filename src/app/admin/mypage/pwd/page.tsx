@@ -1,24 +1,31 @@
 'use client'
 import { Button, Input, Txt } from "@/components/atoms";
-import { Header } from "@/components/common";
+import { Header, Modal } from "@/components/common";
 import { PasswordField } from "@/components/domain/admin/auth/PasswordField";
+import NoticeModal from "@/components/domain/admin/mypage/NoticeModal";
 import useValidation from "@/hooks/auth/useValidation";
+import { useState } from "react";
 
 export default function AdmainPwdPage() {
   const {form, errors, handleChange} = useValidation();
-  const gap = "flex flex-col gap-3";
+
+  
+  const [openNotice, setOpenNotice] = useState(false);
+  const editPwd = () => {
+    setOpenNotice(true);
+  };
 
   return (
     <>
       <Header className="mb-[50px]" title="비밀번호 변경" />
     
       <div className="flex flex-col gap-9 p-8">
-        <div className={`${gap}`}>
+        <div>
           <Txt size={24}>기존 비밀번호</Txt>
           <Input placeholder="기존 비밀번호를 입력해 주세요" />
         </div>
 
-        <div className={`${gap}`}>
+        <div>
           <Txt size={24}>비밀번호</Txt>
           <PasswordField
             value={form.password}
@@ -31,7 +38,7 @@ export default function AdmainPwdPage() {
             </Txt>
           )}
         </div>
-        <div className={`${gap}`}>
+        <div>
           <Txt size={24}>비밀번호 확인</Txt>
           <PasswordField
             value={form.confirmPassword}
@@ -45,8 +52,10 @@ export default function AdmainPwdPage() {
           )}
         </div>
 
-        <Button title="변경하기" type="submit" color="pink"/>
-      </div>      
+        <Button title="변경하기" color="pink" onClick={editPwd}/>
+      </div> 
+
+      <NoticeModal open={openNotice} text="비밀번호"/>
     </>
   );
 }
