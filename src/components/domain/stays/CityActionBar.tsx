@@ -16,8 +16,6 @@ export default function CityActionBar({ id, onReserve, onInquiry }: Props) {
   const router = useRouter();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
-  const [isPeopleCountOpen, setIsPeopleCountOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -37,7 +35,7 @@ export default function CityActionBar({ id, onReserve, onInquiry }: Props) {
               <Txt size={16}>일정</Txt>
               <Txt>25.09.20 - 25.09.23</Txt>
             </div>
-            <EditButton onClick={() => setIsScheduleOpen(true)} />
+            <BottomSheetSchedule triggerBtnType='detail' />
           </div>
 
           {/* 인원 */}
@@ -46,7 +44,7 @@ export default function CityActionBar({ id, onReserve, onInquiry }: Props) {
               <Txt size={16}>인원</Txt>
               <Txt>2명</Txt>
             </div>
-            <EditButton onClick={() => setIsPeopleCountOpen(true)} />
+            <BottomSheetPeopleCount triggerBtnType='detail' />
           </div>
         </div>
       </FixedBottomButton>
@@ -64,24 +62,6 @@ export default function CityActionBar({ id, onReserve, onInquiry }: Props) {
         >
           마을 이장님께 전화를 걸까요?
         </Modal>
-      )}
-
-      {/* 일정 변경 바텀시트 */}
-      {isScheduleOpen && (
-        <BottomSheetSchedule
-          open={isScheduleOpen}
-          onOpenChange={setIsScheduleOpen}
-          hasTrigger={false}
-        />
-      )}
-
-      {/* 인원 변경 바텀시트 */}
-      {isPeopleCountOpen && (
-        <BottomSheetPeopleCount
-          open={isPeopleCountOpen}
-          onOpenChange={setIsPeopleCountOpen}
-          hasTrigger={false}
-        />
       )}
     </>
   );
