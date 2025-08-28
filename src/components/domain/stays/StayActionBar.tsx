@@ -9,6 +9,8 @@ type Props = {
   onInquiry?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
+  schedule?: string;
+  peopleCount?: string;
 };
 
 export default function StayActionBar({ mode = 'city', ...props }: Props) {

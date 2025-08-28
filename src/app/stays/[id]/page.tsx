@@ -5,12 +5,14 @@ import {
   StayHeader,
   StayInfoChips,
 } from '@/components/domain/stays';
+import { StaysSearchParams } from '@/types/stays';
 
 type Props = {
   params: Promise<{ id: string }>;
+  searchParams: StaysSearchParams;
 };
 
-export default async function StayDetailPage({ params }: Props) {
+export default async function StayDetailPage({ params, searchParams }: Props) {
   // TODO: 실제 API 연동 → getStay(stayId)
   const { id: stayId } = await params;
 
@@ -47,9 +49,13 @@ export default async function StayDetailPage({ params }: Props) {
       </main>
 
       <footer>
-        <StayActionBar id={id} mode={mode} />
+        <StayActionBar
+          id={id}
+          mode={mode}
+          schedule={searchParams.schedule}
+          peopleCount={searchParams.peopleCount}
+        />
       </footer>
     </div>
   );
 }
-
