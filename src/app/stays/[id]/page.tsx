@@ -25,7 +25,7 @@ export default async function StayDetailPage({ params }: Props) {
       '전기가 아닌 진짜 온돌집 집근처에 맹꽁이가 아름답게 울음 옆집 토마토밭 체험 가능 전기가 아닌 진짜 온돌집 집근처에 맹꽁이가 아름답게 울음 옆집 토마토밭 체험 가능 옆집 토마토밭 체험 가능 옆집 토마토밭 체험 가능',
   };
 
-  const { title, address, images, capacity, area, description } = stay;
+  const { id, title, address, images, capacity, area, description } = stay;
 
   // TODO: 실제 로그인 사용자에 따라 mode 분기
   const mode: 'city' | 'countryside' = 'city';
@@ -47,8 +47,9 @@ export default async function StayDetailPage({ params }: Props) {
       </main>
 
       <footer>
-        <StayActionBar mode={mode} />
+        <StayActionBar id={id} mode={mode} />
       </footer>
     </div>
   );
 }
+

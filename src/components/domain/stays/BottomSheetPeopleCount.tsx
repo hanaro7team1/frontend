@@ -7,7 +7,13 @@ import { Txt } from '@/components/atoms';
 import { BottomSheet } from '@/components/common';
 import { SheetClose } from '@/components/ui/sheet';
 
-export default function BottomSheetPeopleCount() {
+type Props = {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  hasTrigger?: boolean;
+};
+
+export default function BottomSheetPeopleCount({ open, onOpenChange, hasTrigger }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -23,7 +29,7 @@ export default function BottomSheetPeopleCount() {
   };
 
   return (
-    <BottomSheet>
+    <BottomSheet open={open} onOpenChange={onOpenChange} hasTrigger={hasTrigger}>
       <div className='flex flex-col gap-10 p-4'>
         <Txt size={24} align='center'>
           숙박 인원을 선택하세요
