@@ -9,12 +9,13 @@ import { StaysSearchParams } from '@/types/stays';
 
 type Props = {
   params: Promise<{ id: string }>;
-  searchParams: StaysSearchParams;
+  searchParams: Promise<StaysSearchParams>;
 };
 
 export default async function StayDetailPage({ params, searchParams }: Props) {
   // TODO: 실제 API 연동 → getStay(stayId)
   const { id: stayId } = await params;
+  const searchParam = await searchParams;
 
   const stay = {
     id: stayId,
@@ -52,8 +53,8 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
         <StayActionBar
           id={id}
           mode={mode}
-          schedule={searchParams.schedule}
-          peopleCount={searchParams.peopleCount}
+          schedule={searchParam.schedule}
+          peopleCount={searchParam.peopleCount}
         />
       </footer>
     </div>
