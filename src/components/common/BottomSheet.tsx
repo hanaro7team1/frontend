@@ -28,7 +28,7 @@ export default function BottomSheet({
   } else if (triggerBtnType === 'detail') {
     // 상세 버튼 (상세 페이지 필터)
     triggerButton = (
-      <div className='bg-black-626/45 flex cursor-pointer items-center justify-center rounded-full px-4 py-1.5'>
+      <div className='bg-black-626/45 flex flex-shrink-0 cursor-pointer items-center justify-center rounded-full px-4 py-1.5'>
         <Txt size={16} className='text-white'>
           변경하기
         </Txt>
