@@ -1,13 +1,11 @@
 'use client'
 import { Button, Input, Txt } from "@/components/atoms";
 import { Header } from "@/components/common";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import NoticeModal from "../NoticeModal";
 
 export default function AdminContactPage() {
-  const router = useRouter();
-
+  // db
   const hostMember = {
     phone: "010-1234-1234"
   }
