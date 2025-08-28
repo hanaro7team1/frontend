@@ -24,7 +24,7 @@ export default function FilterStayOptions({ searchParams }: Props) {
     {
       key: 'date',
       label: '일정',
-      valueSize: 16,
+      valueSize: 18,
       defaultValue: schedule || `${formatDate(today)}\n-${formatDate(twoDaysLater)}`,
       BottomSheetType: <BottomSheetSchedule />,
     },
