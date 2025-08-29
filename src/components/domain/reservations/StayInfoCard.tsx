@@ -6,28 +6,28 @@ type Props = {
   data: {
     stayPicURL: string;
     stayId: number;
-    stayName: string;
-    stayAddress: string;
+    title: string;
+    address: string;
   };
   isAdmin?: boolean;
 };
 
 export default function StayInfoCard({ data, isAdmin = false }: Props) {
-  const { stayPicURL, stayId, stayName, stayAddress } = data;
+  const { stayPicURL, stayId, title, address } = data;
 
   return (
     <div className='flex gap-3'>
       <div
         className={`relative shrink-0 rounded-[8px] ${isAdmin ? 'h-[100px] w-[100px]' : 'aspect-square w-2/5'} `}
       >
-        <Image src={stayPicURL} alt={stayName} fill className='rounded-[8px] object-cover' />
+        <Image src={stayPicURL} alt={title} fill className='rounded-[8px] object-cover' />
       </div>
 
       <div className='flex flex-1 flex-col justify-between gap-2'>
         <div className='flex flex-col p-1'>
-          <Txt size={22}>{stayName}</Txt>
+          <Txt size={22}>{title}</Txt>
           <Txt size={18} className='text-gray-070'>
-            {stayAddress}
+            {address}
           </Txt>
         </div>
         {!isAdmin && (
