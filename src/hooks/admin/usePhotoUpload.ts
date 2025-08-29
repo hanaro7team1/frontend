@@ -1,26 +1,25 @@
 'use client';
 
-import { UploadedImages } from '@/types/stays';
+import { getExtFromFile } from '@/utils/stays/stays';
+import { PresignResp, UploadedImages } from '@/types/stays';
 
 //temp upload 훅입니다 (2단계에서 -> 3단계로 갈 때 s3 임시 폴더에 저장)
 async function presignOne(domain: string, file: File) {
   //파일 타입 or 알 수 없음
   const contentType = file.type;
+  const extension = getExtFromFile(file) ?? 'bin';
   const res = await fetch('/api/admin/upload/presign', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ domain, contentType }),
+    body: JSON.stringify({ domain, extension, contentType }),
   });
 
   //TODO: 모달로 처리 (사진 업로드 실패, 다시 시도해 주세요)
   if (!res.ok) throw new Error('presign URL 발급 실패');
 
-  return res.json() as Promise<{
-    uploadUrl: string;
-    key: string;
-    contentType: string;
-    publicUrl: string;
-  }>;
+  const presign = (await res.json()) as PresignResp;
+
+  return { presign, contentType };
 }
 
 //TODO: 모달로 처리
@@ -39,13 +38,13 @@ export function usePhotoUpload(domain: 'temp' | 'stays') {
 
     const results = await Promise.all(
       items.map(async (it) => {
-        const p = await presignOne(domain, it.file);
-        await putToS3(p.uploadUrl, it.file, p.contentType);
+        const { presign, contentType } = await presignOne(domain, it.file);
+        await putToS3(presign.url, it.file, contentType);
         return {
           id: it.id,
-          key: p.key,
-          url: p.publicUrl,
-          contentType: p.contentType,
+          key: presign.key,
+          url: '',
+          contentType,
         };
       }),
     );

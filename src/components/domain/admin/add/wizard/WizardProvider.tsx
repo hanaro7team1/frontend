@@ -20,16 +20,35 @@ export default function WizardProvider({ children }: { children: React.ReactNode
   const raw = Number(search.get('step') ?? 1);
   const currentStep = clampNum({ n: isNaN(raw) ? 1 : raw });
 
+  //step 번호가 key, 다음으로 이동하기 전에 실행할 함수 BeforeNextFn
+  const req = useRef(new Map<number, BeforeNextFn>());
+
+  //다음 스텝으로 넘어가기 전에 만족하지 않은 조건 있는지 확인!!
+  const stepGuard = async (step: number) => {
+    const guard = req.current.get(step);
+    if (!guard) return true;
+    try {
+      const r = await guard();
+      return r !== false;
+    } catch (e) {
+      //TODO: 모달로 다음 스텝 못 넘어가는 이유 알려주기
+      return false;
+    }
+  };
+
   const goToStep = useCallback(
-    (n: number) => {
+    async (n: number) => {
+      const next = clampNum({ n });
+      if (next > currentStep) {
+        const ok = await stepGuard(currentStep);
+        if (!ok) return; // 막기
+      }
       const q = new URLSearchParams(search.toString());
       q.set('step', String(clampNum({ n })));
       router.push(`${pathName}?${q.toString()}`);
     },
     [router, pathName, search],
   );
-
-  const req = useRef(new Map<number, BeforeNextFn>());
 
   const registerBeforeNext: WizardContext['registerBeforeNext'] = useCallback((step, fn) => {
     if (fn) req.current.set(step, fn);

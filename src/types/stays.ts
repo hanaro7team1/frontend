@@ -43,3 +43,5 @@ export type UploadedImages = {
   url: string; // temp 공개 URL
   contentType: string; // 예: image/jpeg
 };
+
+export type PresignResp = { url: string; key: string };
