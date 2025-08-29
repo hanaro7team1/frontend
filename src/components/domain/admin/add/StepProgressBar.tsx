@@ -3,13 +3,14 @@
 import { cn } from '@/lib/utils';
 import { ADD_STEPS, SIGN_UP_STEPS } from '@/constants/common/StepCircle';
 import { StepCircle } from '.';
+import { useWizard } from './wizard/WizardProvider';
 
 type Props = {
-  currentStep: number;
   isSignUp?: boolean;
 };
 
-export default function StepProgressBar({ currentStep, isSignUp = false }: Props) {
+export default function StepProgressBar({ isSignUp = false }: Props) {
+  const { currentStep } = useWizard();
   const STEPS = isSignUp ? SIGN_UP_STEPS : ADD_STEPS;
   return (
     <div className='bg-gray-484/5 relative w-full py-4'>

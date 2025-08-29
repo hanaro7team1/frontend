@@ -1,14 +1,36 @@
 'use client';
 
+import { useEffect } from 'react';
 import { Txt } from '@/components/atoms';
+import { usePhotoPreview } from '@/hooks/admin/usePhotoPreview';
 import { usePhotoUpload } from '@/hooks/admin/usePhotoUpload';
 import { SLOT_COUNT } from '@/constants/admin/Admin';
+import { useWizard } from '../../wizard/WizardProvider';
 import HiddenFileInput from './HiddenFileInput';
 import PhotoGrid from './PhotoGrid';
 import UploadBarButton from './UploadBarButton';
 
 export default function AddPhoto() {
-  const { urls, inputRef, openPicker, onInputChange, removeAt } = usePhotoUpload(SLOT_COUNT);
+  const { registerBeforeNext } = useWizard();
+  const { items, urls, inputRef, openPicker, onInputChange, removeAt } =
+    usePhotoPreview(SLOT_COUNT);
+  const { uploadAll } = usePhotoUpload('temp');
+
+  useEffect(() => {
+    const cleanup = registerBeforeNext(2, async () => {
+      if (!items.length) {
+        alert('사진을 최소 1장 이상 올려 주세요');
+        return false;
+      }
+      try {
+        const uploaded = await uploadAll(items);
+      } catch {
+        alert('사진 업로드 실패');
+        return false;
+      }
+    });
+    return cleanup;
+  }, [items, uploadAll, registerBeforeNext]);
 
   return (
     <>

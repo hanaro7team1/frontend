@@ -4,6 +4,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { clampNum } from '@/lib/utils';
 import { FixedBottomButton, Header } from '@/components/common';
 import { StepProgressBar } from '@/components/domain/admin/add';
+import WizardNav from '@/components/domain/admin/add/wizard/WizardNav';
+import WizardProvider from '@/components/domain/admin/add/wizard/WizardProvider';
 import { FIRST_STEP_NUM, TOTAL_STEP_NUM } from '@/constants/admin/Admin';
 
 export default function AddLayout({ children }: { children: React.ReactNode }) {
@@ -32,15 +34,11 @@ export default function AddLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header title={'우리 마을 사랑방 등록'} bgColor='pink' />
-      <StepProgressBar currentStep={currentStep} />
-      {children}
-      <FixedBottomButton
-        leftBtnText={leftButtonTxt}
-        rightBtnText={rightButtonTxt}
-        isPink={true}
-        onClickRightBtn={nextStep}
-        onClickLeftBtn={prevStep}
-      />
+      <WizardProvider>
+        <StepProgressBar />
+        {children}
+        <WizardNav />
+      </WizardProvider>
     </>
   );
 }

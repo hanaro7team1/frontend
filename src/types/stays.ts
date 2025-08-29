@@ -30,3 +30,16 @@ export type StayDetailResponseType = {
 
   // images?: string[];
 };
+
+export type PreviewImageItem = {
+  id: string;
+  file: File;
+  previewUrl: string;
+};
+
+export type UploadedImages = {
+  id: string; // PreviewItem.id 그대로
+  key: string; // temp/... 키
+  url: string; // temp 공개 URL
+  contentType: string; // 예: image/jpeg
+};
