@@ -21,7 +21,7 @@ export default function NoticeModal({open, text}: Props) {
                     flex flex-col items-center justify-between">
                 <Txt size={26} className="text-center">{message}</Txt>
                 <Button title="확인" color="pink" className="w-[337px] h-[56px]"
-                    onClick={() => router.push('/admin/mypage')}/>
+                    onClick={() => router.back()}/>
             </div>
         </div>
     );

@@ -7,10 +7,9 @@ import NoticeModal from "@/components/domain/admin/mypage/NoticeModal";
 
 export default function AdminContactPage() {
   // db
-  const hostMember = {
-    phone: "010-1234-1234"
-  }
-  const [phone, setPhone] = useState(hostMember.phone);
+  const hostPhone = "010-1234-1234";
+
+  const [phone, setPhone] = useState(hostPhone);
   const [newPhone, setNewPhone] = useState("");
   const [openNotice, setOpenNotice] = useState(false);
 

@@ -9,7 +9,6 @@ import { useState } from "react";
 export default function AdmainPwdPage() {
   const {form, errors, handleChange} = useValidation();
 
-  
   const [openNotice, setOpenNotice] = useState(false);
   const editPwd = () => {
     setOpenNotice(true);

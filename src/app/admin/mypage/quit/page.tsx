@@ -17,11 +17,11 @@ export default function AdminQuitPage() {
       <div  className="p-8 flex flex-col gap-5">
         <Txt size={24}>비밀번호 확인</Txt>
         <Input placeholder="비밀번호를 입력해 주세요" />
-        <Button title="탈퇴하기" type="submit" color="pink" onClick={openModal}/>
+        <Button title="탈퇴하기" color="pink" onClick={openModal}/>
       </div>
 
       {isModalOpen && (
-        <Modal grayBtnText="아니요" greenBtnText="네" onClickGrayBtn={() => !openModal} onClickGreenBtn={() => router.push('/admin/mypage')}>
+        <Modal grayBtnText="아니요" greenBtnText="네" onClickGrayBtn={() => router.back()} onClickGreenBtn={() => router.push('/auth')}>
           정말 탈퇴하시겠어요?
         </Modal>
       )}
