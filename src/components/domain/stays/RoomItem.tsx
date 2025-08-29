@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ShadowBox, Txt } from '@/components/atoms';
 import { StaysSearchParams } from '@/types/stays';
-import { OpenDateModalBtn, StatusCapsule } from '.';
+import { BottomSheetSchedule, StatusCapsule } from '.';
 import { RoomInfo } from '../../../../public/dummy';
 
 type Props = {
@@ -44,10 +44,10 @@ export default function RoomItem({ data, isAdmin, searchParams }: Props) {
           </div>
           {isAdmin && (
             <div className='flex gap-2'>
-              <div className='bg-black-626/45 flex h-[50px] w-full items-center justify-center rounded-[10px]'>
+              <div className='bg-black-626/45 flex h-[50px] w-full flex-1 items-center justify-center rounded-[10px]'>
                 <Txt className='text-white'>정보 수정하기</Txt>
               </div>
-              <OpenDateModalBtn />
+              <BottomSheetSchedule />
             </div>
           )}
         </div>

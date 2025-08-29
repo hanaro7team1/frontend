@@ -10,11 +10,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { SheetClose } from '@/components/ui/sheet';
 import { formatDate, getDefaultDates, parseDateString } from '@/utils/stays/stays';
 
-type Props = {
-  triggerBtnType?: 'default' | 'detail';
-};
-
-export default function BottomSheetSchedule({ triggerBtnType }: Props) {
+export default function BottomSheetSchedule() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -41,7 +37,7 @@ export default function BottomSheetSchedule({ triggerBtnType }: Props) {
   };
 
   return (
-    <BottomSheet triggerBtnType={triggerBtnType}>
+    <BottomSheet>
       <div className='flex flex-col gap-4 p-4'>
         <Txt size={24} align='center'>
           입실 날짜와 퇴실 날짜를
