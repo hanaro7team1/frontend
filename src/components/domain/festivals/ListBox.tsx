@@ -21,9 +21,9 @@ export default function ListBox({img, title, startDate, endDate, city, url}:Prop
             <Image src={img} alt="축제" width={154} height={154} className="rounded-[8px]"/>
             <div className="flex flex-col">
                 <Txt size={20}>{title}</Txt>
-                <Txt size={20}>{startDate} ~ {endDate}</Txt>
+                <Txt size={18}>{startDate} ~ {endDate}</Txt>
                 <Txt size={15}>{city}</Txt>
-                <button title="상세보기" className="w-[195px] h-[35px]"onClick={() => router.push(`${url}`)}/>
+                <button title="상세보기" className="w-[195px] h-[35px] "onClick={() => router.push(`${url}`)}/>
             </div>
         </div>
     </>;
