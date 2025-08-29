@@ -23,7 +23,7 @@ export default function ListBox({img, title, startDate, endDate, city, url}:Prop
                 <Txt size={20}>{title}</Txt>
                 <Txt size={18}>{startDate} ~ {endDate}</Txt>
                 <Txt size={15}>{city}</Txt>
-                <Button title="상세보기" className="h-[35px] bg-gray-6d6 text-black" onClick={() => router.push(`${url}`)}/>
+                <Button title="상세보기" color="gray" className="h-[35px]" onClick={() => router.push(`${url}`)}/>
             </div>
         </div>
     </>;
