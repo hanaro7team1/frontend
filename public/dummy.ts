@@ -1,4 +1,3 @@
-
 //추후 실제 DTO로 교체 예정
 export type ReservationInfo = {
   id: number;
@@ -93,3 +92,10 @@ export const stayDetail = {
   description:
     '전기가 아닌 진짜 온돌집 집근처에 맹꽁이가 아름답게 울음 옆집 토마토밭 체험 가능 전기가 아닌 진짜 온돌집 집근처에 맹꽁이가 아름답게 울음 옆집 토마토밭 체험 가능 옆집 토마토밭 체험 가능 옆집 토마토밭 체험 가능',
 };
+export const dummyRegions = [
+    { region: '전라북도', detailRegions: ['광주', '순천', '나주', '여수', '고흥', '광양'] },
+    { region: '경상북도', detailRegions: ['대구', '포항', '경주', '구미', '안동', '영주'] },
+    { region: '강원도', detailRegions: ['춘천', '원주', '강릉', '속초', '동해', '삼척'] },
+    { region: '충청북도', detailRegions: ['청주', '충주', '제천', '음성', '진천', '단양'] },
+    { region: '경기도', detailRegions: ['수원', '성남', '용인', '고양', '부천', '안양'] }
+  ];

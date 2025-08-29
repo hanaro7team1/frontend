@@ -23,14 +23,14 @@ export default function Carousel({ images, className }: Props) {
   };
 
   return (
-    <div className={cn('relative mt-5 flex w-full h-52 justify-center', className)}>
+    <div className={cn('relative mt-5 flex h-52 w-full justify-center', className)}>
       <Image
         src={images[current]}
         alt={`carousel-${current}`}
         width={0}
         height={0}
         sizes='100vw'
-        className='object-cover h-auto w-full mx-8'
+        className='px-8 h-auto w-full object-cover'
       />
 
       <CarouselArrow direction='left' onClick={prevSlide} disabled={current === 0} />

@@ -1,20 +1,33 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
-import EditButton from './EditButton';
+import { BottomSheetPeopleCount, BottomSheetSchedule } from '@/components/domain/stays';
+import { formatDate, getDefaultDates } from '@/utils/stays/stays';
 
 type Props = {
+  id: number;
   onReserve?: () => void;
   onInquiry?: () => void;
+  schedule?: string;
+  peopleCount?: string;
 };
 
-export default function CityActionBar({ onReserve, onInquiry }: Props) {
+export default function CityActionBar({ id, onReserve, onInquiry, schedule, peopleCount }: Props) {
+  const router = useRouter();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
+
+  const [today, twoDaysLater] = getDefaultDates();
+  // URL의 schedule 값은 'YY.MM.DD\n-YY.MM.DD' 형태이므로, 표시를 위해 \n을 -로 바꿈.
+  const displaySchedule =
+    schedule?.replace('\n', '') ?? `${formatDate(today)}-${formatDate(twoDaysLater)}`;
+  const displayPeopleCount = peopleCount ?? '2';
 
   return (
     <>
@@ -22,27 +35,25 @@ export default function CityActionBar({ onReserve, onInquiry }: Props) {
         leftBtnText='전화로 문의하기'
         rightBtnText='예약하기'
         onClickLeftBtn={handleOpenModal}
-        onClickRightBtn={onReserve ?? (() => {})}
+        onClickRightBtn={onReserve ?? (() => router.push(`/stays/${id}/booking`))}
       >
         <div className='border-black-626/15 space-y-4 rounded-[15px] border px-6.5 py-5'>
           {/* 일정 */}
           <div className='flex items-center gap-3'>
-            <div className='flex items-center gap-4 min-w-fit'>
-              <Txt size={16} align='center'>
-                일정
-              </Txt>
-              <Txt align='center'>25.09.20 - 25.09.23</Txt>
+            <div className='flex min-w-fit items-center gap-4'>
+              <Txt size={16}>일정</Txt>
+              <Txt>{displaySchedule}</Txt>
             </div>
-            <EditButton />
+            <BottomSheetSchedule triggerBtnType='detail' />
           </div>
 
           {/* 인원 */}
           <div className='flex items-center gap-3'>
             <div className='flex items-center gap-4'>
-              <Txt size={16} align='center'>인원</Txt>
-              <Txt align='center'>2명</Txt>
+              <Txt size={16}>인원</Txt>
+              <Txt>{displayPeopleCount}명</Txt>
             </div>
-            <EditButton />
+            <BottomSheetPeopleCount triggerBtnType='detail' />
           </div>
         </div>
       </FixedBottomButton>

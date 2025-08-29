@@ -2,7 +2,7 @@ import Txt from '@/components/atoms/Text';
 
 type Props = {
   item: string;
-  mode: 'city' | 'countryside';
+  mode?: 'city' | 'countryside';
 };
 
 export default function StayDescription({ item, mode }: Props) {
