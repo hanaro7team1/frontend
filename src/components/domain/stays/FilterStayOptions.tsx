@@ -1,16 +1,17 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { Txt } from '@/components/atoms';
 import { formatDate, getDefaultDates } from '@/utils/stays/stays';
 import { StayOptionFilter, StaysSearchParams } from '@/types/stays';
 import { BottomSheetLocation, BottomSheetPeopleCount, BottomSheetSchedule } from '.';
 
-type Props = {
-  searchParams: StaysSearchParams;
-};
+export default function FilterStayOptions() {
+  const searchParams = useSearchParams();
+  const location = searchParams.get('location');
+  const schedule = searchParams.get('schedule');
+  const peopleCount = searchParams.get('peopleCount');
 
-export default function FilterStayOptions({ searchParams }: Props) {
-  const { location, schedule, peopleCount } = searchParams;
   const [today, twoDaysLater] = getDefaultDates();
 
   const FILTERS: StayOptionFilter[] = [
@@ -24,7 +25,7 @@ export default function FilterStayOptions({ searchParams }: Props) {
     {
       key: 'date',
       label: '일정',
-      valueSize: 16,
+      valueSize: 18,
       defaultValue: schedule || `${formatDate(today)}\n-${formatDate(twoDaysLater)}`,
       BottomSheetType: <BottomSheetSchedule />,
     },

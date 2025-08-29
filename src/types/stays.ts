@@ -17,3 +17,16 @@ export type StayOptionFilter = {
   defaultValue: string;
   BottomSheetType: ReactElement;
 };
+
+export type StayDetailResponseType = {
+  id: number;
+  title: string;
+  address: string;
+  capacity: number;
+  areaSize: number;
+  description: string;
+  isHomestay: boolean;
+  isActiveMsg: string;
+
+  // images?: string[];
+};

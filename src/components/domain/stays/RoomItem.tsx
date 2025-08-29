@@ -1,19 +1,31 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShadowBox, Txt } from '@/components/atoms';
+import { StaysSearchParams } from '@/types/stays';
 import { OpenDateModalBtn, StatusCapsule } from '.';
 import { RoomInfo } from '../../../../public/dummy';
 
 type Props = {
   data: RoomInfo;
   isAdmin: boolean;
+  searchParams: StaysSearchParams;
 };
 
-export default function RoomItem({ data, isAdmin }: Props) {
+export default function RoomItem({ data, isAdmin, searchParams }: Props) {
   const { id, name, location, hostName, status, imgUrl } = data;
+
+  const cleanSearchParams = Object.fromEntries(
+    Object.entries(searchParams).filter(([, value]) => typeof value === 'string'),
+  );
+  const params = new URLSearchParams(cleanSearchParams);
+  const href = {
+    pathname: `/stays/${id}`,
+    query: params.toString(),
+  };
+
   return (
     <ShadowBox>
-      <Link href={`/stays/${id}`}>
+      <Link href={href}>
         <Image
           src={imgUrl}
           alt={name}

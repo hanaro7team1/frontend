@@ -7,16 +7,15 @@ type Props = {
 };
 
 export default async function StaysPage({ searchParams }: Props) {
-  const params = await searchParams;
-
+  const searchParam = await searchParams;
   const isAdmin = false; // TODO: 추후에 세션에서 관리자 여부 읽어오기
 
   return (
     <>
       <Header title='사랑방 찾기' bgColor={isAdmin ? 'pink' : 'green'} />
-      <FilterRoomType searchParams={params} isAdmin={isAdmin} />
-      <FilterStayOptions searchParams={params} />
-      <RoomList />
+      <FilterRoomType searchParams={searchParam} isAdmin={isAdmin} />
+      <FilterStayOptions />
+      <RoomList searchParams={searchParam} />
       {!isAdmin && <BottomTabNav />}
     </>
   );

@@ -8,15 +8,20 @@ import { Button, Txt } from '@/components/atoms';
 import { BottomSheet } from '@/components/common';
 import { Calendar } from '@/components/ui/calendar';
 import { SheetClose } from '@/components/ui/sheet';
-import { formatDate, getDefaultDates } from '@/utils/stays/stays';
+import { formatDate, getDefaultDates, parseDateString } from '@/utils/stays/stays';
 
-export default function BottomSheetSchedule() {
+type Props = {
+  triggerBtnType?: 'default' | 'detail';
+};
+
+export default function BottomSheetSchedule({ triggerBtnType }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
   const prevSearchParam = searchParams.get('schedule');
-  const [defaultFrom, defaultTo] = prevSearchParam?.split('-') ?? getDefaultDates();
+  const [defaultFrom, defaultTo] =
+    prevSearchParam?.split('-').map(parseDateString) ?? getDefaultDates();
 
   // 선택된 입퇴실 날짜. default value는 searchParam에서 가져옴
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
@@ -36,7 +41,7 @@ export default function BottomSheetSchedule() {
   };
 
   return (
-    <BottomSheet>
+    <BottomSheet triggerBtnType={triggerBtnType}>
       <div className='flex flex-col gap-4 p-4'>
         <Txt size={24} align='center'>
           입실 날짜와 퇴실 날짜를
