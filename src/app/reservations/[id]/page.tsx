@@ -33,7 +33,7 @@ export default async function ReservationDetailPage({ params }: Props) {
       <Header title='예약 자세히 보기' />
 
       <main className='flex flex-col gap-9 px-5'>
-        <StayInfoCard data={{ stayPicURL, stayId, stayName, stayAddress }} />
+        <StayInfoCard data={{ stayPicURL, stayId, title: stayName, address: stayAddress }} />
         <GuestInfoCard data={{ guestName, schedule, peopleCount, doWork, guestTel }} />
         <HostInfoCard data={{ hostName, hostTel }} />
         <CancelBtn id={id} />

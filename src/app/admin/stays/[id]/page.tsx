@@ -17,7 +17,10 @@ export default async function AdminStayEditPage({ params }: Props) {
       <Header title='사랑방 정보 수정하기' />
 
       <main className='flex flex-col gap-10 px-5'>
-        <StayInfoCard data={{ stayPicURL, stayId, stayName, stayAddress }} isAdmin />
+        <StayInfoCard
+          data={{ stayPicURL, stayId, title: stayName, address: stayAddress }}
+          isAdmin
+        />
         <EditStay data={{ area, capacity, description }} />
       </main>
     </div>
