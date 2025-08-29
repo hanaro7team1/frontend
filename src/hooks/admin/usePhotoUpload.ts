@@ -1,44 +1,55 @@
 'use client';
 
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { SLOT_COUNT } from '@/constants/admin/Admin';
+import { UploadedImages } from '@/types/stays';
 
-export function usePhotoUpload(max = SLOT_COUNT) {
-  const [urls, setUrls] = useState<string[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
+//temp upload 훅입니다 (2단계에서 -> 3단계로 갈 때 s3 임시 폴더에 저장)
+async function presignOne(domain: string, file: File) {
+  //파일 타입 or 알 수 없음
+  const contentType = file.type;
+  const res = await fetch('/api/admin/upload/presign', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ domain, contentType }),
+  });
 
-  const openPicker = () => inputRef.current?.click();
+  //TODO: 모달로 처리 (사진 업로드 실패, 다시 시도해 주세요)
+  if (!res.ok) throw new Error('presign URL 발급 실패');
 
-  //TODO: 추후 S3로 변경
-  const appendFiles = useCallback(
-    (files: File[]) => {
-      if (!files?.length) return;
-      const newUrls = files.map((f) => URL.createObjectURL(f));
-      setUrls((prev) => {
-        const next = [...prev, ...newUrls].slice(0, max);
-        // 잘려나간 URL 정리
-        if (prev.length + newUrls.length > max) {
-          [...prev, ...newUrls].slice(max).forEach((u) => URL.revokeObjectURL(u));
-        }
-        return next;
-      });
-      if (inputRef.current) inputRef.current.value = '';
-    },
-    [max],
-  );
+  return res.json() as Promise<{
+    uploadUrl: string;
+    key: string;
+    contentType: string;
+    publicUrl: string;
+  }>;
+}
 
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    appendFiles(Array.from(e.target.files ?? []));
-  };
+//TODO: 모달로 처리
+async function putToS3(uploadUrl: string, file: File, contentType: string) {
+  const r = await fetch(uploadUrl, {
+    method: 'PUT',
+    headers: { 'Content-Type': contentType },
+    body: file,
+  });
+  if (!r.ok) throw new Error('S3 업로드 실패 ');
+}
 
-  const removeAt = (idx: number) =>
-    setUrls((prev) => {
-      const u = prev[idx];
-      if (u) URL.revokeObjectURL(u);
-      return prev.filter((_, i) => i !== idx);
-    });
+export function usePhotoUpload(domain: 'temp' | 'stays') {
+  async function uploadAll(items: { id: string; file: File }[]): Promise<UploadedImages[]> {
+    if (!items.length) return [];
 
-  useEffect(() => () => urls.forEach((u) => URL.revokeObjectURL(u)), [urls]);
-
-  return { urls, inputRef, openPicker, onInputChange, appendFiles, removeAt };
+    const results = await Promise.all(
+      items.map(async (it) => {
+        const p = await presignOne(domain, it.file);
+        await putToS3(p.uploadUrl, it.file, p.contentType);
+        return {
+          id: it.id,
+          key: p.key,
+          url: p.publicUrl,
+          contentType: p.contentType,
+        };
+      }),
+    );
+    return results;
+  }
+  return { uploadAll };
 }
