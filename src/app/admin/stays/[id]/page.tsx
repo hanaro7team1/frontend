@@ -1,10 +1,5 @@
-import { Txt } from '@/components/atoms';
 import { Header } from '@/components/common';
-import {
-  EditStayArea,
-  EditStayCapacity,
-  EditStayDescription,
-} from '@/components/domain/admin/edit';
+import { EditStay } from '@/components/domain/admin/edit';
 import { StayInfoCard } from '@/components/domain/reservations';
 import { stayDetail } from '../../../../../public/dummy';
 
@@ -23,14 +18,7 @@ export default async function AdminStayEditPage({ params }: Props) {
 
       <main className='flex flex-col gap-10 px-5'>
         <StayInfoCard data={{ stayPicURL, stayId, stayName, stayAddress }} isAdmin />
-        <div className='flex flex-col gap-4'>
-          <Txt size={22}>사랑방 정보 수정</Txt>
-          <div className='flex flex-col gap-3'>
-            <EditStayArea area={area} />
-            <EditStayCapacity capacity={capacity} />
-          </div>
-        </div>
-        <EditStayDescription data={{ description }} />
+        <EditStay data={{ area, capacity, description }} />
       </main>
     </div>
   );
