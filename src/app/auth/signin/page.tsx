@@ -1,21 +1,11 @@
 'use client'
 
-import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
 import type React from 'react';
-import { FormEvent, useState } from 'react';
 import { PasswordField } from '@/components/domain/admin/auth/PasswordField';
 import Image from 'next/image';
 import { Button, Input, Txt } from '@/components/atoms';
-import { string } from 'zod';
 
 export default function SignInPage() {
-  // db
-  const inpuuts = {
-    id : string,
-    pwd : string
-  };
-
   const commonPosision = "flex flex-col gap-3"
   
   return (
