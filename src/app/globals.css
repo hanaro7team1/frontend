@@ -22,6 +22,8 @@
   --color-gray-070: var(--code-theme7);
   --code-theme9: #d6d6d6;
   --color-gray-6d6: var(--code-theme9);
+  --code-theme12: #f6f7f9;
+  --color-gray-7f9: var(--code-theme12);
 
   --code-theme8: #f6985a;
   --color-orange-85a: var(--code-theme8);
