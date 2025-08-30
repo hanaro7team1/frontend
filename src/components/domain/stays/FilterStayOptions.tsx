@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { Txt } from '@/components/atoms';
 import { formatDate, getDefaultDates } from '@/utils/stays/stays';
-import { StayOptionFilter, StaysSearchParams } from '@/types/stays';
+import { OptionFilter } from '@/types/stays';
 import { BottomSheetLocation, BottomSheetPeopleCount, BottomSheetSchedule } from '.';
 
 export default function FilterStayOptions() {
@@ -14,7 +14,7 @@ export default function FilterStayOptions() {
 
   const [today, twoDaysLater] = getDefaultDates();
 
-  const FILTERS: StayOptionFilter[] = [
+  const FILTERS: OptionFilter[] = [
     {
       key: 'region',
       label: '지역',
