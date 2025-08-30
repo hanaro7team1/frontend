@@ -15,17 +15,17 @@ export default function BottomSheetPriceRange() {
   const prevSearchParam = searchParams.get('priceRange');
 
   const [newPriceRange, setNewPriceRange] = useState(
-    prevSearchParam ? prevSearchParam.split('-').map(Number) : [4000, 6000],
+    prevSearchParam
+      ? prevSearchParam
+          .split('-')
+          .map((v) => v.replace('만원', ''))
+          .map(Number)
+      : [4000, 6000],
   );
 
   const handleDone = () => {
     const params = new URLSearchParams(searchParams);
-    params.set(
-      'priceRange',
-      (newPriceRange[0] === 0 ? '' : newPriceRange[0] + '만원') +
-        '\n-\n' +
-        (newPriceRange[1] === 10000 ? '1억' : newPriceRange[1] + '만원'),
-    );
+    params.set('priceRange', newPriceRange[0] + '만원' + '\n-\n' + newPriceRange[1] + '만원');
     router.replace(`${pathname}?${params.toString()}`);
   };
 

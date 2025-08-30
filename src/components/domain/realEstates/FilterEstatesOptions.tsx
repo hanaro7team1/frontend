@@ -31,7 +31,7 @@ export default function FilterEstatesOptions() {
       key: 'priceRange',
       label: '가격',
       valueSize: 16,
-      defaultValue: priceRange || '4000만원\n-\n6000만원',
+      defaultValue: priceRange?.replace('10000만원', '1억') || '4000만원\n-\n6000만원',
       BottomSheetType: <BottomSheetPriceRange />,
     },
   ];
