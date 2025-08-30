@@ -9,7 +9,7 @@ export default function SplashPage() {
         <Txt className='text-gray-070'>시골과 도시의 연결</Txt>
       </div>
 
-      <Image src='/images/Img_Splash.svg' alt='시도 로고' width={200} height={230} />
+      <Image src='/images/Img_Splash.svg' alt='시도 로고' width={180} height={200} />
     </div>
   );
 }
