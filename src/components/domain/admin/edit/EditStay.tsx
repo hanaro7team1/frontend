@@ -51,7 +51,7 @@ export default function EditStay({ data }: Props) {
       <FixedBottomButton
         leftBtnText='취소하기'
         onClickLeftBtn={() => alert('취소')}
-        rightBtnText={'수정 완료하기'}
+        rightBtnText='수정 완료하기'
         onClickRightBtn={() => alert('수정완료')}
         isPink
       />
