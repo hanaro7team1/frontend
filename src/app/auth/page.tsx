@@ -28,20 +28,18 @@ export default function AuthPage() {
           className='bg-pink-09f flex w-full items-center justify-between rounded-[10px] px-6 py-4'
         >
           <UserLock color='white' size={30} />
-          <Txt size={20} weight='bold' className='ml-3 text-white'>
+          <Txt size={20} weight='bold' align='center' className='flex-1 text-white'>
             로그인 하러 가기
           </Txt>
-          <div className='h-1 w-[30px]' />
         </Link>
         <Link
           href='/auth/signup'
           className='border-pink-09f flex w-full items-center justify-between rounded-[10px] border bg-white px-6 py-4'
         >
           <UserPlus color='var(--code-theme11)' size={30} />
-          <Txt size={20} weight='bold' className='text-pink-09f ml-3'>
+          <Txt size={20} weight='bold' align='center' className='text-pink-09f flex-1'>
             회원가입 하러 가기
           </Txt>
-          <div className='h-1 w-[30px]' />
         </Link>
       </div>
     </div>
