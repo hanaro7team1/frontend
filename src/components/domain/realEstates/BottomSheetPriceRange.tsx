@@ -4,8 +4,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { BottomSheet } from '@/components/common';
+import { DoubleSlider } from '@/components/ui/doubleSlider';
 import { SheetClose } from '@/components/ui/sheet';
-import { Slider } from '@/components/ui/slider';
 
 export default function BottomSheetPriceRange() {
   const router = useRouter();
@@ -35,7 +35,7 @@ export default function BottomSheetPriceRange() {
         <Txt size={24}>가격 범위를 선택하세요</Txt>
 
         <div className='relative mt-25 mb-10 h-[50px] w-full px-4'>
-          <Slider
+          <DoubleSlider
             value={newPriceRange}
             defaultValue={newPriceRange}
             onValueChange={setNewPriceRange}
