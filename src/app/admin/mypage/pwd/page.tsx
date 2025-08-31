@@ -6,7 +6,7 @@ import NoticeModal from "@/components/domain/admin/mypage/NoticeModal";
 import useValidation from "@/hooks/auth/useValidation";
 import { useState } from "react";
 
-export default function AdmainPwdPage() {
+export default function AdminPwdPage() {
   const {form, errors, handleChange} = useValidation();
 
   const [openNotice, setOpenNotice] = useState(false);
@@ -15,13 +15,13 @@ export default function AdmainPwdPage() {
   };
 
   return (
-    <>
+    <form>
       <Header className="mb-[50px]" title="비밀번호 변경" />
     
       <div className="flex flex-col gap-9 p-8">
         <div>
           <Txt size={24}>기존 비밀번호</Txt>
-          <Input placeholder="기존 비밀번호를 입력해 주세요" />
+          <Input type="password" placeholder="기존 비밀번호를 입력해 주세요" />
         </div>
 
         <div>
@@ -55,7 +55,7 @@ export default function AdmainPwdPage() {
       </div> 
 
       <NoticeModal open={openNotice} text="비밀번호"/>
-    </>
+    </form>
   );
 }
 
