@@ -1,14 +1,23 @@
+'use client'
+
 import { Txt } from '@/components/atoms';
 import { BottomTabNav, Header } from '@/components/common';
 import ListBox from '@/components/domain/festivals/ListBox';
 import Image from 'next/image';
+import { dummyFestivals } from '../../../public/dummy';
+import { useEffect, useState } from 'react';
 
 export default function FestivalsPage() {
-  // db
-  
-  const {img, title, startDate, endDate, city, url} = smapleFestival;
+  const [hasNext, setHasNext] = useState();
+  const [page, setPage] = useState(0);
 
-  
+  useEffect(() => {
+    void loadData();
+  }, []);
+
+  async function loadData() {
+    
+  }
 
   return <>
     <Header title='지역 축제' bgColor='green'/>
@@ -22,9 +31,10 @@ export default function FestivalsPage() {
       </div>
     </div>
 
-    <div className='flex flex-col p-6'>
-      <ListBox img={img} title={title} startDate={startDate} endDate={endDate} city={city} url={url} />
-
+    <div className='flex flex-col p-6 gap-4'>
+      {dummyFestivals.map(f => (
+        <ListBox key = {f.id} {...f} />
+      ))}
     </div>
 
     <BottomTabNav />
