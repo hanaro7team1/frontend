@@ -5,14 +5,7 @@ import Image from 'next/image';
 
 export default function FestivalsPage() {
   // db
-  const smapleFestival = {
-    img:"/images/dummy_image.png",
-    title: "신정호 별빛축제",
-    startDate:"2025.09.01",
-    endDate:"2025.09.10",
-    city:"충청남도 아산시",
-    url:"https://github.com/hanaro7team1/frontend"
-  }
+  
   const {img, title, startDate, endDate, city, url} = smapleFestival;
 
   
