@@ -69,7 +69,7 @@ export default function LoginForm() {
         disabled={isLoading}
       />
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="text-red-500">{error}</p>}
     </form>
   );
 }
