@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { createContext, useCallback, useContext, useMemo, useRef } from 'react';
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { clampNum } from '@/lib/utils';
 import { BeforeNextFn, WizardContext } from '@/types/wizard';
 
@@ -13,12 +13,23 @@ const wizardContext = createContext<WizardContext | null>(null);
 
 export default function WizardProvider({ children }: { children: React.ReactNode }) {
   const search = useSearchParams();
+
   const pathName = usePathname();
+
   const router = useRouter();
+
+  const [disabledByStep, setDisabledByStep] = useState<Record<number, boolean>>({});
+
+  const setNextDisabled = useCallback((step: number, disabled: boolean) => {
+    setDisabledByStep((prev) => (prev[step] === disabled ? prev : { ...prev, [step]: disabled }));
+  }, []);
 
   //현재 스텝 계산
   const raw = Number(search.get('step') ?? 1);
+
   const currentStep = clampNum({ n: isNaN(raw) ? 1 : raw });
+
+  const isNextDisable = disabledByStep[currentStep] ?? true;
 
   //step 번호가 key, 다음으로 이동하기 전에 실행할 함수 BeforeNextFn
   const req = useRef(new Map<number, BeforeNextFn>());
@@ -57,8 +68,8 @@ export default function WizardProvider({ children }: { children: React.ReactNode
   }, []);
 
   const value = useMemo(
-    () => ({ registerBeforeNext, currentStep, goToStep }),
-    [registerBeforeNext, currentStep, goToStep],
+    () => ({ registerBeforeNext, currentStep, goToStep, setNextDisabled, isNextDisable }),
+    [registerBeforeNext, currentStep, goToStep, setNextDisabled, isNextDisable],
   );
 
   return <wizardContext.Provider value={value}>{children}</wizardContext.Provider>;

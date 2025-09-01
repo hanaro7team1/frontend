@@ -1,3 +1,5 @@
+import { WizardActions, WizardData } from '@/types/wizard';
+
 /**
  * Date객체를 YY.MM.DD 형태로 format해주는 함수
  * @param date : Date 객체
@@ -58,4 +60,32 @@ export function getExtFromName(name: string): string | null {
 // File 객체에서 편의 함수
 export function getExtFromFile(file: File): string | null {
   return getExtFromName(file.name);
+}
+
+//스텝 데이터 초기화 함수
+export const makeInitial = (): WizardData => ({
+  step1: { address: '', detailAddress: '' },
+  step2: { capacity: 0, areaSize: 0 },
+  step3: { s3Keys: [] },
+  step4: { hostName: '', hostPhone: '' },
+  step5: { description: '' },
+});
+
+export function reducer(state: WizardData, action: WizardActions): WizardData {
+  switch (action.type) {
+    case 'SET_STEP1':
+      return { ...state, step1: { ...state.step1, ...action.payload } };
+    case 'SET_STEP2':
+      return { ...state, step2: { ...state.step2, ...action.payload } };
+    case 'SET_STEP3':
+      return { ...state, step3: { ...state.step3, ...action.payload } };
+    case 'SET_STEP4':
+      return { ...state, step4: { ...state.step4, ...action.payload } };
+    case 'SET_STEP5':
+      return { ...state, step5: { ...state.step5, ...action.payload } };
+    case 'RESET':
+      return makeInitial();
+    default:
+      return state;
+  }
 }

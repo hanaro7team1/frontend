@@ -8,7 +8,7 @@ import { useWizard } from './WizardProvider';
 //버튼 핸들러 담당
 
 export default function WizardNav() {
-  const { currentStep, goToStep } = useWizard();
+  const { currentStep, goToStep, isNextDisable } = useWizard();
   const leftButtonTxt = currentStep === FIRST_STEP_NUM ? '취소' : '이전';
   const rightButtonTxt = currentStep === TOTAL_STEP_NUM ? '등록 완료' : '다음';
 
@@ -30,6 +30,7 @@ export default function WizardNav() {
       isPink={true}
       onClickRightBtn={nextStep}
       onClickLeftBtn={prevStep}
+      disabled={isNextDisable}
     />
   );
 }
