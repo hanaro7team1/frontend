@@ -69,7 +69,7 @@ export default function LoginForm() {
         disabled={isLoading}
       />
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <Txt className='text-red-500'>{error}</Txt>}
     </form>
   );
 }
