@@ -1,7 +1,7 @@
 import { Txt } from "@/components/atoms";
 import { BottomTabNav, Header } from "@/components/common";
 import Image from "next/image";
-import { CalendarCheck, HandCoinsIcon, MapPinned } from 'lucide-react';
+import { CalendarCheck, HandCoinsIcon, Link, MapPinned } from 'lucide-react';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -39,6 +39,11 @@ export default async function FestivalDetailPage({ params }: Props) {
         <div className={`${commonPosision}`}>
           <HandCoinsIcon color="var(--code-theme1)" size={20}/>
           <Txt>무료</Txt>
+        </div>
+
+        <div className={`${commonPosision}`}>
+          <Link color="var(--code-theme1)" size={20}/>
+          <Txt>주소창</Txt>
         </div>
     </div>
   
