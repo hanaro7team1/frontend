@@ -23,6 +23,7 @@ export default function GifLoader({
         draggable={false}
         width={size}
         height={size}
+        unoptimized
       />
     </div>
   );

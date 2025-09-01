@@ -8,7 +8,7 @@ import GifLoader from '@/components/common/GifLoaders';
 //SSR 단계에서 window에 의존하는 임베드 충돌 방지
 const DaumPostcodeEmbed = dynamic(
   () => import('react-daum-postcode').then((mod) => mod.DaumPostcodeEmbed),
-  { loading: () => <GifLoader path='/loaders/spin.gif' /> },
+  { loading: () => <GifLoader path='/loaders/spin.gif' size={70} /> },
 );
 
 type Props = {
