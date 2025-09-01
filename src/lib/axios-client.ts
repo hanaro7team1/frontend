@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 // 인증 필요한 API
 // 클라이언트컴포넌트용
 export const privateApi = axios.create({
-  baseURL: `${BASE_URL}/api/private`,
+  baseURL: BASE_URL,
   withCredentials: true, // 브라우저가 쿠키를 자동 전송
   headers: {
     'Content-Type': 'application/json',
@@ -47,13 +47,13 @@ privateApi.interceptors.response.use(
 export const authApi = {
   login: async (loginData: { loginId: string; password: string }) => {
     // publicApi 호출, 서버가 HttpOnly 쿠키에 access/refresh 토큰 저장
-    const response = await publicApi.post('/api/members/signin', loginData, {
+    const { data: userData } = await publicApi.post('/api/members/signin', loginData, {
       withCredentials: true, // 쿠키 받기
     });
 
     // 토큰은 httpOnly 쿠키로 자동 저장됨
     // 사용자 정보만 localStorage에 저장
-    const { loginId, role, name, memberId } = response.data;
+    const { loginId, role, name, memberId } = userData;
     localStorage.setItem(
       'user',
       JSON.stringify({
@@ -64,7 +64,7 @@ export const authApi = {
       }),
     );
 
-    return response.data;
+    return userData;
   },
 
   logout: async () => {
