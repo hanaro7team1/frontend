@@ -36,12 +36,4 @@ export type PreviewImageItem = {
   file: File;
   previewUrl: string;
 };
-
-export type UploadedImages = {
-  id: string; // PreviewItem.id 그대로
-  key: string; // temp/... 키
-  url: string; // temp 공개 URL
-  contentType: string; // 예: image/jpeg
-};
-
 export type PresignResp = { url: string; key: string };

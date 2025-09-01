@@ -8,15 +8,15 @@ import { useWizard } from '../../wizard/WizardProvider';
 import { SearchButton } from './SearchButton';
 
 export default function AddAdress() {
-  const { registerBeforeNext, setNextDisabled } = useWizard();
+  const { currentStep, registerBeforeNext, setNextDisabled } = useWizard();
   const { data, dispatch } = useWizardData();
   const [open, setOpen] = useState(false);
 
   const isValid = !!data.step1.address.trim();
 
   useEffect(() => {
-    setNextDisabled(1, !isValid);
-    return registerBeforeNext(1, () => isValid || false);
+    setNextDisabled(currentStep, !isValid);
+    return registerBeforeNext(currentStep, () => isValid || false);
   }, [isValid, setNextDisabled, registerBeforeNext]);
 
   return (

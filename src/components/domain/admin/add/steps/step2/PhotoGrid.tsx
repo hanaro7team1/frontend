@@ -1,5 +1,6 @@
 'use client';
 
+import { SLOT_COUNT } from '@/constants/admin/Admin';
 import PhotoTile from './PhotoTile';
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
   onRemoveAt?: (idx: number) => void;
 };
 
-export default function PhotoGrid({ urls, slots = 6, onPick, onRemoveAt }: Props) {
+export default function PhotoGrid({ urls, slots = SLOT_COUNT, onPick, onRemoveAt }: Props) {
   return (
     <div className='border-gray-6d6 grid grid-cols-3 gap-2 rounded-[10px] border p-2'>
       {Array.from({ length: slots }).map((_, i) => (

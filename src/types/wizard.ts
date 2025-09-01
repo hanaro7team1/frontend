@@ -12,8 +12,8 @@ export type WizardDataContext = { data: WizardData; dispatch: React.Dispatch<Wiz
 
 //각 스텝별 데이터 타입
 export type Step1 = { address: string; detailAddress: string };
-export type Step2 = { capacity: number; areaSize: number };
-export type Step3 = { s3Keys: string[] };
+export type Step2 = { s3Keys: string[] };
+export type Step3 = { capacity: number; areaSize: number };
 export type Step4 = { hostName: string; hostPhone: string };
 export type Step5 = { description: string };
 
