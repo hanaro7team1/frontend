@@ -65,8 +65,8 @@ export function getExtFromFile(file: File): string | null {
 //스텝 데이터 초기화 함수
 export const makeInitial = (): WizardData => ({
   step1: { address: '', detailAddress: '' },
-  step2: { capacity: 0, areaSize: 0 },
-  step3: { s3Keys: [] },
+  step2: { s3Keys: [] },
+  step3: { capacity: 0, areaSize: 0 },
   step4: { hostName: '', hostPhone: '' },
   step5: { description: '' },
 });
