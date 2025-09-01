@@ -30,7 +30,7 @@ export default function BottomSheetLocation() {
     <BottomSheet>
       <div className='flex flex-col gap-4 p-4'>
         <Txt size={24} align='center'>
-          숙박할 지역을 선택하세요
+          지역을 선택하세요
         </Txt>
 
         <Accordion
