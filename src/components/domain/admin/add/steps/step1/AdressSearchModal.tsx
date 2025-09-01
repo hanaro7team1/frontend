@@ -2,6 +2,7 @@
 
 import type { Address } from 'react-daum-postcode';
 import dynamic from 'next/dynamic';
+import Txt from '@/components/atoms/Text';
 import { Header } from '@/components/common';
 import GifLoader from '@/components/common/GifLoaders';
 
@@ -38,7 +39,11 @@ export default function AddressSearchModal({ open, onClose, onSelect }: Props) {
     <div>
       <div className='bg-black-626/40 absolute inset-0 z-100' onClick={onClose} />
       <div className='fixed top-24 left-1/2 z-[100] w-5/6 -translate-x-1/2 sm:w-sm'>
-        <Header title={'주소 찾기'}></Header>
+        <header className='border-black-626/15 sticky top-0 z-50 flex h-[50px] w-full items-center border-b bg-gray-200 px-2'>
+          <Txt size={24} align='center' className='flex-1'>
+            {'주소 찾기'}
+          </Txt>
+        </header>
         <div className='grid h-[480px] place-items-center bg-white'>
           <DaumPostcodeEmbed
             onComplete={handleComplete}
