@@ -16,9 +16,8 @@ export const useAuth = () => {
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
-    const accessToken = localStorage.getItem('accessToken');
 
-    if (savedUser && accessToken) {
+    if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
     setIsLoading(false);
