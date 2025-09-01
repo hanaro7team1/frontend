@@ -2,17 +2,15 @@
 
 import { useSearchParams } from 'next/navigation';
 import { Txt } from '@/components/atoms';
-import { formatDate, getDefaultDates } from '@/utils/stays/stays';
 import { OptionFilter } from '@/types/stays';
-import { BottomSheetLocation, BottomSheetPeopleCount, BottomSheetSchedule } from '.';
+import { BottomSheetDealType, BottomSheetPriceRange } from '.';
+import { BottomSheetLocation } from '../stays';
 
-export default function FilterStayOptions() {
+export default function FilterEstatesOptions() {
   const searchParams = useSearchParams();
   const location = searchParams.get('location');
-  const schedule = searchParams.get('schedule');
-  const peopleCount = searchParams.get('peopleCount');
-
-  const [today, twoDaysLater] = getDefaultDates();
+  const dealType = searchParams.get('dealType');
+  const priceRange = searchParams.get('priceRange');
 
   const FILTERS: OptionFilter[] = [
     {
@@ -23,18 +21,18 @@ export default function FilterStayOptions() {
       BottomSheetType: <BottomSheetLocation />,
     },
     {
-      key: 'date',
-      label: '일정',
-      valueSize: 18,
-      defaultValue: schedule || `${formatDate(today)}\n-${formatDate(twoDaysLater)}`,
-      BottomSheetType: <BottomSheetSchedule />,
+      key: 'dealType',
+      label: '거래형태',
+      valueSize: 22,
+      defaultValue: dealType || '전세',
+      BottomSheetType: <BottomSheetDealType />,
     },
     {
-      key: 'people',
-      label: '인원',
-      valueSize: 22,
-      defaultValue: peopleCount || '2',
-      BottomSheetType: <BottomSheetPeopleCount />,
+      key: 'priceRange',
+      label: '가격',
+      valueSize: 16,
+      defaultValue: priceRange?.replace('10000만원', '1억') || '4000만원\n-\n6000만원',
+      BottomSheetType: <BottomSheetPriceRange />,
     },
   ];
 
@@ -48,8 +46,12 @@ export default function FilterStayOptions() {
           <Txt align='center' className='text-gray-070'>
             {label}
           </Txt>
-          <Txt align='center' size={valueSize} className={valueSize === 16 ? 'leading-4' : ''}>
-            {defaultValue + (label === '인원' ? '명' : '')}
+          <Txt
+            align='center'
+            size={valueSize}
+            className={valueSize === 16 ? 'leading-4 whitespace-pre-line' : ''}
+          >
+            {defaultValue}
           </Txt>
           {BottomSheetType}
         </div>
