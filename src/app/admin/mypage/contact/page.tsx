@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { Button, Input, Txt } from '@/components/atoms';
 import { Header } from '@/components/common';
 import NoticeModal from '@/components/domain/admin/mypage/NoticeModal';
-import { phoneHyphen } from '@/utils/common/phoneHyphen';
+import '@/utils/common/phoneHyphen';
+import { formatPhone } from '@/utils/common/phoneHyphen';
 
 export default function AdminContactPage() {
   // db
@@ -38,7 +39,7 @@ export default function AdminContactPage() {
             변경할 전화번호
           </Txt>
           <Input
-            value={phoneHyphen(newPhone)}
+            value={formatPhone(newPhone)}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPhone(e.target.value)}
             placeholder='변경할 전화번호를 입력하세요'
           />
