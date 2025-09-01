@@ -16,7 +16,7 @@ export default function NoticeModal({open, text}: Props) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-            <div className="w-[372px] h-[193px] shrink-0 rounded-[10px]
+            <div className="w-full mx-4 h-[193px] shrink-0 rounded-[10px]
                     border border-[#DEDEDE] bg-white p-5 shadow-md
                     flex flex-col items-center justify-between">
                 <Txt size={26} className="text-center">{message}</Txt>
