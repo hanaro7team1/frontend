@@ -7,6 +7,8 @@ import useValidation from "@/hooks/auth/useValidation";
 import { useState } from "react";
 
 export default function AdminPwdPage() {
+  const [password, setPassword] = useState('');
+
   const {form, errors, handleChange} = useValidation();
 
   const [openNotice, setOpenNotice] = useState(false);
@@ -21,7 +23,11 @@ export default function AdminPwdPage() {
       <div className="flex flex-col gap-9 p-8">
         <div>
           <Txt size={24}>기존 비밀번호</Txt>
-          <Input type="password" placeholder="기존 비밀번호를 입력해 주세요" />
+          <PasswordField
+            value={password}
+            placeholder={'기존 비밀번호를 입력해 주세요'}
+            onChange={setPassword}
+          />
         </div>
 
         <div>

@@ -2,6 +2,7 @@
 
 import { Button, Input, Txt } from "@/components/atoms";
 import { Header, Modal } from "@/components/common";
+import { PasswordField } from "@/components/domain/admin/auth/PasswordField";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -9,6 +10,7 @@ export default function AdminQuitPage() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {setIsModalOpen(true)};
+  const [password, setPassword] = useState('');
 
   return (
     <>
@@ -17,6 +19,11 @@ export default function AdminQuitPage() {
       <div  className="p-8 flex flex-col gap-5">
         <Txt size={24}>비밀번호 확인</Txt>
         <Input placeholder="비밀번호를 입력해 주세요" />
+        <PasswordField
+                    value={password}
+                    placeholder={'비밀번호를 입력해 주세요'}
+                    onChange={setPassword}
+        />
         <Button title="탈퇴하기" color="pink" onClick={openModal}/>
       </div>
 
