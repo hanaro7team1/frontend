@@ -18,7 +18,6 @@ export default function AdminQuitPage() {
 
       <div  className="p-8 flex flex-col gap-5">
         <Txt size={24}>비밀번호 확인</Txt>
-        <Input placeholder="비밀번호를 입력해 주세요" />
         <PasswordField
                     value={password}
                     placeholder={'비밀번호를 입력해 주세요'}
