@@ -18,6 +18,16 @@ export default function AdminContactPage() {
     setOpenNotice(true);
   };
 
+  const phoneHyphen = (h: string) => {
+    const digits = h.replace(/\D/g, '');
+
+    if (digits.length < 4) return digits;
+    if (digits.length < 8) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    if (digits.length == 10) return `${digits.slice(0,3)}-${digits.slice(3,6)}-${digits.slice(6,10)}`;
+
+    return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7, 11)}`;
+  };
+
   return (
     <>
       <Header title="전화번호 변경"/>
@@ -31,7 +41,7 @@ export default function AdminContactPage() {
       
         <div className="flex flex-col gap-4 mt-[30px]">
           <Txt size={24} className="text-gray-070">변경할 전화번호</Txt>
-          <Input value={newPhone} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPhone(e.target.value)}
+          <Input value={phoneHyphen(newPhone)} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPhone(e.target.value)}
             placeholder="변경할 전화번호를 입력하세요"/>
         </div>
         
