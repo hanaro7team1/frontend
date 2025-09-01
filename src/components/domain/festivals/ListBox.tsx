@@ -20,9 +20,9 @@ export default function ListBox({img, title, startDate, endDate, city, url}:Prop
         <div className="flex gap-2">
             <Image src={img} alt="축제" width={150} height={150} className="rounded-[8px] shrink-0"/>
             <div className="flex flex-col">
-                <Txt size={20}>{title}</Txt>
-                <Txt size={18}>{startDate} ~ {endDate}</Txt>
-                <Txt size={15}>{city}</Txt>
+                <Txt>{title}</Txt>
+                <Txt>{startDate} ~ {endDate}</Txt>
+                <Txt>{city}</Txt>
                 <Button title="상세보기" color="gray" className="h-[35px]" onClick={() => router.push(`${url}`)}/>
             </div>
         </div>
