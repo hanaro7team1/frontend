@@ -1,44 +1,31 @@
+'use client';
+
 import { DialogProps } from '@radix-ui/react-dialog';
+import { usePathname } from 'next/navigation';
 import { PropsWithChildren } from 'react';
+import { cn } from '@/lib/utils';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { getStyleAndtextSize } from '@/utils/common/bottomSheetTrigger';
 import { Txt } from '../atoms';
 
-type TriggerBtnType = 'default' | 'detail';
-
-type Props = {
-  triggerBtnType?: TriggerBtnType;
-};
-
-export default function BottomSheet({
-  children,
-  triggerBtnType = 'default',
-  ...props
-}: PropsWithChildren & DialogProps & Props) {
-  let triggerButton = null;
-
-  if (triggerBtnType === 'default') {
-    // 기본 버튼 (/stays 페이지 필터)
-    triggerButton = (
-      <div className='bg-black-626/45 mt-1 flex cursor-pointer items-center justify-center rounded-full p-0.5 px-3'>
-        <Txt size={18} className='text-white'>
-          변경하기
-        </Txt>
-      </div>
-    );
-  } else if (triggerBtnType === 'detail') {
-    // 상세 버튼 (상세 페이지 필터)
-    triggerButton = (
-      <div className='bg-black-626/45 flex flex-shrink-0 cursor-pointer items-center justify-center rounded-full px-4 py-1.5'>
-        <Txt size={16} className='text-white'>
-          변경하기
-        </Txt>
-      </div>
-    );
-  }
+export default function BottomSheet({ children, ...props }: PropsWithChildren & DialogProps) {
+  const pathname = usePathname();
+  const { btnStyle, textSize, text } = getStyleAndtextSize(pathname);
 
   return (
     <Sheet {...props}>
-      {triggerButton && <SheetTrigger asChild>{triggerButton}</SheetTrigger>}
+      <SheetTrigger asChild>
+        <div
+          className={cn(
+            'bg-black-626/45 flex flex-shrink-0 cursor-pointer items-center justify-center rounded-full p-0.5 px-3',
+            btnStyle,
+          )}
+        >
+          <Txt size={textSize} align='center' className='text-white'>
+            {text ?? '변경하기'}
+          </Txt>
+        </div>
+      </SheetTrigger>
 
       <SheetContent
         side='bottom'

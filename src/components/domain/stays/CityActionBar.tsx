@@ -44,7 +44,7 @@ export default function CityActionBar({ id, onReserve, onInquiry, schedule, peop
               <Txt size={16}>일정</Txt>
               <Txt>{displaySchedule}</Txt>
             </div>
-            <BottomSheetSchedule triggerBtnType='detail' />
+            <BottomSheetSchedule />
           </div>
 
           {/* 인원 */}
@@ -53,7 +53,7 @@ export default function CityActionBar({ id, onReserve, onInquiry, schedule, peop
               <Txt size={16}>인원</Txt>
               <Txt>{displayPeopleCount}명</Txt>
             </div>
-            <BottomSheetPeopleCount triggerBtnType='detail' />
+            <BottomSheetPeopleCount />
           </div>
         </div>
       </FixedBottomButton>

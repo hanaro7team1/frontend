@@ -1,40 +1,34 @@
 'use client';
 
 import { CircleMinus, CirclePlus } from 'lucide-react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Txt } from '@/components/atoms';
 import { BottomSheet } from '@/components/common';
 import { SheetClose } from '@/components/ui/sheet';
 
-export default function BottomSheetPeopleCount() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+type Props = {
+  newCapacity: number;
+  setNewCapacity: Dispatch<SetStateAction<number>>;
+};
 
-  const prevSearchParam = searchParams.get('peopleCount');
-
-  const [count, setCount] = useState(+(prevSearchParam ?? 2));
-
+export default function BottomSheetCapacity({ newCapacity, setNewCapacity }: Props) {
   const handleDone = () => {
-    const params = new URLSearchParams(searchParams);
-    params.set('peopleCount', count + '');
-    router.replace(`${pathname}?${params.toString()}`);
+    setNewCapacity(newCapacity);
   };
 
   return (
     <BottomSheet>
       <div className='flex flex-col gap-10 p-4'>
         <Txt size={24} align='center'>
-          숙박 인원을 선택하세요
+          최대 수용 인원을 선택하세요
         </Txt>
 
         <div className='flex justify-between px-20'>
-          <button onClick={() => setCount((prev) => Math.max(1, prev - 1))}>
+          <button onClick={() => setNewCapacity((prev) => Math.max(1, prev - 1))}>
             <CircleMinus size={40} color='var(--code-theme6)' />
           </button>
-          <Txt size={30}>{count} 명</Txt>
-          <button onClick={() => setCount((prev) => prev + 1)}>
+          <Txt size={30}>{newCapacity} 명</Txt>
+          <button onClick={() => setNewCapacity((prev) => prev + 1)}>
             <CirclePlus size={40} color='var(--code-theme6)' />
           </button>
         </div>
