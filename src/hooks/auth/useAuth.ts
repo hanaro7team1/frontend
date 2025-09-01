@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { authApi } from '@/lib/axios';
+import { authApi } from '@/lib/axios-client';
 
 interface User {
   loginId: string;
