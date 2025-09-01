@@ -5,19 +5,48 @@ import { BottomTabNav, Header } from '@/components/common';
 import ListBox from '@/components/domain/festivals/ListBox';
 import Image from 'next/image';
 import { dummyFestivals } from '../../../public/dummy';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+const PAGE_SIZE = 4;
 
 export default function FestivalsPage() {
-  const [hasNext, setHasNext] = useState();
+  type Festival = typeof dummyFestivals[number];
+
+  const [events, setEvents] = useState<Festival[]>([]);
+  const [hasNext, setHasNext] = useState(true);
   const [page, setPage] = useState(0);
+  const [load, setLoad] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  const loadData = useCallback(() => {
+    if(load || !hasNext) return;
+    setLoad(true);
+
+    const start = page * PAGE_SIZE;
+    const end = page + PAGE_SIZE;
+    const chunk = dummyFestivals.slice(start, end);
+
+    setEvents(prev => [...prev, ...chunk]);
+    setHasNext(end < dummyFestivals.length);
+    setPage(prev => prev + 1);
+    setLoad(false);
+  }, [page, load, hasNext]);
 
   useEffect(() => {
     void loadData();
   }, []);
 
-  async function loadData() {
-    
-  }
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if(!el) return;
+
+    const io = new IntersectionObserver(([entry]) => {
+      if(entry.isIntersecting) loadData();
+    }, {rootMargin: '100px'});
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, [loadData]);
 
   return <>
     <Header title='지역 축제' bgColor='green'/>
@@ -35,6 +64,10 @@ export default function FestivalsPage() {
       {dummyFestivals.map(f => (
         <ListBox key = {f.id} {...f} />
       ))}
+    </div>
+
+    <div ref={sentinelRef} className='flex items-center justifiy justify-center text-gray-6d6'>
+      {load ? '불러오는중...' : hasNext ? '스크롤하여 더보기' : ''}
     </div>
 
     <BottomTabNav />
