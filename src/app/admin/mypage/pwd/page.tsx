@@ -86,9 +86,9 @@ export default function AdminPwdPage() {
 
           <Button title='변경하기' color='pink' onClick={editPwd} disabled={isDisabled} />
         </div>
-
-        <NoticeModal open={openNotice} text='비밀번호' />
       </form>
+
+      <NoticeModal open={openNotice} text='비밀번호' />
     </>
   );
 }
