@@ -3,7 +3,6 @@
 import type { Address } from 'react-daum-postcode';
 import dynamic from 'next/dynamic';
 import Txt from '@/components/atoms/Text';
-import { Header } from '@/components/common';
 import GifLoader from '@/components/common/GifLoaders';
 
 //SSR 단계에서 window에 의존하는 임베드 충돌 방지

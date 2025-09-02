@@ -41,7 +41,9 @@ export default function StayPreview() {
       step5: { description = '' } = {},
     } = data ?? {};
 
-    const images =
+    const rawKeys = data.step2?.s3Keys ?? [];
+
+    const previewImages =
       s3Keys.length > 0
         ? s3Keys.map((k) => keyToPublicUrl(k))
         : ['/images/sample1.png', '/images/sample2.png']; // 미리 보기 이미지
@@ -54,7 +56,8 @@ export default function StayPreview() {
       hostName,
       hostPhone,
       description,
-      images,
+      s3Keys: rawKeys,
+      images: previewImages,
     };
   }, [data]);
 
@@ -70,18 +73,9 @@ export default function StayPreview() {
 
       // 마지막 스텝에 모달 오픈
       try {
-        const { address, detailAddress, capacity, areaSize, hostName, hostPhone, description } =
-          stay;
+        const { images, ...payload } = stay;
 
-        const { data: res } = await privateApi.post('/api/admin/stays', {
-          address,
-          detailAddress,
-          hostName,
-          capacity,
-          areaSize,
-          description,
-          hostPhone,
-        });
+        await privateApi.post('/api/admin/stays', payload);
 
         setIsModalOpen(true); // 모달 먼저 띄우기
         setNextDisabled(currentStep, true); // 모달 떠있는 동안 Next 잠금
