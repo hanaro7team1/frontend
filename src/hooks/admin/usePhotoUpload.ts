@@ -1,5 +1,7 @@
 'use client';
 
+import axios from 'axios';
+import { privateApi } from '@/lib/axios-client';
 import { getExtFromFile } from '@/utils/stays/stays';
 import { PresignResp } from '@/types/stays';
 
@@ -9,18 +11,19 @@ async function presignOne(domain: string, file: File) {
   const contentType = file.type;
   const extension = getExtFromFile(file) ?? 'bin';
 
-  const res = await fetch('/api/admin/upload/presign', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ domain, extension, contentType }),
+  const { data: presign } = await privateApi.post('/api/admin/upload/presign', {
+    domain,
+    extension,
+    contentType,
   });
 
-  //TODO: 모달로 처리 (사진 업로드 실패, 다시 시도해 주세요)
-  if (!res.ok) throw new Error('presign URL 발급 실패');
+  //TODO: 모달로 처리 (사진 업로드 실패, 다시 시도해 주세요
 
-  const presign = (await res.json()) as PresignResp;
+  if (!presign?.url || !presign?.key) {
+    console.error('Invalid presign response:', presign);
+    throw new Error('Presign 응답이 올바르지 않습니다');
+  }
+  console.log('[PRESIGN]', presign.url, presign.key);
 
   return { presign, contentType };
 }
@@ -28,12 +31,14 @@ async function presignOne(domain: string, file: File) {
 //TODO: 모달로 처리
 async function putToS3(uploadUrl: string, file: File, contentType: string) {
   console.log('[S3 PUT try]', uploadUrl); // ✅ 반드시 절대 URL 찍기
-  const r = await fetch(uploadUrl, {
-    method: 'PUT',
+  const r = await axios.put(uploadUrl, file, {
     headers: { 'Content-Type': contentType },
-    body: file,
+    // S3는 200/204가 일반적, body 없음
+    maxBodyLength: Infinity,
   });
-  if (!r.ok) throw new Error('S3 업로드 실패 ');
+  if (r.status < 200 || r.status >= 300) {
+    throw new Error(`S3 업로드 실패: ${r.status}`);
+  }
   return r;
 }
 
@@ -44,11 +49,18 @@ export function usePhotoUpload(domain: 'temp' | 'stays') {
     const tasks = items.map(async (it) => {
       const { presign, contentType } = await presignOne(domain, it.file);
       const res = await putToS3(presign.url, it.file, contentType);
-      // putToS3가 Response를 반환하지 않으면 여기서 검사 불가 → 아래 “2)” 참고
-      if (res && !res.ok) throw new Error(`PUT failed: ${res.status}`);
       return presign.key; // 성공 시 key만 반환
     });
     const settled = await Promise.allSettled(tasks);
+
+    //TODO: 디버깅용 지우기
+
+    settled.forEach((r, idx) => {
+      if (r.status === 'rejected') {
+        console.error(`[UPLOAD FAIL] id=${items[idx].id}`, r.reason);
+      }
+    });
+
     const keys = settled
       .filter((r): r is PromiseFulfilledResult<string> => r.status === 'fulfilled')
       .map((r) => r.value);

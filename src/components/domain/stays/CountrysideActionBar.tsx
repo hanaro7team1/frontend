@@ -35,10 +35,10 @@ export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
       {/* 삭제 확인 모달 */}
       {isModalOpen && (
         <Modal
-          grayBtnText='취소'
-          greenBtnText='삭제하기'
-          onClickGrayBtn={handleCloseModal}
-          onClickGreenBtn={() => {
+          leftBtnText='취소'
+          rightBtnText='삭제하기'
+          onClickLeftBtn={handleCloseModal}
+          onClickRightBtn={() => {
             if (onDelete) onDelete();
             handleCloseModal();
           }}

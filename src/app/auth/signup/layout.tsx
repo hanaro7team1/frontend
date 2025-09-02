@@ -56,7 +56,7 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header title={'회원 가입'} bgColor='pink' />
-      <StepProgressBar currentStep={currentStep} isSignUp={true} />
+      <StepProgressBar isSignUp={true} />
       {children}
       <FixedBottomButton
         leftBtnText={leftButtonTxt}

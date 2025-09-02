@@ -1,6 +1,6 @@
 'use client';
 
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { FixedBottomButton } from '@/components/common';
 import { FIRST_STEP_NUM, TOTAL_STEP_NUM } from '@/constants/admin/Admin';
 import { useWizard } from './WizardProvider';
@@ -12,12 +12,17 @@ export default function WizardNav() {
   const leftButtonTxt = currentStep === FIRST_STEP_NUM ? '취소' : '이전';
   const rightButtonTxt = currentStep === TOTAL_STEP_NUM ? '등록 완료' : '다음';
 
+  const router = useRouter();
+
   const prevStep = () =>
     currentStep === FIRST_STEP_NUM ? router.push('/admin') : goToStep(currentStep - 1);
 
   //다음 step으로 이동하기 전에 이벤트 실행
   const nextStep = async () => {
-    const event = new CustomEvent('wizard: BeforeNext', { detail: { step: currentStep } });
+    const event = new CustomEvent('wizard: BeforeNext', {
+      detail: { step: currentStep },
+      cancelable: true,
+    });
     const canceld = !window.dispatchEvent(event);
     if (canceld) return;
     currentStep === TOTAL_STEP_NUM ? router.push('/admin/stays') : goToStep(currentStep + 1);
