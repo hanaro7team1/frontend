@@ -28,7 +28,7 @@ export default async function FestivalDetailPage({ params }: Props) {
         </div>
 
         <div>
-          <Txt className="text-gray-070" >설명란</Txt>
+          <Txt className="text-gray-070">설명란</Txt>
         </div>
 
         <div className={`${commonPosision}`}>
