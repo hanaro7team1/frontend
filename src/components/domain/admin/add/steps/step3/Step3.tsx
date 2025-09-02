@@ -1,7 +1,6 @@
 'use client';
 
-import { CircleMinus, CirclePlus } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import { Input, Txt } from '@/components/atoms';
 import { useNumberInput } from '@/hooks/admin/useNumberInput';
 import { useWizardData } from '../../wizard/WizardDataProvider';

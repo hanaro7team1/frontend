@@ -6,6 +6,7 @@ export type WizardContext = {
   goToStep: (n: number) => void;
   isNextDisable: boolean;
   setNextDisabled: (step: number, ready: boolean) => void;
+  tryProceed: () => Promise<boolean>; // ✅ 추가
 };
 
 export type WizardDataContext = { data: WizardData; dispatch: React.Dispatch<WizardActions> };

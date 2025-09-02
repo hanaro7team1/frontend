@@ -23,14 +23,12 @@ async function presignOne(domain: string, file: File) {
     console.error('Invalid presign response:', presign);
     throw new Error('Presign 응답이 올바르지 않습니다');
   }
-  console.log('[PRESIGN]', presign.url, presign.key);
 
   return { presign, contentType };
 }
 
 //TODO: 모달로 처리
 async function putToS3(uploadUrl: string, file: File, contentType: string) {
-  console.log('[S3 PUT try]', uploadUrl); // ✅ 반드시 절대 URL 찍기
   const r = await axios.put(uploadUrl, file, {
     headers: { 'Content-Type': contentType },
     // S3는 200/204가 일반적, body 없음

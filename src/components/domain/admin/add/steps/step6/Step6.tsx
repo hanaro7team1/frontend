@@ -1,28 +1,35 @@
 'use client';
 
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Carousel, Header, Modal } from '@/components/common';
 import { StayDescription, StayInfoChips } from '@/components/domain/stays';
 import StayHeader from '@/components/domain/stays/StayHeader';
 import { keyToPublicUrl } from '@/utils/stays/stays';
+import { TOTAL_STEP_NUM } from '@/constants/admin/Admin';
 import { useWizardData } from '../../wizard/WizardDataProvider';
 import { useWizard } from '../../wizard/WizardProvider';
 
 export default function StayPreview() {
+  const router = useRouter();
   const { currentStep, registerBeforeNext, setNextDisabled } = useWizard();
 
   const { data } = useWizardData();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  //중복 제출 방지
   const submittingRef = useRef(false);
 
+  // ✅ 마지막 스텝 진입 시 버튼은 기본적으로 활성화
   useEffect(() => {
     setNextDisabled(currentStep, false);
   }, [currentStep, setNextDisabled]);
+
+  // 모달 열림/닫힘, 제출 중 상태에 따라 버튼 잠금 상태 동기화
+  useEffect(() => {
+    setNextDisabled(currentStep, isModalOpen || submittingRef.current);
+  }, [isModalOpen, currentStep, setNextDisabled]);
 
   // 전역 Wizard 데이터에서 필요한 값 모아서 화면에 렌더링
   const stay = useMemo(() => {
@@ -53,9 +60,15 @@ export default function StayPreview() {
 
   useEffect(() => {
     const cleanup = registerBeforeNext(currentStep, async () => {
-      if (submittingRef.current) return false; // 이미 제출 중이면 넘어가지 않음
+      // 공통: 저장 등 사전 작업 (예: step5 dispatch)
+      if (currentStep !== TOTAL_STEP_NUM) return;
+
+      if (submittingRef.current) return false;
       submittingRef.current = true;
 
+      setNextDisabled(currentStep, true);
+
+      // 마지막 스텝에 모달 오픈
       try {
         const { address, detailAddress, capacity, areaSize, hostName, hostPhone, description } =
           stay;
@@ -63,27 +76,28 @@ export default function StayPreview() {
         const { data: res } = await privateApi.post('/api/admin/stays', {
           address,
           detailAddress,
+          hostName,
           capacity,
           areaSize,
-          hostName,
-          hostPhone,
           description,
+          hostPhone,
         });
 
-        const id = Number(res?.id);
-        setIsModalOpen(true);
-        setNextDisabled(currentStep, true); // 모달 떠 있는 동안 Next 잠금
-        return false;
+        setIsModalOpen(true); // 모달 먼저 띄우기
+        setNextDisabled(currentStep, true); // 모달 떠있는 동안 Next 잠금
+
+        return false; // 이동 금지! (registerBeforeNext가 preventDefault 하게)
       } catch (err: any) {
         alert(err?.response?.data?.message ?? '등록 중 오류가 발생했어요.');
-        return false; // 실패하면 다음 단계로 못 넘어가게 막음
-      } finally {
+        // 실패했으니 다시 열어줌
         submittingRef.current = false;
+        setNextDisabled(currentStep, false);
+        return false; // 이동 막기(사용자에게 다시 시도 기회)
       }
     });
 
     return cleanup;
-  }, [currentStep, stay, registerBeforeNext]);
+  }, [currentStep, registerBeforeNext, stay, setNextDisabled]);
 
   return (
     <div className='flex flex-col'>
@@ -100,6 +114,7 @@ export default function StayPreview() {
           <StayDescription item={stay.description} />
         </div>
       </main>
+
       {isModalOpen && (
         <Modal
           leftBtnText='아니요'

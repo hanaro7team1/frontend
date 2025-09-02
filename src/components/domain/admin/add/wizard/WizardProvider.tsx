@@ -67,9 +67,18 @@ export default function WizardProvider({ children }: { children: React.ReactNode
     return () => req.current.delete(step);
   }, []);
 
+  const tryProceed = useCallback(() => stepGuard(currentStep), [currentStep]);
+
   const value = useMemo(
-    () => ({ registerBeforeNext, currentStep, goToStep, setNextDisabled, isNextDisable }),
-    [registerBeforeNext, currentStep, goToStep, setNextDisabled, isNextDisable],
+    () => ({
+      registerBeforeNext,
+      currentStep,
+      goToStep,
+      setNextDisabled,
+      isNextDisable,
+      tryProceed,
+    }),
+    [registerBeforeNext, currentStep, goToStep, setNextDisabled, isNextDisable, tryProceed],
   );
 
   return <wizardContext.Provider value={value}>{children}</wizardContext.Provider>;

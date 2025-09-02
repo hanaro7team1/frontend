@@ -58,7 +58,6 @@ export default function AddPhoto() {
         const prev = Array.isArray(data?.step2?.s3Keys) ? data.step2.s3Keys : [];
 
         const merged = Array.from(new Set([...prev, ...uploaded]));
-        console.log('>>> 병합된 keys:', merged);
 
         dispatch({ type: 'SET_STEP2', payload: { s3Keys: merged } });
 
@@ -66,7 +65,6 @@ export default function AddPhoto() {
 
         return true;
       } catch (e) {
-        console.log('사진 업로드 에러 ' + e);
         alert('사진 업로드 중 문제 발생');
         return false;
       } finally {
