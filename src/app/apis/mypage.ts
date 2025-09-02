@@ -17,6 +17,14 @@ export const getAdminInfo = async () => {
 };
 
 /**
+ * 클라이언트 컴포넌트용 - 시골 관리자 정보 조회 API
+ */
+export const getAdminInfoClient = async () => {
+  const res = await privateApi.get<AdminInfoResponse>('/api/admin/mypage');
+  return res.data;
+};
+
+/**
  * 클라이언트 컴포넌트용 - 시골 관리자 전화번호 변경 API
  * @param phone - 변경할 전화번호
  */
