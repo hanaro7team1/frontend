@@ -23,11 +23,11 @@ export default function FestivalsPage() {
     setLoad(true);
 
     const start = page * PAGE_SIZE;
-    const end = page + PAGE_SIZE;
+    const end = start + PAGE_SIZE;  
     const chunk = dummyFestivals.slice(start, end);
 
     setEvents(prev => [...prev, ...chunk]);
-    setHasNext(end < dummyFestivals.length);
+    setHasNext(dummyFestivals[end] !== undefined);
     setPage(prev => prev + 1);
     setLoad(false);
   }, [page, load, hasNext]);
@@ -41,8 +41,11 @@ export default function FestivalsPage() {
     if(!el) return;
 
     const io = new IntersectionObserver(([entry]) => {
-      if(entry.isIntersecting) loadData();
-    }, {rootMargin: '100px'});
+      if(entry.isIntersecting) {
+        loadData();
+      }
+    }, {root: null, 
+      rootMargin: '150px'});
 
     io.observe(el);
     return () => io.disconnect();
@@ -61,13 +64,13 @@ export default function FestivalsPage() {
     </div>
 
     <div className='flex flex-col p-6 gap-8'>
-      {dummyFestivals.map(f => (
+      {events.map(f => (
           <ListBox key = {f.id} {...f} />
       ))}
     </div>
 
     <div ref={sentinelRef} className='flex items-center justify-center text-gray-6d6'>
-      {load ? '불러오는중...' : hasNext ? '스크롤하여 더보기' : ''}
+      {load ? '불러오는중...' : hasNext ? '스크롤하여 더보기' : '마지막 페이지 입니다'}
     </div>
 
     <BottomTabNav />
