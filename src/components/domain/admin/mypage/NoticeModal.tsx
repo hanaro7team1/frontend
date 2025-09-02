@@ -22,11 +22,7 @@ export default function NoticeModal({ open, text }: Props) {
         <Txt size={26} className='text-center'>
           {message}
         </Txt>
-        <Button
-          title='확인'
-          color='pink'
-          onClick={() => router.push('/admin/mypage')}
-        />
+        <Button title='확인' color='pink' onClick={() => router.back()} />
       </div>
     </div>
   );
