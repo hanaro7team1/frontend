@@ -6,11 +6,12 @@ import { Header } from '@/components/common';
 import { PasswordField } from '@/components/domain/admin/auth/PasswordField';
 import NoticeModal from '@/components/domain/admin/mypage/NoticeModal';
 import useValidation from '@/hooks/auth/useValidation';
+import { updateAdminPassword } from '@/app/apis/mypage';
 
 export default function AdminPwdPage() {
   const txtPosition = 'flex flex-col gap-2 ';
 
-  const [oldPassword, setOldPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
   const { form, errors, handleChange } = useValidation();
 
   const [touched, setTouched] = useState({
@@ -19,13 +20,25 @@ export default function AdminPwdPage() {
   });
 
   const [openNotice, setOpenNotice] = useState(false);
-  const editPwd = () => {
-    setOpenNotice(true);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (isDisabled) return;
+
+    try {
+      // 비밀번호 변경 API 호출
+      await updateAdminPassword(currentPassword, form.password);
+      setOpenNotice(true);
+    } catch (error) {
+      console.error('비밀번호 변경 실패:', error);
+      alert('비밀번호 변경에 실패했습니다. 기존 비밀번호를 확인해주세요.');
+    } finally {
+    }
   };
 
   // 버튼 비활성화 조건: 3개 입력란 모두 조건에 맞게 입력해야 활성화
   const isDisabled =
-    !oldPassword.trim() ||
+    !currentPassword.trim() ||
     !form.password.trim() ||
     !form.confirmPassword.trim() ||
     !!errors.password ||
@@ -35,14 +48,14 @@ export default function AdminPwdPage() {
     <>
       <Header className='mb-13' title='비밀번호 변경' />
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='flex flex-col gap-9 p-8'>
           <div className={txtPosition}>
             <Txt size={24}>기존 비밀번호</Txt>
             <PasswordField
-              value={oldPassword}
+              value={currentPassword}
               placeholder='기존 비밀번호를 입력해 주세요'
-              onChange={setOldPassword}
+              onChange={setCurrentPassword}
               autoComplete='current-password'
             />
           </div>
@@ -59,7 +72,7 @@ export default function AdminPwdPage() {
               autoComplete='new-password'
             />
             {touched.password && errors.password && (
-              <Txt size={18} className='text-pink-a76 ml-4' weight='regular'>
+              <Txt size={18} className='text-pink-a76' weight='regular'>
                 {errors.password}
               </Txt>
             )}
@@ -84,7 +97,7 @@ export default function AdminPwdPage() {
             )}
           </div>
 
-          <Button title='변경하기' color='pink' onClick={editPwd} disabled={isDisabled} />
+          <Button type='submit' title='변경하기' color='pink' disabled={isDisabled} />
         </div>
       </form>
 

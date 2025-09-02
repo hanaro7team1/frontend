@@ -26,9 +26,9 @@ export const updateAdminPhone = (phone: string) => {
 
 /**
  * 클라이언트 컴포넌트용 - 시골 관리자 비밀번호 변경 API
- * @param oldPassword - 기존 비밀번호
+ * @param currentPassword - 기존 비밀번호
  * @param newPassword - 새 비밀번호
  */
-export const updateAdminPassword = (oldPassword: string, newPassword: string) => {
-  return privateApi.patch('/api/admin/mypage/phone', { oldPassword, newPassword });
+export const updateAdminPassword = (currentPassword: string, newPassword: string) => {
+  return privateApi.patch('/api/admin/mypage/password', { currentPassword, newPassword });
 };
