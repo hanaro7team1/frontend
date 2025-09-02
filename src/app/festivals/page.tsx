@@ -34,7 +34,7 @@ export default function FestivalsPage() {
 
   useEffect(() => {
     void loadData();
-  }, []);
+  }, [loadData]);
 
   useEffect(() => {
     const el = sentinelRef.current;
@@ -63,7 +63,7 @@ export default function FestivalsPage() {
       </div>
     </div>
 
-    <div className='flex flex-col p-6 gap-8'>
+    <div className='flex flex-col p-5 gap-8'>
       {events.map(f => (
           <ListBox key = {f.id} {...f} />
       ))}
