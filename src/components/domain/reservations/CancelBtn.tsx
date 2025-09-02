@@ -26,10 +26,10 @@ export default function CancelBtn({ id }: Props) {
 
       {isModalOpened && (
         <Modal
-          greenBtnText='네'
-          grayBtnText='아니요'
-          onClickGreenBtn={() => alert(id + '번 예약 취소')}
-          onClickGrayBtn={() => setModalOpened(false)}
+          rightBtnText='네'
+          leftBtnText='아니요'
+          onClickRightBtn={() => alert(id + '번 예약 취소')}
+          onClickLeftBtn={() => setModalOpened(false)}
         >
           정말 취소할까요?
         </Modal>
