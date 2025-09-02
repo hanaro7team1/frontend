@@ -1,12 +1,11 @@
 import Link from 'next/link';
 import { Header } from '@/components/common';
-import { ChangeBox, Profile } from '@/components/domain/admin/mypage';
+import { MypageLinkBox, Profile } from '@/components/domain/admin/mypage';
+import { getAdminInfo } from '@/app/apis/mypage';
 
-export default function AdminMyPage() {
-  const hostMember = {
-    villageName: '00마을',
-    phone: '010-1234-5678',
-  };
+export default async function AdminMyPage() {
+  // 서버에서 호스트 정보 API 호출
+  const hostMember = await getAdminInfo();
   const { villageName, phone } = hostMember;
 
   return (
@@ -14,8 +13,8 @@ export default function AdminMyPage() {
       <Header title='내 정보' />
       <Profile villageName={villageName} />
       <div className='mt-9 flex flex-col gap-9 px-6'>
-        <ChangeBox buttonTxt='전화번호 변경' phoneNum={phone} />
-        <ChangeBox buttonTxt='비밀번호 변경' />
+        <MypageLinkBox type='phone' value={phone} href='/admin/mypage/contact' />
+        <MypageLinkBox type='password' href='/admin/mypage/pwd' />
       </div>
 
       <Link
