@@ -9,7 +9,7 @@ async function presignOne(domain: string, file: File) {
   const contentType = file.type;
   const extension = getExtFromFile(file) ?? 'bin';
 
-  const res = await fetch('/api/internal/presign', {
+  const res = await fetch('/api/admin/upload/presign', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

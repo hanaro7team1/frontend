@@ -89,3 +89,7 @@ export function reducer(state: WizardData, action: WizardActions): WizardData {
       return state;
   }
 }
+
+export function keyToPublicUrl(key: string) {
+  return `https://sido-upload.s3.ap-northeast-2.amazonaws.com/${key}`;
+}

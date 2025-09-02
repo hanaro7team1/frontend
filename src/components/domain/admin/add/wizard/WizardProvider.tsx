@@ -5,7 +5,7 @@ import { createContext, useCallback, useContext, useMemo, useRef, useState } fro
 import { clampNum } from '@/lib/utils';
 import { BeforeNextFn, WizardContext } from '@/types/wizard';
 
-//1.현재 스텝 번호(1~5 를 쿼리로부터 읽어와 관리
+//1.현재 스텝 번호(1~6 를 쿼리로부터 읽어와 관리
 //2.각 스텝 페이지가 다음으로 이동하는 버튼 누르기 전에 실행할 함수 레지스트리
 //3.이 두 가지를 Context로 제공해서 접근 가능하게 함
 

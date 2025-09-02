@@ -1,6 +1,5 @@
 'use client';
 
-import { tree } from 'next/dist/build/templates/app-page';
 import { useEffect, useRef } from 'react';
 import { Txt } from '@/components/atoms';
 import { usePhotoPreview } from '@/hooks/admin/usePhotoPreview';
