@@ -12,6 +12,7 @@ type Props = {
 export default async function FestivalDetailPage({ params }: Props) {
   const { id } = await params;
   const commonPosision = "flex items-center gap-2";
+  const fixIconSize = "flex-none shrink-0";
 
   const smapleData = {
     dataId: 1,
@@ -19,7 +20,7 @@ export default async function FestivalDetailPage({ params }: Props) {
     startDate: "2025-09-10",
     endDate: "2025-10-20",
     describtion: "<신정호 별빛축제>는 한여름 밤의 더위를 피해 신정호에서 펼쳐지는 축제이다. 1998년 별빛 특선 영화제, 신정호 토요문화 한마당에서 시작 되었으며 2007년 한여름밤의 신정호 별빛축제로 명칭이 변경되어 개최해오고 있다. 지역 예술인 공연, 영화 상영, 별자리 관측 등이 진행된다.",
-    addr: "충청남도 아산시 신정로 616 (방축동)",
+    addr: "충청남도 아산시 신정로 616 (방축동) 충청남도 아산시 신정호 야외음악당",
     price: 0,
     url: "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=62d0909c-2909-45ba-9e21-2f57e3657885"
   }
@@ -48,7 +49,7 @@ export default async function FestivalDetailPage({ params }: Props) {
         </div>
 
         <div className={`${commonPosision}`}>
-          <CalendarCheck color="var(--code-theme1)" size={25}/>
+          <CalendarCheck color="var(--code-theme1)" className={`${fixIconSize}`} size={25}/>
           <Txt size={24}>{dateFormat(startDate)} ~ {dateFormat(endDate)}</Txt>
         </div>
 
@@ -57,17 +58,17 @@ export default async function FestivalDetailPage({ params }: Props) {
         </div>
 
         <div className={`${commonPosision}`}>
-          <MapPinned color="var(--code-theme1)" size={25}/>
+          <MapPinned color="var(--code-theme1)" className={`${fixIconSize}`} size={25}/>
           <Txt>{addr}</Txt>
         </div>
         
         <div className={`${commonPosision}`}>
-          <HandCoinsIcon color="var(--code-theme1)" size={25}/>
+          <HandCoinsIcon color="var(--code-theme1)" className={`${fixIconSize}`} size={25} />
           <Txt>{price === 0 ? '무료' : `${price} 원`}</Txt>
         </div>
 
         <div className={`${commonPosision}`}>
-          <Link color="var(--code-theme1)" size={25}/>
+          <Link color="var(--code-theme1)" className={`${fixIconSize}`} size={25}/>
           <NextLink href={url} target="_blank" rel="noopener noreferrer">
             <Txt className=" underline underline-offset-4">축제 링크</Txt>
           </NextLink>
