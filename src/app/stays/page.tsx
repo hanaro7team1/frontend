@@ -1,5 +1,6 @@
 import { BottomTabNav, Header } from '@/components/common';
 import { FilterRoomType, FilterStayOptions, RoomList } from '@/components/domain/stays';
+import { getIsAdmin } from '@/utils/auth/auth-server';
 import { StaysSearchParams } from '@/types/stays';
 
 type Props = {
@@ -8,7 +9,7 @@ type Props = {
 
 export default async function StaysPage({ searchParams }: Props) {
   const searchParam = await searchParams;
-  const isAdmin = false; // TODO: 추후에 세션에서 관리자 여부 읽어오기
+  const isAdmin = await getIsAdmin();
 
   return (
     <>

@@ -1,5 +1,9 @@
+export { default as AdminRoomItem } from './AdminRoomItem';
+export { default as AdminRoomList } from './AdminRoomList';
+
 export { default as RoomItem } from './RoomItem';
 export { default as RoomList } from './RoomList';
+
 export { default as StatusCapsule } from './StatusCapsule';
 
 export { default as EditBooking } from './EditBooking';
