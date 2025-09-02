@@ -60,7 +60,7 @@ export default function FestivalsPage() {
       </div>
     </div>
 
-    <div className='flex flex-col p-6 gap-4'>
+    <div className='flex flex-col p-6 gap-8'>
       {dummyFestivals.map(f => (
           <ListBox key = {f.id} {...f} />
       ))}

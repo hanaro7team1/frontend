@@ -17,12 +17,14 @@ export default function ListBox({img, title, startDate, endDate, city, url}:Prop
     const router = useRouter();
 
     return <>
-        <div className="flex gap-2">
-            <Image src={img} alt="축제" width={150} height={150} className="rounded-[8px] shrink-0"/>
-            <div className="flex flex-col">
+        <div className="flex gap-3 items-center">
+            <div className="relative w-[154px] h-[154px] shrink-0 overflow-hidden rounded-[8px]">
+                <Image src={img} alt="축제" fill sizes="154px" className="object-cover"/>
+            </div>
+            <div className="flex flex-col gap-1">
                 <Txt>{title}</Txt>
-                <Txt>{startDate} ~ {endDate}</Txt>
-                <Txt>{city}</Txt>
+                <Txt size={18}>{startDate} ~ {endDate}</Txt>
+                <Txt size={15}>{city}</Txt>
                 <Button title="상세보기" color="gray" className="h-[35px]" onClick={() => router.push(`${url}`)}/>
             </div>
         </div>
