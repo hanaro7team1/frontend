@@ -4,7 +4,7 @@ import { Txt } from '@/components/atoms';
 
 type Props = {
   data: {
-    stayPicURL: string;
+    imageUrl: string;
     stayId: number;
     title: string;
     address: string;
@@ -13,14 +13,14 @@ type Props = {
 };
 
 export default function StayInfoCard({ data, isAdmin = false }: Props) {
-  const { stayPicURL, stayId, title, address } = data;
+  const { imageUrl, stayId, title, address } = data;
 
   return (
     <div className='flex gap-3'>
       <div
         className={`relative shrink-0 rounded-[8px] ${isAdmin ? 'h-[100px] w-[100px]' : 'aspect-square w-2/5'} `}
       >
-        <Image src={stayPicURL} alt={title} fill className='rounded-[8px] object-cover' />
+        <Image src={imageUrl} alt={title} fill className='rounded-[8px] object-cover' />
       </div>
 
       <div className='flex flex-1 flex-col justify-between gap-2'>

@@ -22,6 +22,7 @@ export default async function ReservationDetailPage({ params }: Props) {
   const {
     address,
     endDate,
+    imageUrl,
     isFarm,
     isHomestay,
     memberName,
@@ -41,7 +42,7 @@ export default async function ReservationDetailPage({ params }: Props) {
       <Header title='예약 자세히 보기' />
 
       <main className='flex flex-col gap-9 px-5'>
-        <StayInfoCard data={{ stayPicURL: '/images/sample1.png', stayId, title, address }} />
+        <StayInfoCard data={{ imageUrl, stayId, title, address }} />
         <GuestInfoCard data={{ memberName, startDate, endDate, personCnt, isFarm, memberPhone }} />
         {isHomestay && <HostInfoCard data={{ ownerName, ownerPhone }} />}
         {!isAdmin && <CancelBtn id={id} />}

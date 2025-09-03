@@ -11,6 +11,7 @@ export type ReservationPayload = {
 export type ReservationDetail = {
   address: string;
   endDate: string;
+  imageUrl: string;
   isFarm: boolean;
   isHomestay: boolean;
   memberName: string;
