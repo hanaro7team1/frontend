@@ -1,7 +1,9 @@
 'use client';
 
 import { CalendarCheck, Users } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { privateApi } from '@/lib/axios-client';
 import { cn } from '@/lib/utils';
 import { ShadowBox, Txt } from '@/components/atoms';
 import { FixedBottomButton } from '@/components/common';
@@ -10,6 +12,7 @@ import { InfoRow } from '../reservations';
 
 type Props = {
   data: {
+    stayId: number;
     schedule: string;
     peopleCount: string;
   };
@@ -19,6 +22,30 @@ export default function EditBooking({ data }: Props) {
   const { schedule, peopleCount } = data;
 
   const [wantsFarmExperience, setWantsFarmExperience] = useState(true);
+
+  const searchParams = useSearchParams();
+  const searchParamsObj = Object.fromEntries(searchParams.entries());
+  const reservationId = searchParams.get('reservationId');
+
+  const router = useRouter();
+
+  const handleBooking = async () => {
+    try {
+      const { status } = await privateApi.patch(`/api/reservations/${reservationId}/confirm`, {
+        ...searchParamsObj,
+        isFarm: wantsFarmExperience,
+      });
+
+      if (status === 201) {
+        alert('예약이 완료되었습니다!');
+        router.push('/reservations');
+      } else {
+        alert('예약에 실패했습니다. 다른 사용자가 먼저 예약했을 수 있습니다. 다시 시도해주세요.');
+      }
+    } catch (error) {
+      alert('예약 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  };
 
   return (
     <>
@@ -78,7 +105,7 @@ export default function EditBooking({ data }: Props) {
         </div>
       </div>
 
-      <FixedBottomButton rightBtnText='예약 확정하기' onClickRightBtn={() => alert('예약확정')} />
+      <FixedBottomButton rightBtnText='예약 확정하기' onClickRightBtn={handleBooking} />
     </>
   );
 }

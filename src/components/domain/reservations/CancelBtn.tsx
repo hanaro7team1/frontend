@@ -17,9 +17,9 @@ export default function CancelBtn({ id }: Props) {
 
   const handleDelete = async () => {
     try {
-      const res = await privateApi.delete(`/api/reservations/${id}`);
+      const { status } = await privateApi.delete(`/api/reservations/${id}`);
 
-      if (res.status === 204) {
+      if (status === 204) {
         alert('예약이 취소되었습니다.');
         setModalOpened(false);
         router.push('/reservations?reservationStatus=취소됨');
