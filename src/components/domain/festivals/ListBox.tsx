@@ -1,19 +1,16 @@
 'use client'
 
 import { Button, Txt } from "@/components/atoms";
+import { FestivalListItemResponse } from "@/types/festivals";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 type Props = {
-    id: number;
-    img: string;
-    title: string;
-    startDate: string;
-    endDate: string;
-    city: string;
-}
+    data: FestivalListItemResponse;
+};
 
-export default function ListBox({id, img, title, startDate, endDate, city}:Props) {
+export default function ListBox({data}:Props) {
+    const {id, img, title, startDate, endDate, city} = data;
     const router = useRouter();
 
     return <>
