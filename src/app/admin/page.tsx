@@ -15,7 +15,6 @@ export default async function HomePage() {
 
   const api = await serverPrivateApi();
   const { data } = await api.get<AdminReservationResponse>('/api/admin/reservations/overview');
-  console.log("🚀 ~ HomePage ~ data:", data)
   const account = {
     accountName: '시도통장',
     accountNumber: '1234-56789-0000',
