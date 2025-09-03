@@ -2,7 +2,7 @@ import { Paged } from './common';
 
 export type RealEstatesSearchParams = {
   location?: string;
-  dealType?: '전세' | '매매';
+  tradeType?: '전세' | '매매';
   priceRange?: string;
 };
 

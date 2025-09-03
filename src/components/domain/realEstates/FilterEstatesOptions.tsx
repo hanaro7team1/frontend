@@ -9,7 +9,7 @@ import { BottomSheetLocation } from '../stays';
 export default function FilterEstatesOptions() {
   const searchParams = useSearchParams();
   const location = searchParams.get('location');
-  const dealType = searchParams.get('dealType');
+  const tradeType = searchParams.get('tradeType');
   const priceRange = searchParams.get('priceRange');
 
   const FILTERS: OptionFilter[] = [
@@ -21,10 +21,10 @@ export default function FilterEstatesOptions() {
       BottomSheetType: <BottomSheetLocation />,
     },
     {
-      key: 'dealType',
+      key: 'tradeType',
       label: '거래형태',
       valueSize: 22,
-      defaultValue: dealType || '전세',
+      defaultValue: tradeType || '전체',
       BottomSheetType: <BottomSheetDealType />,
     },
     {
