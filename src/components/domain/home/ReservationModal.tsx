@@ -2,20 +2,14 @@
 
 import { CalendarCheck, HomeIcon, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { Button, Txt } from '@/components/atoms';
+import { useEffect, useState } from 'react';
+import { Txt } from '@/components/atoms';
 import Modal from '@/components/common/Modal';
+import { ReservationPayload } from '@/types/reservation';
 import ModalInfo from './ModalInfo';
 
-type ReservationPayload = {
-  id: number;
-  confirmedDate: string;
-  hostName: string;
-  roomName: string;
-};
-
 export default function ReservationModal({ payload }: { payload: ReservationPayload }) {
-  const { id, confirmedDate, hostName, roomName } = payload;
+  const { id, confirmedDate, hostName, roomName, status } = payload;
   const [open, setOpen] = useState(false);
 
   const reservationInfo = [
@@ -25,10 +19,15 @@ export default function ReservationModal({ payload }: { payload: ReservationPayl
   ];
   const router = useRouter();
 
+  // '예약 확정' 상태가 되면 시골 관리자에게 모달 보여주기
+  useEffect(() => {
+    if (status === 'RESERVED') {
+      setOpen(true);
+    }
+  }, [status]);
+
   return (
     <>
-      <Button title='예약 알림 보기' onClick={() => setOpen(true)} />
-
       {open && (
         <Modal
           leftBtnText='닫기'
