@@ -1,6 +1,6 @@
 'use client';
 
-import useSWR from 'swr';
+import useSWR, { SWRResponse } from 'swr';
 import { publicApi } from '@/lib/axios';
 import { privateApi } from '@/lib/axios-client';
 
@@ -9,11 +9,11 @@ export const publicFetcher = (url: string) => publicApi.get(url).then((res) => r
 export const privateFetcher = (url: string) => privateApi.get(url).then((res) => res.data);
 
 // 공개 API 훅
-export const usePublicData = (endpoint: string) => {
-  return useSWR(endpoint, publicFetcher);
+export const usePublicData = <T = any>(endpoint: string): SWRResponse<T, any> => {
+  return useSWR<T>(endpoint, publicFetcher);
 };
 
 // 인증 필요한 API 훅
-export const usePrivateData = (endpoint: string) => {
-  return useSWR(endpoint, privateFetcher);
+export const usePrivateData = <T = any>(endpoint: string): SWRResponse<T, any> => {
+  return useSWR<T>(endpoint, privateFetcher);
 };

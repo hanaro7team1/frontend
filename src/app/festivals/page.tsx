@@ -7,13 +7,14 @@ import Image from 'next/image';
 import { dummyFestivals } from '../../../public/dummy';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FestivalListResponse } from '@/types/festivals';
+import { usePublicData } from '@/hooks/api/useApi';
 
 const PAGE_SIZE = 4;
 
 export default function FestivalsPage() {
   type Festival = typeof dummyFestivals[number];
 
-  const { data, error, isLoading, mutate } = usePrivateData<FestivalListResponse>(
+  const { data, error, isLoading, mutate } = usePublicData<FestivalListResponse>(
     `/api/festivals`,
   );
 
