@@ -9,13 +9,12 @@ type Props = {
 };
 
 export default async function AdminStayEditPage({ params }: Props) {
-  const { id } = await params;
+  const { id: stayId } = await params;
 
   const api = await serverPrivateApi();
+      
   const { data } = await api.get<StayDetailResponseType>(`/api/stays/${id}`);
   const { title, address, capacity, areaSize, description, images, id: stayId } = data;
-
-  console.log('response image', images);
 
   return (
     <div className='flex flex-col gap-4'>

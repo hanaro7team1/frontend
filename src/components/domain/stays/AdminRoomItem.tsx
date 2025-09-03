@@ -15,7 +15,7 @@ export default function AdminRoomItem({ data }: Props) {
     <ShadowBox>
       <Link href={`/stays/${id}`}>
         <div className='relative h-[140px] overflow-hidden'>
-          <Image src={imageURL} alt={title} fill className='object-fill' />
+          <Image src={imageURL} alt={title} fill className='object-cover' />
         </div>
         <div className='space-y-4 p-3'>
           <div className='flex items-start justify-between pl-1'>
