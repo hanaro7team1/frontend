@@ -11,20 +11,26 @@ import ModalInfo from './ModalInfo';
 export default function ReservationModal({ payload }: { payload: ReservationPayload }) {
   const { id, confirmedDate, hostName, roomName, status } = payload;
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const reservationInfo = [
     { label: '예약된 사랑방 이름', icon: HomeIcon, value: roomName },
     { label: '예약된 일정', icon: CalendarCheck, value: confirmedDate },
     { label: '사랑방 주인 이름', icon: User, value: hostName },
   ];
-  const router = useRouter();
 
-  // '예약 확정' 상태가 되면 시골 관리자에게 모달 보여주기
+  // 예약 확정 상태이고, 사용자가 아직 확인하지 않은 경우에만 모달 오픈
   useEffect(() => {
-    if (status === 'RESERVED') {
+    const seen = localStorage.getItem(`reservation_modal_${id}_seen`);
+    if (status === 'RESERVED' && !seen) {
       setOpen(true);
     }
-  }, [status]);
+  }, [status, id]);
+
+  const handleClose = () => {
+    localStorage.setItem(`reservation_modal_${id}_seen`, 'true'); // 모달 확인 처리 저장
+    setOpen(false);
+  };
 
   return (
     <>
@@ -32,9 +38,10 @@ export default function ReservationModal({ payload }: { payload: ReservationPayl
         <Modal
           leftBtnText='닫기'
           rightBtnText='자세히 보기'
-          onClickLeftBtn={() => setOpen(false)}
+          onClickLeftBtn={handleClose}
           onClickRightBtn={() => {
-            router.push(`/reservations/${id}`); // 예약 상세 페이지로 이동
+            localStorage.setItem(`reservation_modal_${id}_seen`, 'true'); // 모달 확인 처리 저장
+            router.push(`/reservations/${id}`);
             setOpen(false);
           }}
           isPink={true}
