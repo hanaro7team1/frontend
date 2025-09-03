@@ -16,8 +16,6 @@ async function presignOne(domain: string, file: File) {
     contentType,
   });
 
-  console.log('디버깅: ' + presign);
-
   if (!presign?.url || !presign?.key) {
     throw new Error('Presign 응답이 올바르지 않습니다');
   }
