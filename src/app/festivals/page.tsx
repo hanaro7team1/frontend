@@ -6,11 +6,16 @@ import ListBox from '@/components/domain/festivals/ListBox';
 import Image from 'next/image';
 import { dummyFestivals } from '../../../public/dummy';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { FestivalListResponse } from '@/types/festivals';
 
 const PAGE_SIZE = 4;
 
 export default function FestivalsPage() {
   type Festival = typeof dummyFestivals[number];
+
+  const { data, error, isLoading, mutate } = usePrivateData<FestivalListResponse>(
+    `/api/festivals`,
+  );
 
   const [events, setEvents] = useState<Festival[]>([]);
   const [hasNext, setHasNext] = useState(true);
