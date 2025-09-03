@@ -1,6 +1,6 @@
 import { ReservationsSearchParams } from "@/app/reservations/page";
 import { Txt } from "@/components/atoms";
-import { RESERV_STATUSES } from "@/constants/reservations/reservations";
+import { RESERV_STATUSES } from "@/constants/reservations/reservation";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
