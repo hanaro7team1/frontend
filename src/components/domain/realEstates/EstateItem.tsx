@@ -15,7 +15,12 @@ export default function EstateItem({ data }: Props) {
     <ShadowBox>
       <Link href={`/real-estates/${id}`}>
         <div className='relative h-[140px] overflow-hidden'>
-          <Image src={imageURL ?? '/images/sample1.png'} alt={title} fill className='object-fill' />
+          <Image
+            src={imageURL ?? '/images/sample1.png'}
+            alt={title}
+            fill
+            className='object-cover'
+          />
         </div>
         <div className='flex flex-col items-start gap-2 p-3'>
           <Txt className='text-gray-070'>{location}</Txt>

@@ -15,7 +15,7 @@ export default function RoomItem({ data }: Props) {
     <ShadowBox>
       <Link href={`/stays/${id}`}>
         <div className='relative h-[140px] overflow-hidden'>
-          <Image src={imageURL} alt={title} fill className='object-fill' />
+          <Image src={imageURL} alt={title} fill className='object-cover' />
         </div>
         <div className='flex items-start justify-between p-3'>
           <div className='flex flex-col items-start gap-2'>

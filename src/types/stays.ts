@@ -31,8 +31,7 @@ export type StayDetailResponseType = {
   description: string;
   isHomestay: boolean;
   isActiveMsg: string;
-
-  // images?: string[];
+  images: string[];
 };
 
 export type StayListItemResponse = {
