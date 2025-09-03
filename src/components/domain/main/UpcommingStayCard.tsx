@@ -43,7 +43,7 @@ export default function RecentStayCard({
 
       <Image
         src={imgUrl}
-        alt={title}
+        alt={title || '사랑방 이미지'}
         width={0}
         height={0}
         sizes='100vw'
