@@ -68,8 +68,6 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
         phone: formatPhone(form.phone), // ← BE에서 하이픈 필요하다면 여기서 보정
       };
 
-      console.log(payload);
-
       await publicApi.post('/api/host-members/signup', payload);
 
       //TODO: 토스트 추가 성공하면 무조건 로그인으로
