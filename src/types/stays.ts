@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
+import { Paged } from './common';
 
+export type RoomType = '하숙형' | '독립형';
 export type StaysSearchParams = {
   roomType?: RoomType;
   location?: string;
@@ -7,8 +9,10 @@ export type StaysSearchParams = {
   peopleCount?: string;
 };
 
-export type RoomType = '하숙형' | '독립형';
 export type RoomStatus = '예약 가능' | '예약 마감' | '예약 닫힘';
+export type AdminStaysSearchParams = {
+  roomStatus?: RoomStatus | '전체';
+};
 
 export type OptionFilter = {
   key: string;
@@ -30,3 +34,24 @@ export type StayDetailResponseType = {
 
   // images?: string[];
 };
+
+export type StayListItemResponse = {
+  id: number;
+  imageURL: string;
+  address: string;
+  title: string;
+  stayResrvStatus: '예약 가능' | '예약 마감' | '예약 닫힘';
+};
+export type StayListResponse = Paged<StayListItemResponse>;
+
+export type AdminStayListItemResponse = {
+  hostName: string;
+} & Omit<StayListItemResponse, 'address'>;
+export type AdminStayListResponse = Paged<AdminStayListItemResponse>;
+
+export type PreviewImageItem = {
+  id: string;
+  file: File;
+  previewUrl: string;
+};
+export type PresignResp = { url: string; key: string };

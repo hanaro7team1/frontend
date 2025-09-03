@@ -1,11 +1,18 @@
-import { dummyRooms } from '../../../../public/dummy';
-import { EstateItem } from '../realEstates';
+import { publicApi } from '@/lib/axios';
+import { StayListResponse, StaysSearchParams } from '@/types/stays';
+import { RoomItem } from '.';
 
-export default function RoomList() {
+type Props = {
+  searchParams: StaysSearchParams;
+};
+
+export default async function RoomList({ searchParams }: Props) {
+  const { data } = await publicApi<StayListResponse>('/api/stays', { params: searchParams });
+
   return (
     <div className='m-4 space-y-4'>
-      {dummyRooms.map((room) => (
-        <EstateItem key={room.id} data={{ ...room, price: '전세 8000만원' }} />
+      {data.dtoList.map((room) => (
+        <RoomItem key={room.id} data={room} />
       ))}
     </div>
   );

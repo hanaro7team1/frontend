@@ -9,30 +9,17 @@ type Props = {
 };
 
 export default function EstateItem({ data }: Props) {
-  const { id, name, location, price, imgUrl } = data;
-
-  const href = {
-    pathname: `/real-estates/${id}`,
-  };
+  const { id, name: title, location, price, imgUrl: imageURL } = data;
 
   return (
     <ShadowBox>
-      <Link href={href}>
-        <Image
-          src={imgUrl}
-          alt={name}
-          width={0}
-          height={0}
-          sizes='100vw'
-          className='h-[140px] w-full'
-        />
-        <div className='space-y-4 p-3'>
-          <div className='flex items-start justify-between pl-1'>
-            <div className='flex flex-col items-start gap-2'>
-              <Txt className='text-gray-070'>{location}</Txt>
-              <Txt size={22}>{price}</Txt>
-            </div>
-          </div>
+      <Link href={`/real-estates/${id}`}>
+        <div className='relative h-[140px] overflow-hidden'>
+          <Image src={imageURL ?? '/images/sample1.png'} alt={title} fill className='object-fill' />
+        </div>
+        <div className='flex flex-col items-start gap-2 p-3'>
+          <Txt className='text-gray-070'>{location}</Txt>
+          <Txt size={22}>{price}</Txt>
         </div>
       </Link>
     </ShadowBox>

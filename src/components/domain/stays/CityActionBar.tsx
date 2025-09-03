@@ -61,10 +61,10 @@ export default function CityActionBar({ id, onReserve, onInquiry, schedule, peop
       {/* 전화 확인 모달 */}
       {isModalOpen && (
         <Modal
-          grayBtnText='취소'
-          greenBtnText='전화 걸기'
-          onClickGrayBtn={handleCloseModal}
-          onClickGreenBtn={() => {
+          leftBtnText='취소'
+          rightBtnText='전화 걸기'
+          onClickLeftBtn={handleCloseModal}
+          onClickRightBtn={() => {
             if (onInquiry) onInquiry();
             handleCloseModal();
           }}
