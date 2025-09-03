@@ -11,7 +11,7 @@ type Props = {
 
 export default function StepCircle({ stepNumber, stepName, isActive, className }: Props) {
   return (
-    <div className={cn('relative z-10 flex flex-col items-center justify-center pb-4', className)}>
+    <div className={cn('relative z-50 flex flex-col items-center justify-center pb-4', className)}>
       <div
         className={cn(
           'bg-gray-6d6 inline-flex h-10 w-10 items-center justify-center rounded-full',

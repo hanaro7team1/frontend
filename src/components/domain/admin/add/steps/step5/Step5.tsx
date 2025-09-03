@@ -16,7 +16,7 @@ export default function AddDescription() {
 
   const isValid = useMemo(() => {
     const t = text.trim();
-    return t.length > 0 && t.length <= MAX_LENGTH;
+    return t.length > 0;
   }, [text]);
 
   useEffect(() => {
@@ -30,11 +30,6 @@ export default function AddDescription() {
     return cleanup;
   }, [currentStep, dispatch, registerBeforeNext, text]);
 
-  // 로컬만 업데이트
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setText(e.target.value.slice(0, MAX_LENGTH));
-  };
-
   return (
     <>
       <Txt>사랑방에 대해서 상세하게 알려주세요</Txt>
@@ -43,7 +38,8 @@ export default function AddDescription() {
           placeholder={''}
           tag='textarea'
           value={text}
-          onChange={onChange}
+          maxLength={MAX_LENGTH}
+          onChange={(e) => setText(e.target.value)}
           className='border-gray-6d6 resize-none border'
         />
         <div className='absolute right-3 bottom-2 text-gray-400'>

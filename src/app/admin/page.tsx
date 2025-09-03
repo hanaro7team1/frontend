@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import { Txt } from '@/components/atoms';
 import { Bankbook, MenuTabs, ReservationStats } from '@/components/domain/admin';
+import { ReservationModal } from '@/components/domain/home';
+import { ReservationStatus } from '@/enums/reservation';
 
 export default function HomePage() {
-  // TODO: 실제 API 연동 → getVillageAccount(), getReservationStats()
+  // TODO: 실제 API 연동
   const user = {
     name: '가람마을',
   };
@@ -18,6 +20,14 @@ export default function HomePage() {
     booked: 12,
     staying: 2,
     completed: 32,
+  };
+
+  const payload = {
+    id: 1,
+    confirmedDate: '25.09.09 (화) - 25.09.13 (토)',
+    hostName: '김갑순',
+    roomName: '가람마을 사랑방 3호',
+    status: ReservationStatus.RESERVED,
   };
 
   const { name } = user;
@@ -45,6 +55,7 @@ export default function HomePage() {
 
       <footer className='mt-9 px-4'>
         <MenuTabs />
+        <ReservationModal payload={payload} />
       </footer>
     </div>
   );
