@@ -1,28 +1,29 @@
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
+import { serverPrivateApi } from '@/lib/axios-server';
 import { Txt } from '@/components/atoms';
 import { Bankbook, MenuTabs, ReservationStats } from '@/components/domain/admin';
+import { getIsAdmin } from '@/utils/auth/auth-server';
+import { AdminReservationResponse } from '@/types/admin';
 
-export default function HomePage() {
-  // TODO: 실제 API 연동 → getVillageAccount(), getReservationStats()
-  const user = {
-    name: '가람마을',
-  };
+export default async function HomePage() {
+  const isAdmin = await getIsAdmin();
 
+  if (!isAdmin) {
+    redirect('/login');
+  }
+
+  const api = await serverPrivateApi();
+  const { data } = await api.get<AdminReservationResponse>('/api/admin/reservations/overview');
+  console.log("🚀 ~ HomePage ~ data:", data)
   const account = {
     accountName: '시도통장',
     accountNumber: '1234-56789-0000',
     balance: '3,000,000원',
   };
 
-  const reservationStats = {
-    booked: 12,
-    staying: 2,
-    completed: 32,
-  };
-
-  const { name } = user;
   const { accountName, accountNumber, balance } = account;
-  const { booked, staying, completed } = reservationStats;
+  const { villageName, upcomingCnt, inProgressCnt, completedCnt } = data;
 
   return (
     <div className='relative flex flex-col'>
@@ -30,7 +31,7 @@ export default function HomePage() {
 
       <header className='z-1 flex items-center justify-center'>
         <Txt size={22} weight='medium'>
-          {name}의
+          {villageName}의
         </Txt>
         <Image src='/images/Img_SIDO_LOGO.png' alt='시도 로고' width={86} height={86} />
         <Txt size={22} weight='medium'>
@@ -40,7 +41,7 @@ export default function HomePage() {
 
       <main className='z-1 space-y-5 px-4'>
         <Bankbook accountName={accountName} accountNumber={accountNumber} balance={balance} />
-        <ReservationStats booked={booked} staying={staying} completed={completed} />
+        <ReservationStats upcomingCnt={upcomingCnt} inProgressCnt={inProgressCnt} completedCnt={completedCnt} />
       </main>
 
       <footer className='mt-9 px-4'>
