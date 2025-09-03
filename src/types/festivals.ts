@@ -1,6 +1,6 @@
 import { Paged } from "./common";
 
-export type FestivalListResponse = {
+export type FestivalListItemResponse = {
     id: number;
     img: string;
     title: string;
@@ -8,4 +8,4 @@ export type FestivalListResponse = {
     endDate: string;
     city: string;
 };
-export type FestivalsResponse = Paged<FestivalListResponse>;
+export type FestivalListResponse = Paged<FestivalListItemResponse>;
