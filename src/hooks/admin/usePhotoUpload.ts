@@ -1,44 +1,69 @@
 'use client';
 
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { SLOT_COUNT } from '@/constants/admin/Admin';
+import axios from 'axios';
+import { privateApi } from '@/lib/axios-client';
+import { getExtFromFile } from '@/utils/stays/stays';
+import { PresignResp } from '@/types/stays';
 
-export function usePhotoUpload(max = SLOT_COUNT) {
-  const [urls, setUrls] = useState<string[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
+//temp upload 훅입니다 (2단계에서 -> 3단계로 갈 때 s3 임시 폴더에 저장)
+async function presignOne(domain: string, file: File) {
+  //파일 타입 or 알 수 없음
+  const contentType = file.type;
+  const extension = getExtFromFile(file) ?? 'bin';
 
-  const openPicker = () => inputRef.current?.click();
+  const { data: presign } = await privateApi.post('/api/admin/upload/presign', {
+    domain,
+    extension,
+    contentType,
+  });
 
-  //TODO: 추후 S3로 변경
-  const appendFiles = useCallback(
-    (files: File[]) => {
-      if (!files?.length) return;
-      const newUrls = files.map((f) => URL.createObjectURL(f));
-      setUrls((prev) => {
-        const next = [...prev, ...newUrls].slice(0, max);
-        // 잘려나간 URL 정리
-        if (prev.length + newUrls.length > max) {
-          [...prev, ...newUrls].slice(max).forEach((u) => URL.revokeObjectURL(u));
-        }
-        return next;
-      });
-      if (inputRef.current) inputRef.current.value = '';
-    },
-    [max],
-  );
+  //TODO: 모달로 처리 (사진 업로드 실패, 다시 시도해 주세요
 
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    appendFiles(Array.from(e.target.files ?? []));
-  };
+  if (!presign?.url || !presign?.key) {
+    console.error('Invalid presign response:', presign);
+    throw new Error('Presign 응답이 올바르지 않습니다');
+  }
 
-  const removeAt = (idx: number) =>
-    setUrls((prev) => {
-      const u = prev[idx];
-      if (u) URL.revokeObjectURL(u);
-      return prev.filter((_, i) => i !== idx);
+  return { presign, contentType };
+}
+
+//TODO: 모달로 처리
+async function putToS3(uploadUrl: string, file: File, contentType: string) {
+  const r = await axios.put(uploadUrl, file, {
+    headers: { 'Content-Type': contentType },
+    // S3는 200/204가 일반적, body 없음
+    maxBodyLength: Infinity,
+  });
+  if (r.status < 200 || r.status >= 300) {
+    throw new Error(`S3 업로드 실패: ${r.status}`);
+  }
+  return r;
+}
+
+export function usePhotoUpload(domain: 'temp' | 'stays') {
+  async function uploadAll(items: { id: string; file: File }[]): Promise<string[]> {
+    if (!items.length) return [];
+
+    const tasks = items.map(async (it) => {
+      const { presign, contentType } = await presignOne(domain, it.file);
+      const res = await putToS3(presign.url, it.file, contentType);
+      return presign.key; // 성공 시 key만 반환
+    });
+    const settled = await Promise.allSettled(tasks);
+
+    //TODO: 디버깅용 지우기
+
+    settled.forEach((r, idx) => {
+      if (r.status === 'rejected') {
+        console.error(`[UPLOAD FAIL] id=${items[idx].id}`, r.reason);
+      }
     });
 
-  useEffect(() => () => urls.forEach((u) => URL.revokeObjectURL(u)), [urls]);
+    const keys = settled
+      .filter((r): r is PromiseFulfilledResult<string> => r.status === 'fulfilled')
+      .map((r) => r.value);
 
-  return { urls, inputRef, openPicker, onInputChange, appendFiles, removeAt };
+    return keys; // ← 성공한 key들만
+  }
+  return { uploadAll };
 }

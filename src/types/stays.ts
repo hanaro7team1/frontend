@@ -48,3 +48,10 @@ export type AdminStayListItemResponse = {
   hostName: string;
 } & Omit<StayListItemResponse, 'address'>;
 export type AdminStayListResponse = Paged<AdminStayListItemResponse>;
+
+export type PreviewImageItem = {
+  id: string;
+  file: File;
+  previewUrl: string;
+};
+export type PresignResp = { url: string; key: string };

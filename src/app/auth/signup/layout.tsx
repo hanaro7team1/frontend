@@ -47,16 +47,13 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
   const noErrors = must.every((k) => !(errors as any)[k]);
   const isValid = allFilled && noErrors;
 
-  console.log('isValid: ');
-  console.log(isValid);
-
   const leftButtonTxt = currentStep === FIRST_STEP_NUM ? '취소' : '이전';
   const rightButtonTxt = currentStep === TOTAL_SIGN_UP_NUM ? '가입 완료' : '다음';
 
   return (
     <>
       <Header title={'회원 가입'} bgColor='pink' />
-      <StepProgressBar currentStep={currentStep} isSignUp={true} />
+      <StepProgressBar isSignUp={true} />
       {children}
       <FixedBottomButton
         leftBtnText={leftButtonTxt}
