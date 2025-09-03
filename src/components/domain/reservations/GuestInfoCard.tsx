@@ -4,23 +4,28 @@ import { InfoRow } from '.';
 
 type Props = {
   data: {
-    guestName: string;
-    schedule: string;
-    peopleCount: string;
-    doWork: string;
-    guestTel: string;
+    memberName: string;
+    startDate: string;
+    endDate: string;
+    personCnt: number;
+    isFarm: boolean;
+    memberPhone: string;
   };
 };
 
 export default function GuestInfoCard({ data }: Props) {
-  const { guestName, schedule, peopleCount, doWork, guestTel } = data;
+  const { memberName, startDate, endDate, personCnt, isFarm, memberPhone } = data;
 
   const guestInfo = [
-    { label: '이름', icon: User, value: guestName },
-    { label: '일정', icon: CalendarCheck, value: schedule },
-    { label: '인원', icon: Users, value: peopleCount },
-    { label: '농장체험', icon: Leaf, value: doWork },
-    { label: '연락처', icon: Phone, value: guestTel },
+    { label: '이름', icon: User, value: memberName },
+    {
+      label: '일정',
+      icon: CalendarCheck,
+      value: `${startDate.replaceAll('-', '.')} - ${endDate.replaceAll('-', '.')}`,
+    },
+    { label: '인원', icon: Users, value: personCnt + '' },
+    { label: '농장체험', icon: Leaf, value: isFarm ? '희망' : '희망 안 함' },
+    { label: '연락처', icon: Phone, value: memberPhone },
   ];
 
   return (
