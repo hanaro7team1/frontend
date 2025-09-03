@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Txt } from '@/components/atoms';
+import { Modal } from '@/components/common';
 import { usePhotoPreview } from '@/hooks/admin/usePhotoPreview';
 import { usePhotoUpload } from '@/hooks/admin/usePhotoUpload';
 import { SLOT_COUNT } from '@/constants/admin/Admin';
@@ -28,6 +29,10 @@ export default function AddPhoto() {
   // 이미 업로드 성공했는지
   const uploadedOnceRef = useRef(false);
 
+  //에러 모달
+  const [errorMessage, setError] = useState('');
+  const [isModalOpen, setModalOpened] = useState(false);
+
   //로딩 화면
   const [loading, setLoading] = useState(false);
 
@@ -41,7 +46,7 @@ export default function AddPhoto() {
 
     const cleanup = registerBeforeNext(currentStep, async () => {
       if (!items.length) {
-        alert('사진을 최소 1장 이상 올려 주세요');
+        setError('사진을 한 장 이상 올려주세요');
         return false;
       }
       // 이미 한 번 업로드에 성공해서 키 보관해둔 상태라면 통과
@@ -66,9 +71,10 @@ export default function AddPhoto() {
         uploadedOnceRef.current = true;
 
         return true;
-      } catch (e) {
+      } catch (err) {
         //TODO: 모달 적용
-        alert('사진 업로드 중 문제 발생');
+        setError('업로드 실패입니다 잠시 후 다시 시도해 주세요');
+        setModalOpened(true);
         return false;
       } finally {
         uploadingRef.current = false;
@@ -89,6 +95,17 @@ export default function AddPhoto() {
       {/* 사진 업로드용 버튼, 그리드와 같은 동작을 함  */}
       <UploadBarButton onClick={openPicker} />
       {loading && <ImageUploadLoading />}
+      {isModalOpen && (
+        <Modal
+          leftBtnText='취소'
+          rightBtnText='확인'
+          onClickLeftBtn={() => setModalOpened(false)}
+          onClickRightBtn={() => setModalOpened(false)}
+          isPink={true}
+        >
+          {errorMessage}
+        </Modal>
+      )}
     </>
   );
 }
