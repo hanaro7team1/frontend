@@ -2,15 +2,17 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Txt } from '@/components/atoms';
 import { ROOM_STATUSES } from '@/constants/stays/stays';
-import { RoomStatus } from '@/types/stays';
+import { AdminStaysSearchParams } from '@/types/stays';
 
 type Props = {
-  roomStatus: RoomStatus;
+  searchParams: AdminStaysSearchParams;
 };
 
-export default async function FilterRoomStatus({ roomStatus }: Props) {
+export default async function FilterRoomStatus({ searchParams }: Props) {
+  const { roomStatus } = searchParams;
+
   return (
-    <div className={`border-black-626/15 sticky top-[50px] flex flex-row border-b bg-white`}>
+    <div className={`border-black-626/15 sticky top-[50px] z-30 flex flex-row border-b bg-white`}>
       {ROOM_STATUSES.map(({ label, href }) => {
         const isActive = roomStatus === label || (!roomStatus && label === '전체');
 

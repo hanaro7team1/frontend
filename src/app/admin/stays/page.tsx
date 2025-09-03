@@ -1,19 +1,19 @@
 import { Header } from '@/components/common';
-import { FilterRoomStatus, RoomList } from '@/components/domain/stays';
-import { RoomStatus } from '@/types/stays';
+import { AdminRoomList, FilterRoomStatus } from '@/components/domain/stays';
+import { AdminStaysSearchParams } from '@/types/stays';
 
 type Props = {
-  searchParams: Promise<{ roomStatus: RoomStatus }>;
+  searchParams: Promise<AdminStaysSearchParams>;
 };
 
 export default async function AdminStaysPage({ searchParams }: Props) {
-  const { roomStatus } = await searchParams;
+  const searchParam = await searchParams;
 
   return (
     <>
       <Header title='우리 마을 사랑방' withoutBorder />
-      <FilterRoomStatus roomStatus={roomStatus} />
-      <RoomList isAdmin />
+      <FilterRoomStatus searchParams={searchParam} />
+      <AdminRoomList searchParams={searchParam} />
     </>
   );
 }
