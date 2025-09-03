@@ -30,3 +30,10 @@ export type StayDetailResponseType = {
 
   // images?: string[];
 };
+
+export type PreviewImageItem = {
+  id: string;
+  file: File;
+  previewUrl: string;
+};
+export type PresignResp = { url: string; key: string };

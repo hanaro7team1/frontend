@@ -1,3 +1,5 @@
+import { WizardActions, WizardData } from '@/types/wizard';
+
 /**
  * Date객체를 YY.MM.DD 형태로 format해주는 함수
  * @param date : Date 객체
@@ -38,3 +40,56 @@ export const parseDateString = (dateStr: string | Date): Date => {
   // '25'년 -> 2025년으로, 월은 0부터 시작하므로 1을 빼줍니다 (9월 -> 8).
   return new Date(2000 + year, month - 1, day);
 };
+
+export function getExtFromName(name: string): string | null {
+  // 쿼리스트링/해시 잘라내기 (혹시 있을 경우)
+  const clean = name.split('?')[0].split('#')[0];
+
+  // 마지막 점 위치
+  const lastDot = clean.lastIndexOf('.');
+  if (lastDot <= 0 || lastDot === clean.length - 1) return null; // 맨 앞 점(.env) 또는 끝이 점인 경우
+
+  const ext = clean
+    .slice(lastDot + 1)
+    .toLowerCase()
+    .trim();
+  // 영숫자/+-_ 만 허용 (원하면 더 빡세게 제한 가능)
+  return /^[a-z0-9._+-]+$/.test(ext) ? ext : null;
+}
+
+// File 객체에서 편의 함수
+export function getExtFromFile(file: File): string | null {
+  return getExtFromName(file.name);
+}
+
+//스텝 데이터 초기화 함수
+export const makeInitial = (): WizardData => ({
+  step1: { address: '', detailAddress: '' },
+  step2: { s3Keys: [] },
+  step3: { capacity: 0, areaSize: 0 },
+  step4: { hostName: '', hostPhone: '' },
+  step5: { description: '' },
+});
+
+export function reducer(state: WizardData, action: WizardActions): WizardData {
+  switch (action.type) {
+    case 'SET_STEP1':
+      return { ...state, step1: { ...state.step1, ...action.payload } };
+    case 'SET_STEP2':
+      return { ...state, step2: { ...state.step2, ...action.payload } };
+    case 'SET_STEP3':
+      return { ...state, step3: { ...state.step3, ...action.payload } };
+    case 'SET_STEP4':
+      return { ...state, step4: { ...state.step4, ...action.payload } };
+    case 'SET_STEP5':
+      return { ...state, step5: { ...state.step5, ...action.payload } };
+    case 'RESET':
+      return makeInitial();
+    default:
+      return state;
+  }
+}
+
+export function keyToPublicUrl(key: string) {
+  return `https://sido-upload.s3.ap-northeast-2.amazonaws.com/${key}`;
+}

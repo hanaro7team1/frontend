@@ -1,46 +1,31 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { clampNum } from '@/lib/utils';
-import { FixedBottomButton, Header } from '@/components/common';
+import { useSearchParams } from 'next/navigation';
+import { Header } from '@/components/common';
 import { StepProgressBar } from '@/components/domain/admin/add';
-import { FIRST_STEP_NUM, TOTAL_STEP_NUM } from '@/constants/admin/Admin';
+import WizardDataProvider from '@/components/domain/admin/add/wizard/WizardDataProvider';
+import WizardNav from '@/components/domain/admin/add/wizard/WizardNav';
+import WizardProvider from '@/components/domain/admin/add/wizard/WizardProvider';
 
 export default function AddLayout({ children }: { children: React.ReactNode }) {
-  const search = useSearchParams();
-  const pathName = usePathname();
-  const router = useRouter();
+  const searchParams = useSearchParams();
+  const step = Number(searchParams.get('step') ?? '1');
 
-  //현재 스텝 계산
-  const raw = Number(search.get('step') ?? 1);
-  const currentStep = clampNum({ n: isNaN(raw) ? 1 : raw });
-
-  const handleStep = (next: number) => {
-    const q = new URLSearchParams(search.toString());
-    q.set('step', String(clampNum({ n: next })));
-    router.push(`${pathName}?${q.toString()}`);
-  };
-
-  const prevStep = () =>
-    currentStep === FIRST_STEP_NUM ? router.push('/admin') : handleStep(currentStep - 1);
-  const nextStep = () =>
-    currentStep === TOTAL_STEP_NUM ? router.push('/admin/stays') : handleStep(currentStep + 1);
-
-  const leftButtonTxt = currentStep === FIRST_STEP_NUM ? '취소' : '이전';
-  const rightButtonTxt = currentStep === TOTAL_STEP_NUM ? '등록 완료' : '다음';
-
+  const showChrome = step < 6; // step=6 미리보기면 감춤
   return (
     <>
-      <Header title={'우리 마을 사랑방 등록'} bgColor='pink' />
-      <StepProgressBar currentStep={currentStep} />
-      {children}
-      <FixedBottomButton
-        leftBtnText={leftButtonTxt}
-        rightBtnText={rightButtonTxt}
-        isPink={true}
-        onClickRightBtn={nextStep}
-        onClickLeftBtn={prevStep}
-      />
+      <WizardProvider>
+        <WizardDataProvider>
+          {showChrome && (
+            <>
+              <Header title={'우리 마을 사랑방 등록'} bgColor='pink' />
+              <StepProgressBar />
+            </>
+          )}
+          {children}
+          <WizardNav />
+        </WizardDataProvider>
+      </WizardProvider>
     </>
   );
 }
