@@ -70,8 +70,8 @@ export default function FestivalsPage() {
     </div>
 
     <div className='flex flex-col p-5 gap-8'>
-      {events.map(f => (
-          <ListBox key = {f.id} {...f} />
+      {data.dtoList.map((festival) => (
+          <ListBox key = {festival} data={festival} />
       ))}
     </div>
 
