@@ -23,7 +23,7 @@ export default function LoginForm() {
     try {
       const userData = await login(loginId, password);
       if (userData.role === 'ROLE_ADMIN') router.push('/admin');
-      else router.push('/home');
+      else router.push('/main');
     } catch (error: any) {
       setError(error.response?.data?.message || '로그인 실패');
     } finally {
