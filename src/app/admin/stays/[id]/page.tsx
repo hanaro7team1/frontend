@@ -9,10 +9,10 @@ type Props = {
 };
 
 export default async function AdminStayEditPage({ params }: Props) {
-  const { id: stayId } = await params;
+  const { id } = await params;
 
   const api = await serverPrivateApi();
-      
+
   const { data } = await api.get<StayDetailResponseType>(`/api/stays/${id}`);
   const { title, address, capacity, areaSize, description, images, id: stayId } = data;
 
