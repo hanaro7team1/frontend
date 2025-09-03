@@ -31,8 +31,7 @@ export type StayDetailResponseType = {
   description: string;
   isHomestay: boolean;
   isActiveMsg: string;
-
-  // images?: string[];
+  images: string[];
 };
 
 export type StayListItemResponse = {
@@ -43,6 +42,12 @@ export type StayListItemResponse = {
   stayResrvStatus: '예약 가능' | '예약 마감' | '예약 닫힘';
 };
 export type StayListResponse = Paged<StayListItemResponse>;
+
+export type StayPatchResponse = {
+  capacity: number;
+  areaSize: number;
+  description: string;
+};
 
 export type AdminStayListItemResponse = {
   hostName: string;
