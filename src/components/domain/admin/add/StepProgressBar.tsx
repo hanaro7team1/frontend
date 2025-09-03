@@ -13,7 +13,7 @@ export default function StepProgressBar({ isSignUp = false }: Props) {
   const { currentStep } = useWizard();
   const STEPS = isSignUp ? SIGN_UP_STEPS : ADD_STEPS;
   return (
-    <div className='bg-gray-484/5 relative w-full py-4'>
+    <div className='bg-gray-484/5 relative z-20 w-full py-4'>
       <div
         className={cn('bg-gray-6d6 absolute inset-x-[10%] top-8 h-[2px]', {
           'inset-x-[40%]': isSignUp,

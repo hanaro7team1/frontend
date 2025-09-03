@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { usePhotoPreview } from '@/hooks/admin/usePhotoPreview';
 import { usePhotoUpload } from '@/hooks/admin/usePhotoUpload';
@@ -8,6 +8,7 @@ import { SLOT_COUNT } from '@/constants/admin/Admin';
 import { useWizardData } from '../../wizard/WizardDataProvider';
 import { useWizard } from '../../wizard/WizardProvider';
 import HiddenFileInput from './HiddenFileInput';
+import ImageUploadLoading from './ImageUploadLoading';
 import PhotoGrid from './PhotoGrid';
 import UploadBarButton from './UploadBarButton';
 
@@ -24,7 +25,11 @@ export default function AddPhoto() {
   // 중복 업로드/재진입 방지
   const uploadingRef = useRef(false);
 
-  const uploadedOnceRef = useRef(false); // 이미 업로드 성공했는지
+  // 이미 업로드 성공했는지
+  const uploadedOnceRef = useRef(false);
+
+  //로딩 화면
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const hasLocal = (items?.length ?? 0) > 0; //이번 스텝 파일
@@ -47,14 +52,11 @@ export default function AddPhoto() {
 
       try {
         uploadingRef.current = true;
+        setLoading(true); // 업로드 중에는 로딩창
         setNextDisabled(currentStep, true); // 업로드 중 잠금
 
         const uploaded = await uploadAll(items);
 
-        if (uploaded.length === 0) {
-          alert('업로드 된 것이 없으므로 사진 업로드 실패');
-          return false;
-        }
         const prev = Array.isArray(data?.step2?.s3Keys) ? data.step2.s3Keys : [];
 
         const merged = Array.from(new Set([...prev, ...uploaded]));
@@ -65,6 +67,7 @@ export default function AddPhoto() {
 
         return true;
       } catch (e) {
+        //TODO: 모달 적용
         alert('사진 업로드 중 문제 발생');
         return false;
       } finally {
@@ -85,6 +88,7 @@ export default function AddPhoto() {
       <PhotoGrid urls={urls} onPick={openPicker} onRemoveAt={removeAt} />
       {/* 사진 업로드용 버튼, 그리드와 같은 동작을 함  */}
       <UploadBarButton onClick={openPicker} />
+      {loading && <ImageUploadLoading />}
     </>
   );
 }
