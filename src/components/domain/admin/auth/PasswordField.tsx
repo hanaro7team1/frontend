@@ -6,9 +6,10 @@ type Props = {
   value: string;
   onChange: (v: string) => void;
   placeholder: string;
+  autoComplete?: string;
 };
 
-export function PasswordField({ value, onChange, placeholder = '비밀번호' }: Props) {
+export function PasswordField({ value, onChange, placeholder = '비밀번호', autoComplete }: Props) {
   const [show, setShow] = useState(false);
   return (
     <div className='relative'>
@@ -16,6 +17,7 @@ export function PasswordField({ value, onChange, placeholder = '비밀번호' }:
         type={show ? 'text' : 'password'}
         value={value}
         placeholder={placeholder}
+        autoComplete={autoComplete}
         onChange={(e) => onChange(e.target.value)}
         aria-label='비밀번호'
       />
