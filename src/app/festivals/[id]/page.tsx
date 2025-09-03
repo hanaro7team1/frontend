@@ -43,7 +43,7 @@ export default async function FestivalDetailPage({ params }: Props) {
     <div className="p-5 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <Txt size={24} weight="bold">{title}</Txt>
-          <div className="inline-flex items-center w-fit rounded-[8px] bg-gray-6d6 px-3">
+          <div className="inline-flex items-center w-fit rounded-lg bg-gray-6d6/50 px-3">
             <Txt size={22} className="text-green-49d ">{dDay(startDate)}</Txt>
           </div>
         </div>
