@@ -43,6 +43,12 @@ export type StayListItemResponse = {
 };
 export type StayListResponse = Paged<StayListItemResponse>;
 
+export type StayPatchResponse = {
+  capacity: number;
+  areaSize: number;
+  description: string;
+};
+
 export type AdminStayListItemResponse = {
   hostName: string;
 } & Omit<StayListItemResponse, 'address'>;
