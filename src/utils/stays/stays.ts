@@ -66,7 +66,7 @@ export function getExtFromFile(file: File): string | null {
 export const makeInitial = (): WizardData => ({
   step1: { address: '', detailAddress: '' },
   step2: { s3Keys: [] },
-  step3: { capacity: 0, areaSize: 0 },
+  step3: { capacity: 2, areaSize: 25 },
   step4: { hostName: '', hostPhone: '' },
   step5: { description: '' },
 });
