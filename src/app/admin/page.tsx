@@ -5,6 +5,8 @@ import { Txt } from '@/components/atoms';
 import { Bankbook, MenuTabs, ReservationStats } from '@/components/domain/admin';
 import { getIsAdmin } from '@/utils/auth/auth-server';
 import { AdminReservationResponse } from '@/types/admin';
+import { ReservationModal } from '@/components/domain/main';
+import { ReservationStatus } from '@/enums/reservation';
 
 export default async function HomePage() {
   const isAdmin = await getIsAdmin();
@@ -19,6 +21,15 @@ export default async function HomePage() {
     accountName: '시도통장',
     accountNumber: '1234-56789-0000',
     balance: '3,000,000원',
+  };
+
+  // TODO: 실제 예약 상태 확인 위한 websocket 연결
+  const payload = {
+    id: 1,
+    confirmedDate: '25.09.09 (화) - 25.09.13 (토)',
+    hostName: '김갑순',
+    roomName: '가람마을 사랑방 3호',
+    status: ReservationStatus.RESERVED,
   };
 
   const { accountName, accountNumber, balance } = account;
@@ -45,6 +56,7 @@ export default async function HomePage() {
 
       <footer className='mt-9 px-4'>
         <MenuTabs />
+        <ReservationModal payload={payload} />
       </footer>
     </div>
   );

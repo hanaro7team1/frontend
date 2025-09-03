@@ -85,7 +85,7 @@ export const dummyReservationDetail = {
   stayAddress: '경상북도 안동시 임하면 천등산길 124-16',
   guestName: '윤서연',
   schedule: '25.09.09 (화) - 25.09.13 (토)',
-  peopleCount: '2명',
+  peopleCount: '2',
   doWork: '희망 안 함',
   guestTel: '010-1234-5678',
   hostName: '김갑순',
