@@ -15,6 +15,16 @@ export default function CancelBtn({ id }: Props) {
 
   const [isModalOpened, setModalOpened] = useState(false);
 
+  const handleDelete = async () => {
+    const res = await privateApi.delete(`/api/reservations/${id}`);
+
+    if (res.status === 204) {
+      alert('예약이 취소되었습니다.');
+      setModalOpened(false);
+      router.push('/reservations?reservationStatus=취소됨');
+    }
+  };
+
   return (
     <>
       <button
@@ -28,13 +38,7 @@ export default function CancelBtn({ id }: Props) {
         <Modal
           rightBtnText='네'
           leftBtnText='아니요'
-          onClickRightBtn={async () =>
-            await privateApi.delete(`/api/reservations/${id}`).then(() => {
-              alert('예약이 취소되었습니다.');
-              setModalOpened(false);
-              router.push('/reservations?reservationStatus=취소됨');
-            })
-          }
+          onClickRightBtn={handleDelete}
           onClickLeftBtn={() => setModalOpened(false)}
         >
           정말 취소할까요?
