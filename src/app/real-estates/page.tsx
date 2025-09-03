@@ -1,5 +1,6 @@
 import { BottomTabNav, Header } from '@/components/common';
 import { EstatesList, FilterEstatesOptions } from '@/components/domain/realEstates';
+import { RealEstatesSearchParams } from '@/types/real-estates';
 
 type Props = {
   searchParams: Promise<RealEstatesSearchParams>;
