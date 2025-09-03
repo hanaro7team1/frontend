@@ -1,0 +1,48 @@
+import { ReservationsSearchParams } from "@/app/reservations/page";
+import { Txt } from "@/components/atoms";
+import { RESERV_STATUSES } from "@/constants/reservations/reservations";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+
+type Props = {
+    searchParams: ReservationsSearchParams;
+    isAdmin: boolean;
+}
+
+export default function FilterReserv({searchParams, isAdmin}: Props) {
+  const { reservationStatus } = searchParams;
+
+  return <>
+        <div className='border-black-626/15 flex flex-row border-b bg-white'>
+            {RESERV_STATUSES.map(({ label, href }) => {
+        const isActive = reservationStatus === label || (!reservationStatus && label === '전체');
+
+        return (
+          <Link
+            key={label}
+            href={href}
+            replace
+            className='relative mx-1 flex h-[50px] w-full flex-col items-center justify-center'
+          >
+            <Txt
+              className={cn('text-gray-070', {
+                'text-pink-a76': isActive &&isAdmin,
+                'text-green-49d': isActive,
+              })}
+            >
+              {label}
+            </Txt>
+            {isActive && (
+              <div
+                className={cn('absolute bottom-[4px] h-[3px] w-full', {
+                'bg-pink-a76': isActive &&isAdmin ,
+                'bg-green-49d': isActive ,
+                })}
+              />
+            )}
+          </Link>
+        );
+      })}
+        </div>
+    </>;
+}
