@@ -42,7 +42,6 @@ export default function WizardProvider({ children }: { children: React.ReactNode
       const r = await guard();
       return r !== false;
     } catch (e) {
-      //TODO: 모달로 다음 스텝 못 넘어가는 이유 알려주기
       return false;
     }
   };

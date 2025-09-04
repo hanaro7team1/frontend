@@ -1,19 +1,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShadowBox, Txt } from '@/components/atoms';
-import { StayListItemResponse } from '@/types/stays';
+import { StayListItemResponse, StaysSearchParams } from '@/types/stays';
 import { StatusCapsule } from '.';
 
 type Props = {
   data: StayListItemResponse;
+  searchParams: StaysSearchParams;
 };
 
-export default function RoomItem({ data }: Props) {
+export default function RoomItem({ data, searchParams }: Props) {
   const { id, imageURL, address, title, stayResrvStatus } = data;
 
   return (
     <ShadowBox>
-      <Link href={`/stays/${id}`}>
+      <Link href={`/stays/${id}?${new URLSearchParams(searchParams).toString()}`}>
         <div className='relative h-[140px] overflow-hidden'>
           <Image src={imageURL} alt={title} fill className='object-cover' />
         </div>

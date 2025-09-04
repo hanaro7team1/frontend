@@ -44,7 +44,7 @@ export default function ReservationModal({ payload }: { payload: ReservationPayl
             router.push(`/reservations/${id}`);
             setOpen(false);
           }}
-          isPink={true}
+          isPink
         >
           <div className='flex flex-col items-center'>
             <Txt size={24} weight='bold' align='center' className='mb-2'>

@@ -1,6 +1,15 @@
 import { ReactElement } from 'react';
 import { Paged } from './common';
 
+export type RoomInfo = {
+  id: number;
+  name: string;
+  location: string;
+  hostName?: string;
+  status: '예약 가능' | '예약 마감' | '예약 닫힘';
+  imgUrl: string;
+};
+
 export type RoomType = '하숙형' | '독립형';
 export type StaysSearchParams = {
   roomType?: RoomType;

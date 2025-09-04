@@ -4,17 +4,17 @@ import { InfoRow } from '.';
 
 type Props = {
   data: {
-    hostName: string;
-    hostTel: string;
+    ownerName: string;
+    ownerPhone: string;
   };
 };
 
 export default function HostInfoCard({ data }: Props) {
-  const { hostName, hostTel } = data;
+  const { ownerName, ownerPhone } = data;
 
   const hostInfo = [
-    { label: '이름', icon: User, value: hostName },
-    { label: '연락처', icon: Phone, value: hostTel },
+    { label: '이름', icon: User, value: ownerName },
+    { label: '연락처', icon: Phone, value: ownerPhone },
   ];
 
   return (

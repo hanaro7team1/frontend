@@ -40,10 +40,11 @@ const Profile = ({ villageName }: Props) => {
       </div>
       {isModalOpen && (
         <Modal
-          grayBtnText='아니요'
-          greenBtnText='네'
-          onClickGrayBtn={() => setIsModalOpen(false)}
-          onClickGreenBtn={() => router.push('/auth')}
+          leftBtnText='아니요'
+          rightBtnText='네'
+          onClickLeftBtn={() => setIsModalOpen(false)}
+          onClickRightBtn={() => router.push('/auth')}
+          isPink
         >
           로그아웃 하시겠어요?
         </Modal>
