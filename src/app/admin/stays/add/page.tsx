@@ -1,14 +1,13 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { clampNum } from '@/lib/utils';
+import { useWizard } from '@/components/domain/admin/add/wizard/WizardProvider';
 import { STEPS } from '@/constants/admin/Admin';
 
 export default function AdminStayAddPage() {
-  const search = useSearchParams();
-  const n = Number(search.get('step') ?? '');
-  const stepNum = clampNum({ n });
-  const View = STEPS[stepNum - 1];
+  const { currentStep } = useWizard();
+  const idx = Math.min(Math.max(currentStep, 1), STEPS.length) - 1;
+  const View = STEPS[idx];
+
   return (
     <div className='flex flex-col gap-4 p-4'>
       <View />
