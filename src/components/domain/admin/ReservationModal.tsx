@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Txt } from '@/components/atoms';
 import Modal from '@/components/common/Modal';
 import { ReservationPayload } from '@/types/reservation';
-import ModalInfo from './ModalInfo';
+import ModalInfo from '../main/ModalInfo';
 
 export default function ReservationModal({ payload }: { payload: ReservationPayload }) {
   const { id, confirmedDate, hostName, roomName, status } = payload;
