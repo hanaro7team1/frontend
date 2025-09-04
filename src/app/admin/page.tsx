@@ -6,7 +6,7 @@ import {
   Bankbook,
   MenuTabs,
   ReservationListener,
-  ReservationStats,
+  ReservationStatsContainer,
 } from '@/components/domain/admin';
 import { getIsAdmin } from '@/utils/auth/auth-server';
 import { AdminReservationResponse } from '@/types/admin';
@@ -15,7 +15,7 @@ export default async function HomePage() {
   const isAdmin = await getIsAdmin();
 
   if (!isAdmin) {
-    redirect('/login');
+    redirect('/auth');
   }
 
   const api = await serverPrivateApi();
@@ -45,11 +45,7 @@ export default async function HomePage() {
 
       <main className='z-1 space-y-5 px-4'>
         <Bankbook accountName={accountName} accountNumber={accountNumber} balance={balance} />
-        <ReservationStats
-          upcomingCnt={upcomingCnt}
-          inProgressCnt={inProgressCnt}
-          completedCnt={completedCnt}
-        />
+        <ReservationStatsContainer initialData={data} />
       </main>
 
       <footer className='mt-9 px-4'>
