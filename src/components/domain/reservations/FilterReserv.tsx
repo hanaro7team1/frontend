@@ -26,7 +26,7 @@ export default function FilterReserv({searchParams, isAdmin}: Props) {
           >
             <Txt
               className={cn('text-gray-070', {
-                'text-pink-a76': isActive &&isAdmin,
+                'text-pink-a76': isActive && isAdmin,
                 'text-green-49d': isActive,
               })}
             >
@@ -35,7 +35,7 @@ export default function FilterReserv({searchParams, isAdmin}: Props) {
             {isActive && (
               <div
                 className={cn('absolute bottom-[4px] h-[3px] w-full', {
-                'bg-pink-a76': isActive &&isAdmin ,
+                'bg-pink-a76': isActive && isAdmin ,
                 'bg-green-49d': isActive ,
                 })}
               />

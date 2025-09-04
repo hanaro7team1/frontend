@@ -1,4 +1,4 @@
-export const RESERV_URL = '/resertations';
+export const RESERV_URL = '/reservations';
 
 export const RESERV_STATUSES = [
     {label: '전체', href: '/reservations?reservationStatus=전체' },

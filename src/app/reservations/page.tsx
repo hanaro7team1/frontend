@@ -18,11 +18,11 @@ export default async function ReservationsPage({ searchParams }: Props) {
   const searchParam = await searchParams;
   const isAdmin = await getIsAdmin();
   
-  const { data } = await publicApi.get<ReservationsResponse>('/api/reservations', { params: searchParams });
+  const { data } = await publicApi.get<ReservationsResponse>('/api/reservations', { params: searchParam });
 
   return <>
     <Header title={isAdmin? "우리 마을 사랑방 예약 목록" : "나의 예약 목록"} bgColor="white" withoutBorder/>
-    <FilterReserv searchParams={searchParam} isAdmin={false}/>
+    <FilterReserv searchParams={searchParam} isAdmin={isAdmin}/>
     <div className="flex flex-col p-3 gap-3">
       {data.dtoList.map((reservation) => (
         <ReservationCard key={reservation.id} data={reservation} />
