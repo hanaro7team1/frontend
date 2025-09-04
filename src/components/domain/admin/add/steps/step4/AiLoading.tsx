@@ -4,7 +4,7 @@ import GifLoader from '@/components/common/GifLoaders';
 
 export default function AiLoading() {
   return (
-    <div className='fixed inset-0 flex flex-col items-center justify-center'>
+    <div className='fixed inset-0 flex flex-col items-center justify-center bg-white'>
       <Txt size={22}>
         입력하신 정보를 바탕으로 <br /> 사랑방 소개글을 작성하고 있어요!
       </Txt>
