@@ -1,7 +1,6 @@
 'use client';
 
 import { Client } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
 import { useEffect } from 'react';
 import { ReservationNotification } from '@/types/reservation';
 
@@ -12,15 +11,16 @@ export function useReservationSocket(
   useEffect(() => {
     if (!memberId) return;
 
-    const socket = new SockJS('http://localhost:8082/ws');
-    const stompClient = new Client({ webSocketFactory: () => socket as any });
-
-    stompClient.onConnect = () => {
-      stompClient.subscribe(`/topic/reservations/${memberId}`, (message: { body: string }) => {
-        const payload: ReservationNotification = JSON.parse(message.body);
-        onMessage(payload);
-      });
-    };
+    const stompClient = new Client({
+      brokerURL: 'ws://localhost:8082/ws',
+      reconnectDelay: 5000,
+      onConnect: () => {
+        stompClient.subscribe(`/topic/reservations/${memberId}`, (message) => {
+          const payload: ReservationNotification = JSON.parse(message.body);
+          onMessage(payload);
+        });
+      },
+    });
 
     stompClient.activate();
 
