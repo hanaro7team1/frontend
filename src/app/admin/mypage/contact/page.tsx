@@ -7,7 +7,7 @@ import { Header } from '@/components/common';
 import NoticeModal from '@/components/domain/admin/mypage/NoticeModal';
 import '@/utils/common/phoneHyphen';
 import { formatPhone } from '@/utils/common/phoneHyphen';
-import { getAdminInfoClient, updateAdminPhone } from '@/app/apis/mypage';
+import { getAdminInfoClient, updateAdminPhone } from '@/app/api/mypage';
 
 export default function AdminContactPage() {
   const [phone, setPhone] = useState('010-1234-1234');

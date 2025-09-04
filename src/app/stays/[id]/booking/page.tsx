@@ -1,7 +1,7 @@
 import { Header } from '@/components/common';
 import { StayInfoCard } from '@/components/domain/reservations';
 import { EditBooking } from '@/components/domain/stays';
-import { getStay } from '@/app/apis/stay-detail';
+import { getStay } from '@/app/api/stay-detail';
 
 type Props = {
   params: Promise<{ id: string }>;

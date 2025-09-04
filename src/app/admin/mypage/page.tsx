@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Header } from '@/components/common';
 import { MypageLinkBox, Profile } from '@/components/domain/admin/mypage';
-import { getAdminInfo } from '@/app/apis/mypage';
+import { getAdminInfo } from '@/app/api/mypage';
 
 export default async function AdminMyPage() {
   // 서버에서 호스트 정보 API 호출

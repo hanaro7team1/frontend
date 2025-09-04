@@ -6,7 +6,7 @@ import { Header } from '@/components/common';
 import { PasswordField } from '@/components/domain/admin/auth/PasswordField';
 import NoticeModal from '@/components/domain/admin/mypage/NoticeModal';
 import useValidation from '@/hooks/auth/useValidation';
-import { updateAdminPassword } from '@/app/apis/mypage';
+import { updateAdminPassword } from '@/app/api/mypage';
 
 export default function AdminPwdPage() {
   const txtPosition = 'flex flex-col gap-2 ';
