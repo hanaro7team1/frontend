@@ -21,7 +21,7 @@ export default function GuestInfoCard({ data }: Props) {
     {
       label: '일정',
       icon: CalendarCheck,
-      value: `${startDate.replaceAll('-', '.')} - ${endDate.replaceAll('-', '.')}`,
+      value: `${startDate.replace(/-/g, '.')} - ${endDate.replace(/-/g, '.')}`,
     },
     { label: '인원', icon: Users, value: personCnt + '' },
     { label: '농장체험', icon: Leaf, value: isFarm ? '희망' : '희망 안 함' },
