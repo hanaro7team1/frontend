@@ -88,7 +88,7 @@ export default function EditStay({ data }: Props) {
             router.push(`/stays/${stayId}`);
           }}
           onClickLeftBtn={() => setIsOpened(false)}
-          isPink={true}
+          isPink
         >
           등록이 완료되었습니다
         </Modal>

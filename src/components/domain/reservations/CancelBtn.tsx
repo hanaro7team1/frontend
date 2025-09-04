@@ -1,6 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
 import { Modal } from '@/components/common';
 
@@ -9,11 +11,27 @@ type Props = {
 };
 
 export default function CancelBtn({ id }: Props) {
-  // TODO: 추후에 세션에서 관리자 여부 읽어오기
-  const isAdmin = false;
-  if (isAdmin) return null;
+  const router = useRouter();
 
   const [isModalOpened, setModalOpened] = useState(false);
+
+  const handleDelete = async () => {
+    try {
+      const { status } = await privateApi.delete(`/api/reservations/${id}`);
+
+      if (status === 204) {
+        alert('예약이 취소되었습니다.');
+        setModalOpened(false);
+        router.push('/reservations?reservationStatus=취소됨');
+      } else {
+        alert('예약 취소에 실패했습니다. 다시 시도해주세요.');
+        setModalOpened(false);
+      }
+    } catch (error) {
+      alert('예약 취소 중 오류가 발생했습니다. 다시 시도해주세요.');
+      setModalOpened(false);
+    }
+  };
 
   return (
     <>
@@ -28,7 +46,7 @@ export default function CancelBtn({ id }: Props) {
         <Modal
           rightBtnText='네'
           leftBtnText='아니요'
-          onClickRightBtn={() => alert(id + '번 예약 취소')}
+          onClickRightBtn={handleDelete}
           onClickLeftBtn={() => setModalOpened(false)}
         >
           정말 취소할까요?

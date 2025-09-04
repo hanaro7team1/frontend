@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { checkIdValidation, checkPasswordValidation } from '@/lib/authValidation';
 import { useDebounce } from './useDebounce';
 
 export default function useValidation() {
   const [form, setForm] = useState({
-    id: '',
+    loginId: '',
     password: '',
     confirmPassword: '',
+    villageName: '',
+    region: '',
+    phone: '',
   });
 
   const [errors, setErrors] = useState({
@@ -16,7 +19,7 @@ export default function useValidation() {
   });
 
   //디바운싱 처리
-  const debounceId = useDebounce(form.id, 300);
+  const debounceId = useDebounce(form.loginId, 300);
   const debouncePassword = useDebounce(form.password, 300);
   const debounceConfirm = useDebounce(form.confirmPassword, 300);
 
