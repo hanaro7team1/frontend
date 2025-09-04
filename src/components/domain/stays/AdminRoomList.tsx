@@ -8,7 +8,6 @@ type Props = {
 
 export default async function AdminRoomList({ searchParams }: Props) {
   const api = await serverPrivateApi();
-
   const { data } = await api.get<AdminStayListResponse>('/api/admin/stays', {
     params: searchParams,
   });
