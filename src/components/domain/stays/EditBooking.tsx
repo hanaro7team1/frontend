@@ -36,7 +36,7 @@ export default function EditBooking({ data }: Props) {
         isFarm: wantsFarmExperience,
       });
 
-      if (status === 201) {
+      if (status === 200) {
         alert('예약이 완료되었습니다!');
         router.push('/reservations');
       } else {
