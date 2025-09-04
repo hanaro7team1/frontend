@@ -22,9 +22,7 @@ export default function WizardNav() {
     const ok = await tryProceed();
     if (!ok) return;
 
-    if (currentStep === TOTAL_STEP_NUM) {
-      router.push('/admin/stays');
-    } else {
+    if (currentStep !== TOTAL_STEP_NUM) {
       goToStep(currentStep + 1);
     }
   };
