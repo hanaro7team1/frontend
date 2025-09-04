@@ -5,9 +5,9 @@ import { ReservationStatus } from '@/enums/reservation';
  */
 export type ReservationNotification = {
   id: number;
-  confirmedDate: string;
-  hostName: string;
   roomName: string;
+  confirmedDate: string;
+  roomOwnerName: string;
 };
 
 /**
