@@ -11,11 +11,11 @@ export default function BottomSheetDealType() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const prevSearchParam = searchParams.get('dealType');
+  const prevSearchParam = searchParams.get('tradeType');
 
   const handleDone = (newDealType: '전세' | '매매') => {
     const params = new URLSearchParams(searchParams);
-    params.set('dealType', newDealType);
+    params.set('tradeType', newDealType);
     router.replace(`${pathname}?${params.toString()}`);
   };
 

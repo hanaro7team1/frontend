@@ -1,7 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
 import { BottomSheetPeopleCount, BottomSheetSchedule } from '@/components/domain/stays';
@@ -29,13 +30,34 @@ export default function CityActionBar({ id, onReserve, onInquiry, schedule, peop
     schedule?.replace('\n', '') ?? `${formatDate(today)}-${formatDate(twoDaysLater)}`;
   const displayPeopleCount = peopleCount ?? '2';
 
+  const searchParam = useSearchParams();
+  const searchParams = Object.fromEntries(searchParam.entries());
+
+  const handleReserve = async () => {
+    try {
+      const res = await privateApi.post(`/api/stays/${id}/reservations`, {
+        params: searchParam,
+      });
+
+      if (res.status === 201) {
+        router.push(
+          `/stays/${id}/booking?${new URLSearchParams(searchParams).toString()}&reservationId=${res.data.reservationId}`,
+        );
+      } else {
+        alert(res.data.message);
+      }
+    } catch (error) {
+      alert('예약 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  };
+
   return (
     <>
       <FixedBottomButton
         leftBtnText='전화로 문의하기'
         rightBtnText='예약하기'
         onClickLeftBtn={handleOpenModal}
-        onClickRightBtn={onReserve ?? (() => router.push(`/stays/${id}/booking`))}
+        onClickRightBtn={onReserve ?? handleReserve}
       >
         <div className='border-black-626/15 space-y-4 rounded-[15px] border px-6.5 py-5'>
           {/* 일정 */}

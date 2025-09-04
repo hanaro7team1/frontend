@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Txt } from '@/components/atoms';
-import { ReservationInfo, RoomInfo } from '../../../../public/dummy';
+import { ReservationInfo } from '@/types/reservation';
+import { RoomInfo } from '@/types/stays';
 
 const STATUS_STYLES: Record<RoomInfo['status'] | ReservationInfo['status'], string> = {
   '예약 가능': ' bg-blue-400',

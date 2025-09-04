@@ -12,7 +12,7 @@ export default async function RoomList({ searchParams }: Props) {
   return (
     <div className='m-4 space-y-4'>
       {data.dtoList.map((room) => (
-        <RoomItem key={room.id} data={room} />
+        <RoomItem key={room.id} data={room} searchParams={searchParams} />
       ))}
     </div>
   );

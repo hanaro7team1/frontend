@@ -1,3 +1,4 @@
+import { serverPrivateApi } from '@/lib/axios-server';
 import { Header } from '@/components/common';
 import {
   CancelBtn,
@@ -5,7 +6,8 @@ import {
   HostInfoCard,
   StayInfoCard,
 } from '@/components/domain/reservations';
-import { dummyReservationDetail } from '../../../../public/dummy';
+import { getIsAdmin } from '@/utils/auth/auth-server';
+import { ReservationDetail } from '@/types/reservation';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -14,29 +16,36 @@ type Props = {
 export default async function ReservationDetailPage({ params }: Props) {
   const { id } = await params;
 
+  const api = await serverPrivateApi();
+  const { data } = await api.get<ReservationDetail>(`/api/reservations/${id}`);
+
   const {
-    stayPicURL,
+    address,
+    endDate,
+    imageUrl,
+    isFarm,
+    isHomestay,
+    memberName,
+    memberPhone,
+    ownerName,
+    ownerPhone,
+    personCnt,
+    startDate,
     stayId,
-    stayName,
-    stayAddress,
-    guestName,
-    schedule,
-    peopleCount,
-    doWork,
-    guestTel,
-    hostName,
-    hostTel,
-  } = dummyReservationDetail;
+    title,
+  } = data;
+
+  const isAdmin = await getIsAdmin();
 
   return (
     <div className='flex flex-col gap-4'>
       <Header title='예약 자세히 보기' />
 
       <main className='flex flex-col gap-9 px-5'>
-        <StayInfoCard data={{ stayPicURL, stayId, title: stayName, address: stayAddress }} />
-        <GuestInfoCard data={{ guestName, schedule, peopleCount, doWork, guestTel }} />
-        <HostInfoCard data={{ hostName, hostTel }} />
-        <CancelBtn id={id} />
+        <StayInfoCard data={{ imageUrl, stayId, title, address }} />
+        <GuestInfoCard data={{ memberName, startDate, endDate, personCnt, isFarm, memberPhone }} />
+        {isHomestay && <HostInfoCard data={{ ownerName, ownerPhone }} />}
+        {!isAdmin && <CancelBtn id={id} />}
       </main>
     </div>
   );
