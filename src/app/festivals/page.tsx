@@ -12,50 +12,50 @@ import { usePublicData } from '@/hooks/api/useApi';
 const PAGE_SIZE = 4;
 
 export default function FestivalsPage() {
-  type Festival = typeof dummyFestivals[number];
+  // type Festival = typeof dummyFestivals[number];
 
-  const { data, error, isLoading, mutate } = usePublicData<FestivalListResponse>(
-    `/api/festivals`,
+  const { data } = usePublicData<FestivalListResponse>(
+    '/api/festivals',
   );
 
-  const [events, setEvents] = useState<Festival[]>([]);
-  const [hasNext, setHasNext] = useState(true);
-  const [page, setPage] = useState(0);
-  const [load, setLoad] = useState(false);
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
+  // const [events, setEvents] = useState<Festival[]>([]);
+  // const [hasNext, setHasNext] = useState(true);
+  // const [page, setPage] = useState(0);
+  // const [load, setLoad] = useState(false);
+  // const sentinelRef = useRef<HTMLDivElement | null>(null);
 
-  const loadData = useCallback(() => {
-    if(load || !hasNext) return;
-    setLoad(true);
+  // const loadData = useCallback(() => {
+  //   if(load || !hasNext) return;
+  //   setLoad(true);
 
-    const start = page * PAGE_SIZE;
-    const end = start + PAGE_SIZE;  
-    const chunk = dummyFestivals.slice(start, end);
+  //   const start = page * PAGE_SIZE;
+  //   const end = start + PAGE_SIZE;  
+  //   const chunk = dummyFestivals.slice(start, end);
 
-    setEvents(prev => [...prev, ...chunk]);
-    setHasNext(dummyFestivals[end] !== undefined);
-    setPage(prev => prev + 1);
-    setLoad(false);
-  }, [page, load, hasNext]);
+  //   setEvents(prev => [...prev, ...chunk]);
+  //   setHasNext(dummyFestivals[end] !== undefined);
+  //   setPage(prev => prev + 1);
+  //   setLoad(false);
+  // }, [page, load, hasNext]);
 
-  useEffect(() => {
-    void loadData();
-  }, [loadData]);
+  // useEffect(() => {
+  //   void loadData();
+  // }, [loadData]);
 
-  useEffect(() => {
-    const el = sentinelRef.current;
-    if(!el) return;
+  // useEffect(() => {
+  //   const el = sentinelRef.current;
+  //   if(!el) return;
 
-    const io = new IntersectionObserver(([entry]) => {
-      if(entry.isIntersecting) {
-        loadData();
-      }
-    }, {root: null, 
-      rootMargin: '150px'});
+  //   const io = new IntersectionObserver(([entry]) => {
+  //     if(entry.isIntersecting) {
+  //       loadData();
+  //     }
+  //   }, {root: null, 
+  //     rootMargin: '150px'});
 
-    io.observe(el);
-    return () => io.disconnect();
-  }, [loadData]);
+  //   io.observe(el);
+  //   return () => io.disconnect();
+  // }, [loadData]);
 
   return <>
     <Header title='지역 축제' bgColor='green'/>
@@ -75,9 +75,9 @@ export default function FestivalsPage() {
       ))}
     </div>
 
-    <div ref={sentinelRef} className='flex items-center justify-center text-gray-6d6'>
+    {/* <div ref={sentinelRef} className='flex items-center justify-center text-gray-6d6'>
       {load ? '불러오는중...' : hasNext ? '스크롤하여 더보기' : '마지막 페이지 입니다'}
-    </div>
+    </div> */}
 
     <BottomTabNav />
   </>;
