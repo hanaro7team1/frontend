@@ -2,12 +2,14 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { Input, Txt } from '@/components/atoms';
+import { useStep5Prefill } from '@/hooks/admin/useStep5Prefill';
 import { coercePhoneRaw, formatPhone, isPhoneLike } from '@/utils/common/phoneHyphen';
 import { useWizardData } from '../../wizard/WizardDataProvider';
 import { useWizard } from '../../wizard/WizardProvider';
+import AiLoading from './AiLoading';
 
 export default function AddOwner() {
-  const { currentStep, registerBeforeNext, setNextDisabled } = useWizard();
+  const { currentStep, setNextDisabled, registerBeforeNext } = useWizard();
   const { data, dispatch } = useWizardData();
 
   const [hostName, setHostName] = useState<string>(data.step4.hostName ?? '');
@@ -30,14 +32,18 @@ export default function AddOwner() {
     setNextDisabled(currentStep, !isValid);
   }, [currentStep, isValid, setNextDisabled]);
 
-  // “다음” 누르기 직전 컨텍스트에 저장
-  useEffect(() => {
-    const cleanup = registerBeforeNext(currentStep, async () => {
-      // 전역에는 raw(하이픈 없는) 값 저장
-      dispatch({ type: 'SET_STEP4', payload: { hostName: hostName.trim(), hostPhone: phoneRaw } });
-    });
-    return cleanup;
-  }, [currentStep, dispatch, hostName, phoneRaw, registerBeforeNext]);
+  //step2에서 저장한 s3key 하나 넘겨주기
+  const step2FirstKey = data.step2?.s3Keys?.[0];
+
+  const { loading } = useStep5Prefill({
+    currentStep,
+    registerBeforeNext,
+    setNextDisabled,
+    dispatch,
+    isValid,
+    step4: { hostName, hostPhone: phoneRaw },
+    s3Key: step2FirstKey,
+  });
 
   return (
     <>
@@ -58,6 +64,7 @@ export default function AddOwner() {
         value={formatPhone(phoneRaw)}
         onChange={onPhoneChange}
       />
+      {loading && <AiLoading />}
     </>
   );
 }

@@ -26,6 +26,8 @@ export type WizardData = {
   step5: Step5;
 };
 
+export type WizardDataDispatch = React.Dispatch<WizardActions>;
+
 //입력이 2개니까 바뀐 것만 보낼 수 있도록
 export type WizardActions =
   | { type: 'SET_STEP1'; payload: Partial<Step1> }
