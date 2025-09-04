@@ -4,7 +4,7 @@ import { ReservationStatus } from '@/enums/reservation';
  * 서버에서 WebSocket으로 전달되는 알림 원본 데이터
  */
 export type ReservationNotification = {
-  id: number;
+  reservationId: number;
   roomName: string;
   confirmedDate: string;
   roomOwnerName: string;
