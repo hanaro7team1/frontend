@@ -1,7 +1,21 @@
+'use client';
+
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { Txt } from '@/components/atoms';
 
 export default function SplashPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/auth');
+    }, 2000); // 2초 뒤 이동
+
+    return () => clearTimeout(timer);
+  }, [router]);
+
   return (
     <div className='bg-gray-7f9 flex h-screen flex-col items-center justify-center gap-5'>
       <div className='flex flex-col items-center'>

@@ -6,29 +6,29 @@ import { useEffect, useState } from 'react';
 import { Txt } from '@/components/atoms';
 import Modal from '@/components/common/Modal';
 import { ReservationPayload } from '@/types/reservation';
-import ModalInfo from './ModalInfo';
+import ModalInfo from '../main/ModalInfo';
 
 export default function ReservationModal({ payload }: { payload: ReservationPayload }) {
-  const { id, confirmedDate, hostName, roomName, status } = payload;
+  const { reservationId, confirmedDate, roomOwnerName, roomName, status } = payload;
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
   const reservationInfo = [
     { label: '예약된 사랑방 이름', icon: HomeIcon, value: roomName },
     { label: '예약된 일정', icon: CalendarCheck, value: confirmedDate },
-    { label: '사랑방 주인 이름', icon: User, value: hostName },
+    { label: '사랑방 주인 이름', icon: User, value: roomOwnerName },
   ];
 
   // 예약 확정 상태이고, 사용자가 아직 확인하지 않은 경우에만 모달 오픈
   useEffect(() => {
-    const seen = localStorage.getItem(`reservation_modal_${id}_seen`);
+    const seen = localStorage.getItem(`reservation_modal_${reservationId}_seen`);
     if (status === 'RESERVED' && !seen) {
       setOpen(true);
     }
-  }, [status, id]);
+  }, [status, reservationId]);
 
   const handleClose = () => {
-    localStorage.setItem(`reservation_modal_${id}_seen`, 'true'); // 모달 확인 처리 저장
+    localStorage.setItem(`reservation_modal_${reservationId}_seen`, 'true'); // 모달 확인 처리 저장
     setOpen(false);
   };
 
@@ -40,8 +40,8 @@ export default function ReservationModal({ payload }: { payload: ReservationPayl
           rightBtnText='자세히 보기'
           onClickLeftBtn={handleClose}
           onClickRightBtn={() => {
-            localStorage.setItem(`reservation_modal_${id}_seen`, 'true'); // 모달 확인 처리 저장
-            router.push(`/reservations/${id}`);
+            localStorage.setItem(`reservation_modal_${reservationId}_seen`, 'true'); // 모달 확인 처리 저장
+            router.push(`/reservations/${reservationId}`);
             setOpen(false);
           }}
           isPink

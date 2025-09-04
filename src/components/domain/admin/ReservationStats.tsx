@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 import { Button, ShadowBox, Txt } from '@/components/atoms';
 
 type Props = {
-  booked: number; // 예약 완료된 예약 수
-  staying: number; // 방문 중인 예약 수
-  completed: number; // 방문 완료한 예약 수
+  upcomingCnt: number; // 예약 완료된 예약 수
+  inProgressCnt: number; // 방문 중인 예약 수
+  completedCnt: number; // 방문 완료한 예약 수
 };
 
-export default function ReservationStats({ booked, staying, completed }: Props) {
+export default function ReservationStats({ upcomingCnt, inProgressCnt, completedCnt }: Props) {
   const router = useRouter();
 
   return (
@@ -24,15 +24,15 @@ export default function ReservationStats({ booked, staying, completed }: Props) 
       <div className='flex items-center justify-between text-center'>
         <div className='flex flex-1 flex-col'>
           <Txt size={32} weight='bold' align='center'>
-            {booked}
+            {upcomingCnt}
           </Txt>
           <Txt size={16} align='center'>
-            예약됨
+            방문 전
           </Txt>
         </div>
         <div className='flex flex-1 flex-col'>
           <Txt size={32} weight='bold' align='center'>
-            {staying}
+            {inProgressCnt}
           </Txt>
           <Txt size={16} align='center'>
             방문 중
@@ -40,7 +40,7 @@ export default function ReservationStats({ booked, staying, completed }: Props) 
         </div>
         <div className='flex flex-1 flex-col'>
           <Txt size={32} weight='bold' align='center'>
-            {completed}
+            {completedCnt}
           </Txt>
           <Txt size={16} align='center'>
             방문 완료
