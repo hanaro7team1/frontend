@@ -1,3 +1,4 @@
+import { publicApi } from '@/lib/axios';
 import { serverPrivateApi } from '@/lib/axios-server';
 import { Header } from '@/components/common';
 import { EditStay } from '@/components/domain/admin/edit';
@@ -11,9 +12,7 @@ type Props = {
 export default async function AdminStayEditPage({ params }: Props) {
   const { id } = await params;
 
-  const api = await serverPrivateApi();
-
-  const { data } = await api.get<StayDetailResponseType>(`/api/stays/${id}`);
+  const { data } = await publicApi.get<StayDetailResponseType>(`/api/stays/${id}`);
   const { title, address, capacity, areaSize, description, images, id: stayId } = data;
 
   return (
