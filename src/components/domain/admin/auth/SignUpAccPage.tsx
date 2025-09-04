@@ -5,15 +5,14 @@ import { PasswordField } from './PasswordField';
 export default function SignUpAccPage() {
   const { form, errors, handleChange } = useSignUpForm();
 
-  // TODO: 회원가입 API 호출
-
   return (
     <div className='flex flex-col gap-10'>
       <div className='flex flex-col gap-5'>
         <Txt size={24}>아이디</Txt>
         <Input
+          value={form.loginId}
           placeholder={'아이디를 입력해 주세요'}
-          onChange={(e) => handleChange('id', e.target.value)}
+          onChange={(e) => handleChange('loginId', e.target.value)}
         />
         {errors.id && (
           <Txt size={18} className='text-pink-a76'>
