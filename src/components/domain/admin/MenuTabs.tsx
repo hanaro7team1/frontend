@@ -7,7 +7,8 @@ import { Txt } from '@/components/atoms';
 export default function MenuTabs() {
   const router = useRouter();
 
-  const commonClasses = 'flex h-36 justify-between rounded-[10px] px-4 py-5 text-left';
+  const commonClasses =
+    'flex h-36 w-full flex-col justify-between rounded-[10px] px-4 py-5 text-left';
 
   return (
     <div className='flex flex-col gap-3'>
@@ -20,7 +21,7 @@ export default function MenuTabs() {
             우리 마을 사랑방 <br />
             관리하기
           </Txt>
-          <div className='flex items-end justify-end'>
+          <div className='flex justify-end'>
             <Settings size={28} className='text-white' />
           </div>
         </button>
