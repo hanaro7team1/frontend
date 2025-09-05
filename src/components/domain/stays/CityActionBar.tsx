@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
-import { BottomSheetPeopleCount, BottomSheetSchedule } from '@/components/domain/stays';
+import { BottomSheetPeopleCount, BottomSheetScheduleDetail } from '@/components/domain/stays';
 import { formatDate, getDefaultDates } from '@/utils/stays/stays';
 
 type Props = {
@@ -15,9 +15,17 @@ type Props = {
   onInquiry?: () => void;
   schedule?: string;
   peopleCount?: string;
+  capacity: number;
 };
 
-export default function CityActionBar({ id, onReserve, onInquiry, schedule, peopleCount }: Props) {
+export default function CityActionBar({
+  id,
+  onReserve,
+  onInquiry,
+  schedule,
+  peopleCount,
+  capacity,
+}: Props) {
   const router = useRouter();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -75,7 +83,7 @@ export default function CityActionBar({ id, onReserve, onInquiry, schedule, peop
               <Txt size={16}>일정</Txt>
               <Txt>{displaySchedule}</Txt>
             </div>
-            <BottomSheetSchedule />
+            <BottomSheetScheduleDetail />
           </div>
 
           {/* 인원 */}
@@ -84,7 +92,7 @@ export default function CityActionBar({ id, onReserve, onInquiry, schedule, peop
               <Txt size={16}>인원</Txt>
               <Txt>{displayPeopleCount}명</Txt>
             </div>
-            <BottomSheetPeopleCount />
+            <BottomSheetPeopleCount capacity={capacity} />
           </div>
         </div>
       </FixedBottomButton>

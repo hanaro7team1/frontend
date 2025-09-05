@@ -7,7 +7,11 @@ import { Txt } from '@/components/atoms';
 import { BottomSheet } from '@/components/common';
 import { SheetClose } from '@/components/ui/sheet';
 
-export default function BottomSheetPeopleCount() {
+type Props = {
+  capacity?: number;
+};
+
+export default function BottomSheetPeopleCount({ capacity }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -31,11 +35,26 @@ export default function BottomSheetPeopleCount() {
 
         <div className='flex justify-between px-20'>
           <button onClick={() => setCount((prev) => Math.max(1, prev - 1))}>
-            <CircleMinus size={40} color='var(--code-theme6)' />
+            <CircleMinus
+              size={40}
+              color={count === 1 ? 'var(--code-theme9)' : 'var(--code-theme6)'}
+            />
           </button>
           <Txt size={30}>{count} 명</Txt>
-          <button onClick={() => setCount((prev) => prev + 1)}>
-            <CirclePlus size={40} color='var(--code-theme6)' />
+          <button
+            onClick={() =>
+              setCount((prev) => {
+                if (capacity) {
+                  return Math.min(capacity, prev + 1);
+                }
+                return prev + 1;
+              })
+            }
+          >
+            <CirclePlus
+              size={40}
+              color={count === capacity ? 'var(--code-theme9)' : 'var(--code-theme6)'}
+            />
           </button>
         </div>
 
