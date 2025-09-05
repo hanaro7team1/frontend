@@ -28,7 +28,7 @@ export default async function FestivalDetailPage({ params }: Props) {
     const e = dDayCal(endDate);
     if(!Number.isFinite(n)) return '';
     
-    return n > 0 ? `D-${n}` : n === 0 ? 'D-Day' : e > 0 ? 'D-Day' : '종료';
+    return n > 0 ? `D-${n}` : e > 0 ? 'D-Day' : '종료';
   };
 
   return <div>
