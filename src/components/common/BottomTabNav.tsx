@@ -15,7 +15,7 @@ export default function BottomTabNav() {
   const router = useRouter();
 
   return (
-    <nav className='border-black-626/15 fixed bottom-0 z-50 flex w-full items-center justify-around rounded-t-[20px] border-t bg-white py-2 shadow-[0_0_5px_rgba(0,0,0,0.25)] sm:w-sm'>
+    <nav className='border-black-626/15 sticky bottom-0 z-50 flex w-full items-center justify-around rounded-t-[20px] border-t bg-white py-2 shadow-[0_0_5px_rgba(0,0,0,0.25)] sm:w-sm'>
       {TABS.map(({ label, route, icon: Icon }) => {
         const isSelected = pathname === route;
 

@@ -9,7 +9,7 @@ import { ReservationViewStatus } from '@/enums/reservation';
 import { StatusCapsule } from '../stays';
 
 type Props = {
-  id: string; // 예약 번호
+  reservationId: number; // 예약 번호
   title: string; // 사랑방 이름
   startDate: string; // 예정 방문 시작일
   endDate: string; // 예정 방문 종료일
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export default function RecentStayCard({
-  id,
+  reservationId,
   title,
   startDate,
   endDate,
@@ -58,7 +58,7 @@ export default function RecentStayCard({
       <Button
         title='예약 자세히 보기'
         color='gray'
-        onClick={() => router.push(`/reservation/${id}`)}
+        onClick={() => router.push(`/reservations/${reservationId}`)}
         className='w-full'
       />
     </ShadowBox>

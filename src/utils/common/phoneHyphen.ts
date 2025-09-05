@@ -1,25 +1,33 @@
-//숫자만 추출
+// 숫자만 추출 (최대 max 길이까지)
 export const toDigits = (s: string, max = 11) => s.replace(/\D/g, '').slice(0, max);
 
-//format
+// 전화번호 포맷팅
 export const formatPhone = (raw: string) => {
   const d = raw.replace(/\D/g, '');
-
   if (d.length < 4) return d;
 
-  //02(서울만 지역번호 두 자리임)
+  // 서울 (02)
   if (d.startsWith('02')) {
     if (d.length <= 5) return `${d.slice(0, 2)}-${d.slice(2)}`;
     if (d.length <= 9) return `${d.slice(0, 2)}-${d.slice(2, d.length - 4)}-${d.slice(-4)}`;
     return `${d.slice(0, 2)}-${d.slice(2, 6)}-${d.slice(6, 10)}`;
   }
 
-  //그 외(010, 011, 지역번호들...)
-  if (d.length <= 7) {
-    return `${d.slice(0, 3)}-${d.slice(3)}`;
+  // 휴대폰 (010, 011 등)
+  if (/^01[016789]/.test(d)) {
+    if (d.length <= 7) return `${d.slice(0, 3)}-${d.slice(3)}`;
+    if (d.length <= 10) return `${d.slice(0, 3)}-${d.slice(3, d.length - 4)}-${d.slice(-4)}`;
+    return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7, 11)}`;
   }
-  if (d.length <= 10) {
-    return `${d.slice(0, 3)}-${d.slice(3, d.length - 4)}-${d.slice(-4)}`;
+
+  // 일반 지역번호
+  if (d.length <= 6) return `${d.slice(0, 3)}-${d.slice(3)}`;
+  // 지역번호(3자리) 케이스
+  if (d.length === 10) {
+    return `${d.slice(0, 3)}-${d.slice(3, 6)}-${d.slice(6)}`; // 3-3-4
+  }
+  if (d.length === 11) {
+    return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7)}`; // 3-4-4
   }
   return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7, 11)}`;
 };
@@ -53,7 +61,7 @@ export function coercePhoneRaw(
   return prevRaw; // 변화 없음
 }
 
-//길이 유효성 검사
+// 전화번호 유효성 검사 (길이 + 0으로 시작)
 export const isPhoneLike = (raw: string) => {
   const view = formatPhone(raw);
   const len = view.length;

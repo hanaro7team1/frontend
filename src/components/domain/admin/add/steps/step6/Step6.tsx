@@ -103,7 +103,7 @@ export default function StayPreview() {
         <Carousel images={stay.images} />
 
         <div className='mt-8 space-y-5 p-5'>
-          <StayHeader title={'사랑방'} address={stay.address} />
+          <StayHeader title={'OO마을 사랑방'} address={stay.address} />
           <StayInfoChips capacity={stay.capacity} area={stay.areaSize} />
           <StayDescription item={stay.description} />
         </div>
@@ -113,8 +113,8 @@ export default function StayPreview() {
         <Modal
           leftBtnText='아니요'
           rightBtnText='네'
-          onClickLeftBtn={() => router.push('/admin')}
-          onClickRightBtn={() => router.push('/admin/stays')}
+          onClickLeftBtn={() => router.replace('/admin')}
+          onClickRightBtn={() => router.replace('/admin/stays')}
           isPink={true}
         >
           사랑방이 등록되었어요 <br /> 예약 가능 날짜 선택하러 갈까요

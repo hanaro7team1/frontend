@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function EstateItem({ data }: Props) {
-  const { id, tradeType, address, price, imageUrls } = data;
+  const { id, tradeType, location, price, imageUrls } = data;
 
   return (
     <ShadowBox>
@@ -16,13 +16,13 @@ export default function EstateItem({ data }: Props) {
         <div className='relative h-[140px] overflow-hidden'>
           <Image
             src={imageUrls ? imageUrls[0] : '/images/sample1.png'}
-            alt={address + tradeType + price}
+            alt={location + tradeType + price}
             fill
             className='object-cover'
           />
         </div>
         <div className='flex flex-col items-start gap-2 p-3'>
-          <Txt className='text-gray-070'>{address}</Txt>
+          <Txt className='text-gray-070'>{location}</Txt>
           <Txt size={22}>{tradeType + ' ' + price}</Txt>
         </div>
       </Link>

@@ -19,16 +19,12 @@ export default function WizardNav() {
 
   //다음 step으로 이동하기 전에 이벤트 실행
   const nextStep = async () => {
-    if (currentStep === TOTAL_STEP_NUM) {
-      // ✅ 마지막 스텝: 가드를 직접 실행
-      const ok = await tryProceed();
-      if (ok) {
-        // 가드가 허용(true)인 경우에만 이동 (보통은 모달 열면 false를 반환하게 구현)
-        router.push('/admin/stays');
-      }
-      return;
+    const ok = await tryProceed();
+    if (!ok) return;
+
+    if (currentStep !== TOTAL_STEP_NUM) {
+      goToStep(currentStep + 1);
     }
-    goToStep(currentStep + 1);
   };
 
   return (
