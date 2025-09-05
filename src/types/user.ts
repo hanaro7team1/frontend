@@ -1,8 +1,8 @@
 import { ReservationViewStatus } from '@/enums/reservation';
 
 export type UserReservationResponse = {
-  userName: string;
-  //   reservationId: number;
+  memberName: string;
+  reservationId: number;
 
   title: string;
   imgUrl: string;
