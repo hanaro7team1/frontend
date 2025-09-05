@@ -1,5 +1,4 @@
 import { publicApi } from '@/lib/axios';
-import { serverPrivateApi } from '@/lib/axios-server';
 import { Header } from '@/components/common';
 import { EditStay } from '@/components/domain/admin/edit';
 import { StayInfoCard } from '@/components/domain/reservations';

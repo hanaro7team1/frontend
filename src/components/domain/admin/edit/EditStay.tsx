@@ -85,7 +85,7 @@ export default function EditStay({ data }: Props) {
           leftBtnText={'취소'}
           onClickRightBtn={() => {
             setIsOpened(false);
-            router.push(`/stays/${stayId}`);
+            router.back();
           }}
           onClickLeftBtn={() => setIsOpened(false)}
           isPink

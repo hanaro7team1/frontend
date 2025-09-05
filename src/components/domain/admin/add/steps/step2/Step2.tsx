@@ -72,7 +72,7 @@ export default function AddPhoto() {
 
         return true;
       } catch (err) {
-        //TODO: 모달 적용
+        //TODO: 토스트 적용
         setError('업로드 실패입니다 잠시 후 다시 시도해 주세요');
         setModalOpened(true);
         return false;
