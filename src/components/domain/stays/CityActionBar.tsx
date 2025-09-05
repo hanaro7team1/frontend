@@ -1,5 +1,6 @@
 'use client';
 
+import { AxiosError } from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
@@ -35,9 +36,13 @@ export default function CityActionBar({ id, onReserve, onInquiry, schedule, peop
 
   const handleReserve = async () => {
     try {
-      const res = await privateApi.post(`/api/stays/${id}/reservations`, {
-        params: searchParam,
-      });
+      const req = {
+        startDate: '20' + searchParams.schedule.split('\n-')[0].replaceAll('.', '-'),
+        endDate: '20' + searchParams.schedule.split('\n-')[1].replaceAll('.', '-'),
+        personCnt: searchParams.peopleCount,
+      };
+
+      const res = await privateApi.post(`/api/stays/${id}/reservations`, req);
 
       if (res.status === 201) {
         router.push(
@@ -47,7 +52,11 @@ export default function CityActionBar({ id, onReserve, onInquiry, schedule, peop
         alert(res.data.message);
       }
     } catch (error) {
-      alert('예약 중 오류가 발생했습니다. 다시 시도해주세요.');
+      const axiosError = error as AxiosError;
+      alert(
+        (axiosError.response?.data as { message?: string })?.message ??
+          '예약에 실패했습니다. 다시 시도해주세요.',
+      );
     }
   };
 
