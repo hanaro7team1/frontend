@@ -68,7 +68,7 @@ export function ToastProvider({ children }: PropsWithChildren<Props>) {
           )}
         >
           {/* Toast UI */}
-          <div className='bg-gray-070/70 flex w-full items-center gap-4 rounded-lg px-4 py-2 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)] backdrop-blur-md'>
+          <div className='bg-gray-070/70 flex w-full items-center gap-4 rounded-lg px-4 py-3 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)] backdrop-blur-md'>
             <Image
               src={iconSrcMap[toastType]}
               alt='check'
@@ -76,7 +76,9 @@ export function ToastProvider({ children }: PropsWithChildren<Props>) {
               height={28}
               className='flex-shrink-0'
             />
-            <Txt className='whitespace-pre-line text-white'>{message}</Txt>
+            <Txt size={22} className='whitespace-pre-line text-white'>
+              {message}
+            </Txt>
           </div>
         </div>
       )}
