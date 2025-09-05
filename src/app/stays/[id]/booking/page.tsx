@@ -1,4 +1,4 @@
-import { serverPrivateApi } from '@/lib/axios-server';
+import { publicApi } from '@/lib/axios';
 import { Header } from '@/components/common';
 import { StayInfoCard } from '@/components/domain/reservations';
 import { EditBooking } from '@/components/domain/stays';
@@ -10,13 +10,10 @@ type Props = {
 };
 
 export default async function StayBookingPage({ params, searchParams }: Props) {
+  const { id } = await params;
   const { schedule, peopleCount } = await searchParams;
 
-  const { id } = await params;
-
-  const api = await serverPrivateApi();
-
-  const { data } = await api.get<StayDetailResponseType>(`/api/stays/${id}`);
+  const { data } = await publicApi.get<StayDetailResponseType>(`/api/stays/${id}`);
   const { title, address, images, id: stayId } = data;
 
   return (

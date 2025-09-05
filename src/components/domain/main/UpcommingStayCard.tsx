@@ -3,24 +3,39 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button, ShadowBox, Txt } from '@/components/atoms';
+import { getReservationMessage } from '@/utils/common/viewStatus';
+import { formatDate } from '@/utils/main/formatDate';
+import { ReservationViewStatus } from '@/enums/reservation';
 import { StatusCapsule } from '../stays';
 
 type Props = {
   id: string; // 예약 번호
-  name: string; // 사랑방 이름
-  dateRange: string; // 예정 방문일
+  title: string; // 사랑방 이름
+  startDate: string; // 예정 방문 시작일
+  endDate: string; // 예정 방문 종료일
   imgUrl: string; // 숙소 이미지
+  viewStatus: ReservationViewStatus; // 방문 상태
+  dDay?: number; // 남은 방문일
 };
 
-export default function RecentStayCard({ id, name, dateRange, imgUrl }: Props) {
+export default function RecentStayCard({
+  id,
+  title,
+  startDate,
+  endDate,
+  viewStatus,
+  imgUrl,
+  dDay,
+}: Props) {
   const router = useRouter();
+  const dateRange = `${formatDate(startDate)} - ${formatDate(endDate)}`;
+  const statusMsg = getReservationMessage(viewStatus, dDay);
   return (
     <ShadowBox className='bg-white p-4'>
       <div className='mb-3 flex items-center gap-2'>
-        {/* TODO: 실제 예약 상태 연동 */}
-        <StatusCapsule status={'방문 중'} />
+        <StatusCapsule status={viewStatus} />
         <Txt size={22} weight='bold'>
-          지금 머무르고 있어요
+          {statusMsg}
         </Txt>
       </div>
 
@@ -28,7 +43,7 @@ export default function RecentStayCard({ id, name, dateRange, imgUrl }: Props) {
 
       <Image
         src={imgUrl}
-        alt={name}
+        alt={title || '사랑방 이미지'}
         width={0}
         height={0}
         sizes='100vw'
@@ -36,7 +51,7 @@ export default function RecentStayCard({ id, name, dateRange, imgUrl }: Props) {
       />
 
       <div className='mb-4 flex flex-col'>
-        <Txt size={22}>{name}</Txt>
+        <Txt size={22}>{title}</Txt>
         <Txt size={18}>{dateRange}</Txt>
       </div>
 

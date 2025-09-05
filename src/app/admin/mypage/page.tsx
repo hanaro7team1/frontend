@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import { Txt } from '@/components/atoms';
 import { Header } from '@/components/common';
 import { MypageLinkBox, Profile } from '@/components/domain/admin/mypage';
-import { getAdminInfo } from '@/app/apis/mypage';
+import { getAdminInfo } from '@/app/api/mypage';
 
 export default async function AdminMyPage() {
   // 서버에서 호스트 정보 API 호출
@@ -18,11 +19,13 @@ export default async function AdminMyPage() {
       </div>
 
       <Link
-        href='/admin/mypage/quit'
-        className='fixed bottom-12 left-1/2 -translate-x-1/2 text-gray-500 underline underline-offset-2'
-      >
-        탈퇴하기
-      </Link>
+          href='/admin/mypage/quit'
+          className='text-gray-070/50 fixed bottom-30 left-1/2 -translate-x-1/2 underline underline-offset-2'
+        >
+          <Txt size={16} align='center' className='text-gray-070/50'>
+            탈퇴하기
+          </Txt>
+        </Link>
     </>
   );
 }
