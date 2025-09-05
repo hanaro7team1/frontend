@@ -6,8 +6,7 @@ import { useEffect, useState } from 'react';
 import { Button, Input, Txt } from '@/components/atoms';
 import { Header } from '@/components/common';
 import NoticeModal from '@/components/domain/admin/mypage/NoticeModal';
-import '@/utils/common/phoneHyphen';
-import { formatPhone } from '@/utils/common/phoneHyphen';
+import { coercePhoneRaw, formatPhone, toDigits } from '@/utils/common/phoneHyphen';
 import { getAdminInfoClient, updateAdminPhone } from '@/app/api/mypage';
 
 export default function AdminContactPage() {
@@ -77,7 +76,15 @@ export default function AdminContactPage() {
           </Txt>
           <Input
             value={formatPhone(newPhone)}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPhone(e.target.value)}
+            onChange={(e) => {
+              const rawDigits = coercePhoneRaw(
+                newPhone, // prevRaw (이전 숫자만)
+                e.target.value, // nextView (하이픈 포함 문자열)
+                e.target.selectionStart, // caret 위치
+                (e.nativeEvent as InputEvent).inputType, // 삭제 타입
+              );
+              setNewPhone(toDigits(rawDigits));
+            }}
             placeholder='변경할 전화번호를 입력해 주세요'
             type='tel'
             maxLength={13}
