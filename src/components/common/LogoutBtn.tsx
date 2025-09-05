@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { authApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
 import { Modal } from '@/components/common';
 
@@ -12,6 +13,15 @@ const LogoutBtn = () => {
 
   const baseClass = 'text-gray-070/50 underline underline-offset-2';
   const positionClass = pathname === '/main' ? 'fixed bottom-30 left-1/2 -translate-x-1/2' : '';
+
+  const handleLogout = async () => {
+    try {
+      await authApi.logout(); // 로그아웃 API 호출 + localStorage 정리
+      router.replace('/auth'); // 로그인 페이지로 이동 (뒤로가기 방지)
+    } catch (err) {
+      console.error('로그아웃 실패:', err);
+    }
+  };
 
   return (
     <>
@@ -29,7 +39,7 @@ const LogoutBtn = () => {
           rightBtnText='네'
           leftBtnText='아니요'
           onClickLeftBtn={() => setIsModalOpen(false)}
-          onClickRightBtn={() => router.push('/auth')}
+          onClickRightBtn={handleLogout}
         >
           로그아웃 하시겠어요?
         </Modal>
