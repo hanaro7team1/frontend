@@ -1,30 +1,20 @@
+import { publicApi } from '@/lib/axios';
 import { Carousel, Header } from '@/components/common';
 import { BottomButton, EstateDescription, EstateHeader } from '@/components/domain/realEstates';
 import { StayInfoChips } from '@/components/domain/stays';
+import { EstatesItemResponse } from '@/types/real-estates';
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
 export default async function RealEstateDetailPage({ params }: Props) {
-  // TODO: 실제 API 연동 → getRealEstates(estateId)
   const { id: estateId } = await params;
+  const { data } = await publicApi.get<EstatesItemResponse>(`/api/real-estates/${estateId}`);
 
-  const estate = {
-    id: estateId,
-    address: '전남 해남 화산면 율동리',
-    price: '전세 8,000 만원',
-    images: ['/images/sample1.png', '/images/sample2.png'],
-    capacity: 4,
-    area: 24,
-    description: '전기가 아닌 진짜 온돌집 집근처에 맹꽁이가 아름답게 울음 대충 집 설명하기...',
-    areaSize: 624.8,
-    roomCount: 3,
-    house: '1층/기왓집',
-  };
-
-  const { address, price, images, capacity, area, description, areaSize, roomCount, house } =
-    estate;
+  const { location, price, imageUrls, capacity, area, description, areaSize, roomCount, house } =
+    data;
+  console.log('🚀 ~ RealEstateDetailPage ~ data:', data);
 
   return (
     <div className='flex flex-col'>
@@ -33,10 +23,10 @@ export default async function RealEstateDetailPage({ params }: Props) {
       </header>
 
       <main className='flex-1'>
-        <Carousel images={images} />
+        <Carousel images={imageUrls || '/images/sample1.png'} />
 
         <div className='mt-8 space-y-5 p-5'>
-          <EstateHeader price={price} address={address} />
+          <EstateHeader price={price} location={location} />
           <StayInfoChips capacity={capacity} area={area} />
           <EstateDescription
             description={description}
