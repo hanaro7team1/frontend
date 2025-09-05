@@ -46,15 +46,13 @@ export type ReservationDetail = {
 };
 
 export type ReservationsListResponse = {
-    id: number;
+    reservationId: number;
     title: string;
-    resrvStatus: 'RESERVED' | 'CANCELLED';
-    visitStatus: 'UPCOMING' | 'IN_PROGRESS' | 'COMPLETED';
+    imageUrl: string;
+    viewStatus: 'UPCOMING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
     dDay: number;
     startDate: string;
     endDate: string;
-    // ReservationListItemDTO에는 이미지 없음. 피그마 디자인에 맞춰 임의추가
-    imgUrl: string;
 };
 export type ReservationsResponse = Paged<ReservationsListResponse>;
 

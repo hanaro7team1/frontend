@@ -29,7 +29,7 @@ export default async function ReservationsPage({ searchParams }: Props) {
       <FilterReserv searchParams={searchParam} isAdmin={isAdmin} />
       <div className='flex flex-col gap-3 p-3'>
         {data.dtoList.map((reservation) => (
-          <ReservationCard key={reservation.id} data={reservation} />
+          <ReservationCard key={reservation.reservationId} data={reservation} />
         ))}
       </div>
     </>
