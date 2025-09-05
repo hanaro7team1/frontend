@@ -11,7 +11,7 @@ import {
 import { getIsAdmin } from '@/utils/auth/auth-server';
 import { AdminReservationResponse } from '@/types/admin';
 
-export default async function HomePage() {
+export default async function AdminHomePage() {
   const isAdmin = await getIsAdmin();
 
   if (!isAdmin) {
@@ -27,7 +27,7 @@ export default async function HomePage() {
   };
 
   const { accountName, accountNumber, balance } = account;
-  const { villageName, upcomingCnt, inProgressCnt, completedCnt } = data;
+  const { villageName } = data;
 
   return (
     <div className='relative flex flex-col'>
