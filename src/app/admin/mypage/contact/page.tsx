@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Button, Input, Txt } from '@/components/atoms';
 import { Header } from '@/components/common';
@@ -10,9 +11,10 @@ import { formatPhone } from '@/utils/common/phoneHyphen';
 import { getAdminInfoClient, updateAdminPhone } from '@/app/api/mypage';
 
 export default function AdminContactPage() {
-  const [phone, setPhone] = useState('010-1234-1234');
+  const [phone, setPhone] = useState('010-1234-5678');
   const [newPhone, setNewPhone] = useState('');
   const [openNotice, setOpenNotice] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchAdminInfo = async () => {
@@ -34,7 +36,9 @@ export default function AdminContactPage() {
     if (!newPhone.trim()) return;
 
     try {
-      await updateAdminPhone(newPhone);
+      const formatted = formatPhone(newPhone);
+      await updateAdminPhone(formatted);
+      router.replace('/admin/mypage');
       // API 호출 성공 후, 상태 업데이트
       setPhone(formatPhone(newPhone));
       setNewPhone('');
