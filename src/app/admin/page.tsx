@@ -48,7 +48,7 @@ export default async function AdminHomePage() {
         <ReservationStatsContainer initialData={data} />
       </main>
 
-      <footer className='mt-9 px-4'>
+      <footer className='mt-5 px-4'>
         <MenuTabs />
         <ReservationListener />
       </footer>
