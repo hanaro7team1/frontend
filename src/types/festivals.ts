@@ -2,7 +2,7 @@ import { Paged } from "./common";
 
 export type FestivalListItemResponse = {
     id: number;
-    // img: string;
+    imageUrl: string;
     title: string;
     startDate: string;
     endDate: string;
@@ -16,8 +16,8 @@ export type FestivalDetailResponse = {
     startDate: string;
     endDate: string;
     description: string;
-    street: string;
+    location: string;
     price: number;
     url: string;
-    // imageUrl: string;
+    imageUrl: string;
 };

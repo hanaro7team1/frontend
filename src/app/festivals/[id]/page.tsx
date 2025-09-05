@@ -19,28 +19,29 @@ export default async function FestivalDetailPage({ params }: Props) {
   const { data } = await publicApi.get<FestivalDetailResponse>(
     `/api/festivals/${id}`,
   );
-  const {title, startDate, endDate, description, street, price, url} = data;
+  const {title, startDate, endDate, description, location, price, url, imageUrl} = data;
 
   const dateFormat = (s: string) => `${s.slice(0,4)}.${s.slice(5,7)}.${s.slice(8,10)}`;
 
-  const dDay = (d: string) => {
-    const n = dDayCal(d);
+  const dDay = (startDate: string, endDate: string) => {
+    const n = dDayCal(startDate);
+    const e = dDayCal(endDate);
     if(!Number.isFinite(n)) return '';
     
-    return n > 0 ? `D-${n}` : n === 0 ? 'D-Day' : `D+${Math.abs(n)}`;
-};
+    return n > 0 ? `D-${n}` : n === 0 ? 'D-Day' : e > 0 ? 'D-Day' : '종료';
+  };
 
   return <div>
     <Header title="축제 자세히 보기" bgColor="white" />
     <div className="relative w-full h-[320px] shrink-0 overflow-hidden">
-      <Image src='/images/dummy_image.png' alt={title} fill className="object-cover"/>
-      {/* <Image src={imageUrl} alt={title} fill className="object-cover"/> */}
+      {/* <Image src='/images/dummy_image.png' alt={title} fill className="object-cover"/> */}
+      <Image src={imageUrl} alt={title} fill className="object-cover"/>
     </div>
     <div className="p-5 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <Txt size={24} weight="bold">{title}</Txt>
           <div className="inline-flex items-center w-fit rounded-lg bg-gray-6d6/50 px-3">
-            <Txt size={22} className="text-green-49d ">{dDay(startDate)}</Txt>
+            <Txt size={22} className="text-green-49d ">{dDay(startDate, endDate)}</Txt>
           </div>
         </div>
 
@@ -55,7 +56,7 @@ export default async function FestivalDetailPage({ params }: Props) {
 
         <div className={`${commonPosision}`}>
           <MapPinned color="var(--code-theme1)" className={`${fixIconSize}`} size={25}/>
-          <Txt>{street}</Txt>
+          <Txt>{location}</Txt>
         </div>
         
         <div className={`${commonPosision}`}>
