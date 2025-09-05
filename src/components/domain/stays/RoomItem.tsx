@@ -18,12 +18,13 @@ export default function RoomItem({ data, searchParams }: Props) {
         <div className='relative h-[140px] overflow-hidden'>
           <Image src={imageURL} alt={title} fill className='object-cover' />
         </div>
-        <div className='flex items-start justify-between p-3'>
-          <div className='flex flex-col items-start gap-2'>
-            <Txt className='text-gray-070'>{address}</Txt>
+        <div className='flex flex-col gap-2 p-3'>
+          <Txt className='text-gray-070'>{address}</Txt>
+
+          <div className='flex justify-between'>
             <Txt size={22}>{title}</Txt>
+            <StatusCapsule status={stayResrvStatus} />
           </div>
-          <StatusCapsule status={stayResrvStatus} />
         </div>
       </Link>
     </ShadowBox>

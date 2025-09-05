@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ToastProvider } from '@/components/common/ToastProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -14,9 +15,11 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body className='flex h-screen items-center justify-center overflow-hidden antialiased'>
-        <main className='h-full w-full overflow-y-auto bg-white pb-25 shadow-[0_0_10px_rgba(0,0,0,0.3)] sm:max-w-sm [&::-webkit-scrollbar]:hidden'>
-          {children}
-        </main>
+        <ToastProvider>
+          <main className='h-full w-full overflow-y-auto bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)] sm:max-w-sm [&::-webkit-scrollbar]:hidden'>
+            {children}
+          </main>
+        </ToastProvider>
       </body>
     </html>
   );
