@@ -9,3 +9,15 @@ export type FestivalListItemResponse = {
     city: string;
 };
 export type FestivalListResponse = Paged<FestivalListItemResponse>;
+
+export type FestivalDetailResponse = {
+    id: number;
+    title: string;
+    startDate: string;
+    endDate: string;
+    description: string;
+    street: string;
+    price: number;
+    url: string;
+    // imageUrl: string;
+};
