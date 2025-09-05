@@ -1,9 +1,9 @@
-import { serverPrivateApi } from '@/lib/axios-server';
 import { Header } from '@/components/common';
 import FilterReserv from '@/components/domain/reservations/FilterReserv';
 import ReservationCard from '@/components/domain/reservations/ReservationCard';
 import { getIsAdmin } from '@/utils/auth/auth-server';
 import { ReservationsResponse } from '@/types/reservation';
+import { serverPrivateApi } from '@/lib/axios-server';
 
 export type ReservationStatus = '예약됨' | '방문 완료' | '취소됨';
 export type ReservationsSearchParams = {
@@ -19,7 +19,7 @@ export default async function ReservationsPage({ searchParams }: Props) {
   const isAdmin = await getIsAdmin();
 
   const api = await serverPrivateApi();
-  const { data } = await api.get<ReservationsResponse>('/api/reservations', {
+  const { data } = await api.get<ReservationsResponse>(isAdmin ? '/api/admin/reservations' : '/api/reservations', {
     params: searchParam,
   });
 

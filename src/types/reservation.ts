@@ -49,7 +49,7 @@ export type ReservationsListResponse = {
     reservationId: number;
     title: string;
     imageUrl: string;
-    viewStatus: 'UPCOMING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
+    viewStatus: '방문 중' | '방문 전' | '방문 완료' | '예약 취소';
     dDay: number;
     startDate: string;
     endDate: string;
