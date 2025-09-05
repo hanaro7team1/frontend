@@ -4,16 +4,13 @@ import { Txt } from '@/components/atoms';
 import { BottomTabNav, Header } from '@/components/common';
 import ListBox from '@/components/domain/festivals/ListBox';
 import Image from 'next/image';
-import { dummyFestivals } from '../../../public/dummy';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FestivalListResponse } from '@/types/festivals';
 import { usePublicData } from '@/hooks/api/useApi';
 
-const PAGE_SIZE = 4;
+const PAGE_SIZE = 5;
 
 export default function FestivalsPage() {
-  // type Festival = typeof dummyFestivals[number];
-
   const { data } = usePublicData<FestivalListResponse>(
     '/api/festivals',
   );
