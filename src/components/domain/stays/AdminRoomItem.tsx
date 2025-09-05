@@ -18,12 +18,13 @@ export default function AdminRoomItem({ data }: Props) {
           <Image src={imageURL} alt={title} fill className='object-cover' />
         </div>
         <div className='space-y-4 p-3'>
-          <div className='flex items-start justify-between pl-1'>
-            <div className='flex flex-col items-start gap-2'>
+        <div className='flex flex-col gap-2'>
               <Txt className='text-gray-070'>{hostName + ' 어르신 댁'}</Txt>
+
+          <div className='flex justify-between'>
               <Txt size={22}>{title}</Txt>
-            </div>
             <StatusCapsule status={stayResrvStatus} />
+          </div>
           </div>
           <div className='flex gap-2'>
             <div className='bg-black-626/45 flex h-[50px] w-full flex-1 items-center justify-center rounded-[10px]'>
