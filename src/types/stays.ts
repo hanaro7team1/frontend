@@ -35,6 +35,7 @@ export type StayDetailResponseType = {
   id: number;
   title: string;
   address: string;
+  detailAddress: string;
   capacity: number;
   areaSize: number;
   description: string;

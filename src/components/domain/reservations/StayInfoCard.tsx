@@ -8,12 +8,13 @@ type Props = {
     stayId: number;
     title: string;
     address: string;
+    detailAddress: string;
   };
   isAdmin?: boolean;
 };
 
 export default function StayInfoCard({ data, isAdmin = false }: Props) {
-  const { imageUrl, stayId, title, address } = data;
+  const { imageUrl, stayId, title, address, detailAddress } = data;
 
   return (
     <div className='flex gap-3'>
@@ -27,7 +28,8 @@ export default function StayInfoCard({ data, isAdmin = false }: Props) {
         <div className='flex flex-col gap-2 p-1'>
           <Txt size={22}>{title}</Txt>
           <Txt size={18} className='text-gray-070 break-keep whitespace-normal'>
-            {address}
+            {address} <br />
+            {detailAddress}
           </Txt>
         </div>
         {!isAdmin && (

@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { Button, Txt } from '@/components/atoms';
 import { Header } from '@/components/common';
+import { useToast } from '@/components/common/ToastContext';
 import { PasswordField } from '@/components/domain/admin/auth/PasswordField';
-import NoticeModal from '@/components/domain/admin/mypage/NoticeModal';
 import useValidation from '@/hooks/auth/useValidation';
 import { updateAdminPassword } from '@/app/api/mypage';
 
@@ -19,7 +19,9 @@ export default function AdminPwdPage() {
     confirmPassword: false,
   });
 
-  const [openNotice, setOpenNotice] = useState(false);
+  // const [openNotice, setOpenNotice] = useState(false);
+
+  const { showToast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,10 +30,10 @@ export default function AdminPwdPage() {
     try {
       // 비밀번호 변경 API 호출
       await updateAdminPassword(currentPassword, form.password);
-      setOpenNotice(true);
+      showToast('비밀번호가 변경되었습니다', 'success');
+      // setOpenNotice(true);
     } catch (error) {
-      console.error('비밀번호 변경 실패:', error);
-      alert('비밀번호 변경에 실패했습니다. 기존 비밀번호를 확인해주세요.');
+      showToast('비밀번호 변경에 실패했습니다 \n 다시 시도해 주세요', 'error');
     } finally {
     }
   };
@@ -101,7 +103,7 @@ export default function AdminPwdPage() {
         </div>
       </form>
 
-      <NoticeModal open={openNotice} text='비밀번호' />
+      {/* <NoticeModal open={openNotice} text='비밀번호' /> */}
     </>
   );
 }
