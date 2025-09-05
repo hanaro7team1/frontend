@@ -8,7 +8,7 @@ type Props = {
     stayId: number;
     title: string;
     address: string;
-    detailAddress: string;
+    detailAddress?: string;
   };
   isAdmin?: boolean;
 };
