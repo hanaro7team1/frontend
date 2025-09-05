@@ -8,10 +8,12 @@ import { usePhotoUpload } from '@/hooks/admin/usePhotoUpload';
 import { SLOT_COUNT } from '@/constants/admin/Admin';
 import { useWizardData } from '../../wizard/WizardDataProvider';
 import { useWizard } from '../../wizard/WizardProvider';
+import AiInfo from '../step5/AiInfo';
 import HiddenFileInput from './HiddenFileInput';
 import ImageUploadLoading from './ImageUploadLoading';
 import PhotoGrid from './PhotoGrid';
 import UploadBarButton from './UploadBarButton';
+import UplaodInfo from './UploadInfo';
 
 export default function AddPhoto() {
   const { currentStep, registerBeforeNext, setNextDisabled } = useWizard();
@@ -20,6 +22,8 @@ export default function AddPhoto() {
 
   const { items, urls, inputRef, openPicker, onInputChange, removeAt } =
     usePhotoPreview(SLOT_COUNT);
+
+  const [isPhotoGridVisible, setPhotoGridVisible] = useState(false);
 
   const { uploadAll } = usePhotoUpload('temp');
 
@@ -84,12 +88,19 @@ export default function AddPhoto() {
   return (
     <>
       <Txt>사랑방의 내부 외부 사진을 첨부해 주세요</Txt>
+      <UplaodInfo />
       {/* inputRef로 제어, 빈 그리드나 하단 버튼을 누를 시 openPicker 열리는 구조 (input은 하나고 여러 버튼이 접근 가능함)  */}
       <HiddenFileInput inputRef={inputRef} onChange={onInputChange} capture='environment' />
       {/* 현재까지 선택된 사진 그리드 형식으로 보여줌 없을 시 사진 업로드 그리드  */}
-      <PhotoGrid urls={urls} onPick={openPicker} onRemoveAt={removeAt} />
+      {isPhotoGridVisible && <PhotoGrid urls={urls} onPick={openPicker} onRemoveAt={removeAt} />}
       {/* 사진 업로드용 버튼, 그리드와 같은 동작을 함  */}
-      <UploadBarButton onClick={openPicker} />
+      <UploadBarButton
+        onClick={() => {
+          openPicker();
+          setPhotoGridVisible(true);
+        }}
+      />
+
       {loading && <ImageUploadLoading />}
     </>
   );
