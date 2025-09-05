@@ -37,10 +37,13 @@ export default function AdminCalendarModal({ stayId, closeModal }: Props) {
 
     closeModal();
 
-    if (status === 200) {
-      alert('예약 가능 날짜가 수정되었습니다.');
-      router.refresh();
-    } else alert('예약 가능 날짜 수정에 실패했습니다. 다시 시도해주세요.');
+    if (status !== 200) {
+      alert('예약 가능 날짜 수정에 실패했습니다. 다시 시도해주세요.');
+      return;
+    }
+
+    alert('예약 가능 날짜가 수정되었습니다.');
+    router.refresh();
   };
 
   // 오늘 00시 00분 00초값 계산. 오늘 이전 날짜는 disabled되도록 처리할 때 쓰임
