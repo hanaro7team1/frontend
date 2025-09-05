@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Input, ShadowBox, Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
+import { useToast } from '@/components/common/ToastContext';
 import { InfoRow } from '../../reservations';
 import { BottomSheetArea, BottomSheetCapacity } from '../../stays';
 
@@ -34,13 +35,14 @@ export default function EditStay({ data }: Props) {
     description: newDescription,
   };
 
+  const { showToast } = useToast();
+
   const submitHandler = async () => {
     try {
       await privateApi.patch(`api/admin/stays/${stayId}`, payload);
       setIsOpened(true);
     } catch (e) {
-      //TODO: 시간 남으면 토스트 처리...
-      alert(e);
+      showToast('수정 중 오류가 발생했습니다\n다시 시도해 주세요', 'error');
     }
   };
 
@@ -85,7 +87,7 @@ export default function EditStay({ data }: Props) {
           leftBtnText={'취소'}
           onClickRightBtn={() => {
             setIsOpened(false);
-            router.push(`/stays/${stayId}`);
+            router.back();
           }}
           onClickLeftBtn={() => setIsOpened(false)}
           isPink
