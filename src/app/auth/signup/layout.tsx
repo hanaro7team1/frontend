@@ -1,20 +1,17 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { publicApi } from '@/lib/axios';
-import { clampNum } from '@/lib/utils';
 import { FixedBottomButton, Header, Modal } from '@/components/common';
 import { StepProgressBar } from '@/components/domain/admin/add';
-import WizardProvider from '@/components/domain/admin/add/wizard/WizardProvider';
+import WizardProvider, { useWizard } from '@/components/domain/admin/add/wizard/WizardProvider';
 import { formatPhone } from '@/utils/common/phoneHyphen';
 import { FIRST_STEP_NUM, TOTAL_SIGN_UP_NUM } from '@/constants/admin/Admin';
 import { SignUpFormProvider, useSignUpForm } from '@/contexts/SignUpFormContext';
 
 function InnerLayout({ children }: { children: React.ReactNode }) {
-  const search = useSearchParams();
-
-  const pathName = usePathname();
+  const { currentStep, goToStep } = useWizard();
 
   const router = useRouter();
 
@@ -22,17 +19,7 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
 
   const [submitting, setSubmitting] = useState(false);
 
-  //현재 스텝 계산
-  const raw = Number(search.get('step') ?? 1);
-  const currentStep = clampNum({ n: isNaN(raw) ? 1 : raw });
-
   const { form, errors } = useSignUpForm();
-
-  const handleStep = (next: number) => {
-    const q = new URLSearchParams(search.toString());
-    q.set('step', String(clampNum({ n: next, max: TOTAL_SIGN_UP_NUM })));
-    router.push(`${pathName}?${q.toString()}`);
-  };
 
   //스텝별 필수 입력값 검사
   const requiredByStep: Record<number, (keyof typeof form)[]> = {
@@ -40,6 +27,7 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
     2: ['villageName', 'region', 'phone'],
   };
 
+  //필수 입력값 있는지 체크
   const isValid = useMemo(() => {
     const must = requiredByStep[currentStep] ?? [];
     const allFilled = must.every((k) => {
@@ -50,11 +38,13 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
     return allFilled && noErrors;
   }, [form, errors, currentStep]);
 
+  //아이디 중복 체크
   const idDuplicationCheck = async (loginId: string) => {
     const { data } = await publicApi.get(`/api/host-members/check-id?loginId=${loginId}`);
     return data.exists as boolean;
   };
 
+  //모든 조건 만족 시 회원가입 폼 제출
   const submit = async () => {
     if (!isValid || submitting) return;
     try {
@@ -81,7 +71,7 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
   };
 
   const prevStep = () =>
-    currentStep === FIRST_STEP_NUM ? router.push('/auth/signin') : handleStep(currentStep - 1);
+    currentStep === FIRST_STEP_NUM ? router.push('/auth/signin') : goToStep(currentStep - 1);
 
   const nextStep = async () => {
     if (!isValid) return;
@@ -93,7 +83,7 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
         setModalOpened(true);
         return;
       }
-      handleStep(currentStep + 1);
+      goToStep(currentStep + 1);
     }
   };
 

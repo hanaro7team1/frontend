@@ -35,9 +35,6 @@ export default function WizardProvider({ children }: { children: React.ReactNode
     setDisabledByStep((prev) => (prev[step] === disabled ? prev : { ...prev, [step]: disabled }));
   }, []);
 
-  //현재 스텝 계산
-  const raw = Number(search.get('step') ?? 1);
-
   //  진짜 스텝은 내부 상태로만
   const [currentStep, _setStep] = useState<number>(1);
 
