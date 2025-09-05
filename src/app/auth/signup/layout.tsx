@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { publicApi } from '@/lib/axios';
 import { FixedBottomButton, Header, Modal } from '@/components/common';
+import { useToast } from '@/components/common/ToastContext';
 import { StepProgressBar } from '@/components/domain/admin/add';
 import WizardProvider, { useWizard } from '@/components/domain/admin/add/wizard/WizardProvider';
 import { formatPhone } from '@/utils/common/phoneHyphen';
@@ -15,11 +16,13 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
 
   const router = useRouter();
 
-  const [openModal, setModalOpened] = useState(false);
-
   const [submitting, setSubmitting] = useState(false);
 
   const { form, errors } = useSignUpForm();
+
+  //토스트
+
+  const { showToast } = useToast();
 
   //스텝별 필수 입력값 검사
   const requiredByStep: Record<number, (keyof typeof form)[]> = {
@@ -60,11 +63,11 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
 
       await publicApi.post('/api/host-members/signup', payload);
 
-      //TODO: 토스트 추가 성공하면 무조건 로그인으로
+      showToast('회원 가입이 완료되었습니다', 'success');
       router.replace('/auth/signin');
     } catch (e) {
-      // TODO: 에러 모달/토스트
-      console.error(e);
+      showToast('오류가 발생했습니다 처음부터 다시 시도해 주세요', 'error');
+      router.replace('/auth/signup');
     } finally {
       setSubmitting(false);
     }
@@ -80,7 +83,7 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
       //넘어가기 전에 검사하기
       const exists = await idDuplicationCheck(form.loginId.trim());
       if (exists) {
-        setModalOpened(true);
+        showToast('이미 존재하는 아이디입니다', 'error', 'bottom');
         return;
       }
       goToStep(currentStep + 1);
@@ -103,18 +106,6 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
         onClickRightBtn={nextStep}
         onClickLeftBtn={prevStep}
       />
-      {/* TODO: 여기도 토스트 처리... */}
-      {openModal && (
-        <Modal
-          rightBtnText={'취소'}
-          leftBtnText={'확인'}
-          onClickRightBtn={() => setModalOpened(false)}
-          onClickLeftBtn={() => setModalOpened(false)}
-          isPink
-        >
-          중복 아이디입니다 <br /> 새로운 아이디를 입력해 주세요
-        </Modal>
-      )}
     </>
   );
 }

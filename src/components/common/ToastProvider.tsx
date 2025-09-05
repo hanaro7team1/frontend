@@ -62,13 +62,13 @@ export function ToastProvider({ children }: PropsWithChildren<Props>) {
       {isVisible && (
         <div
           className={cn(
-            'fixed left-1/2 z-1000 -translate-x-1/2 transform transition-all duration-150',
+            'fixed z-1000 transform transition-all duration-150',
             positionMap[position],
             isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0',
           )}
         >
           {/* Toast UI */}
-          <div className='bg-gray-070/70 flex min-w-fit flex-nowrap items-center gap-4 rounded-lg px-8 py-4 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)] backdrop-blur-md'>
+          <div className='bg-gray-070/70 flex w-full items-center gap-4 rounded-lg px-4 py-2 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)] backdrop-blur-md'>
             <Image
               src={iconSrcMap[toastType]}
               alt='check'
@@ -76,7 +76,7 @@ export function ToastProvider({ children }: PropsWithChildren<Props>) {
               height={28}
               className='flex-shrink-0'
             />
-            <Txt className='whitespace-nowrap text-white'>{message}</Txt>
+            <Txt className='whitespace-pre-line text-white'>{message}</Txt>
           </div>
         </div>
       )}
