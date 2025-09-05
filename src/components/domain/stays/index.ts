@@ -1,3 +1,4 @@
+export { default as AdminCalendarModal } from './AdminCalendarModal';
 export { default as AdminRoomItem } from './AdminRoomItem';
 export { default as AdminRoomList } from './AdminRoomList';
 

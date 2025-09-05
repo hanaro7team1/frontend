@@ -42,9 +42,7 @@ export default async function HomePage({ params }: Props) {
         <LogoutBtn />
       </main>
 
-      <footer>
-        <BottomTabNav />
-      </footer>
+      <BottomTabNav />
     </div>
   );
 }
