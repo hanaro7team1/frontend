@@ -34,6 +34,7 @@ export type OptionFilter = {
 export type StayDetailResponseType = {
   id: number;
   title: string;
+  stayResrvStatus: '예약 가능' | '예약 마감' | '예약 닫힘';
   address: string;
   capacity: number;
   areaSize: number;

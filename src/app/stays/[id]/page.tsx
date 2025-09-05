@@ -20,7 +20,7 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
 
   const { data } = await publicApi.get<StayDetailResponseType>(`/api/stays/${stayId}`);
 
-  const { id, title, address, capacity, areaSize, images, description } = data;
+  const { id, title, stayResrvStatus, address, capacity, areaSize, images, description } = data;
 
   const isAdmin = await getIsAdmin();
   const mode = isAdmin ? 'countryside' : 'city';
@@ -35,7 +35,7 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
         <Carousel images={images} />
 
         <div className='mt-8 space-y-5 p-5'>
-          <StayHeader title={title} address={address} />
+          <StayHeader title={title} address={address} stayResrvStatus={stayResrvStatus} />
           <StayInfoChips capacity={capacity} area={areaSize} />
           <StayDescription item={description} mode={mode} />
         </div>
