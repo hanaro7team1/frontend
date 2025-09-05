@@ -22,7 +22,7 @@ const iconSrcMap: Record<ToastType, string> = {
 const positionMap: Record<ToastPosition, string> = {
   top: 'top-1/3',
   middle: 'top-1/2 -translate-y-1/2',
-  bottom: 'top-2/3',
+  bottom: 'top-4/5',
 } as const;
 
 /**
@@ -38,7 +38,7 @@ export function ToastProvider({ children }: PropsWithChildren<Props>) {
   const showToast = (
     msg: string,
     type: ToastType = 'success',
-    customPosition: ToastPosition = 'middle',
+    customPosition: ToastPosition = 'bottom',
   ) => {
     setMessage(msg);
     setToastType(type);
