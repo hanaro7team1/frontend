@@ -6,3 +6,4 @@ export { default as GoBackBtn } from './GoBackBtn';
 export { default as Header } from './Header';
 export { default as Modal } from './Modal';
 export { default as LogoutBtn } from './LogoutBtn';
+export { default as BottomActions } from './BottomActions';
