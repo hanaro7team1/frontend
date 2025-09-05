@@ -5,7 +5,7 @@ export type AdminReservationResponse = {
   completedCnt: number;
 };
 
-export type StayAvailableDatesResponse = {
+export type AdminStayAvailableDatesResponse = {
   yearMonth: string; // "2025-09"
   openDates: string[]; // [ "2025-09" ]
   reservedDates: string[]; // [ "2025-09" ]

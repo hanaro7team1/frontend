@@ -1,6 +1,5 @@
 'use client';
 
-import axios from 'axios';
 import { ko } from 'react-day-picker/locale';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -9,7 +8,7 @@ import { Txt } from '@/components/atoms';
 import { Modal } from '@/components/common';
 import { Calendar } from '@/components/ui/calendar';
 import { usePrivateData } from '@/hooks/api/useApi';
-import { StayAvailableDatesResponse } from '@/types/admin';
+import { AdminStayAvailableDatesResponse } from '@/types/admin';
 
 type Props = {
   stayId?: number;
@@ -19,7 +18,7 @@ type Props = {
 export default function AdminCalendarModal({ stayId, closeModal }: Props) {
   const router = useRouter();
 
-  const { data } = usePrivateData<StayAvailableDatesResponse>(
+  const { data } = usePrivateData<AdminStayAvailableDatesResponse>(
     `/api/admin/stays/${stayId}/open-dates`,
   );
 
