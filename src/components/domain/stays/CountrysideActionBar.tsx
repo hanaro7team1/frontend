@@ -18,7 +18,7 @@ export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
 
   const [deleted, setDeleted] = useState<boolean | null>(null);
-  const [hasActiveReservations, setHasActiveReservations] = useState<boolean | null>(null);
+  const [hasUpcomingReservations, setHasUpcomingReservations] = useState<boolean | null>(null);
   const [deleteMsg, setDeleteMsg] = useState<string | null>(null);
 
   const handleOpenModal = () => setIsModalOpen(true);
@@ -33,18 +33,18 @@ export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
       let msg: string;
       if (data.deleted === false) {
         msg = '이미 삭제된 사랑방입니다.';
-      } else if (data.deleted === true && data.hasActiveReservations === true) {
+      } else if (data.deleted === true && data.hasUpcomingReservations === true) {
         msg = '방문 전 예약이 있습니다.\n[예약 관리하기]를 통해\n예약자에게 연락 바랍니다.';
       } else {
         msg = '삭제가 완료되었습니다.';
       }
 
       setDeleted(data.deleted);
-      setHasActiveReservations(data.hasActiveReservations);
+      setHasUpcomingReservations(data.hasUpcomingReservations);
       setDeleteMsg(msg);
     } catch {
       setDeleted(null);
-      setHasActiveReservations(null);
+      setHasUpcomingReservations(null);
       setDeleteMsg('삭제 요청 중 오류가 발생했습니다.');
     } finally {
       handleCloseModal();
@@ -54,12 +54,16 @@ export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
 
   const goList = () => {
     handleCloseResultModal();
-    if (deleted === true && hasActiveReservations === true) {
+
+    if (deleted === null) return;
+
+    if (deleted === true && hasUpcomingReservations === true) {
       router.push('/reservations');
     } else {
       router.push('/admin/stays');
     }
   };
+
   return (
     <>
       <FixedBottomButton
@@ -82,6 +86,7 @@ export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
           rightBtnText='삭제하기'
           onClickLeftBtn={handleCloseModal}
           onClickRightBtn={handleDelete}
+          isPink
         >
           사랑방을 삭제하시겠습니까?
         </Modal>
@@ -94,6 +99,7 @@ export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
           rightBtnText='확인'
           onClickLeftBtn={handleCloseResultModal}
           onClickRightBtn={goList}
+          isPink
         >
           <span className='whitespace-pre-line'>{deleteMsg}</span>
         </Modal>

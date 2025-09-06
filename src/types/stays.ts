@@ -79,5 +79,5 @@ export type PresignResp = { url: string; key: string };
 
 export type StayDeleteResponse = {
   deleted: boolean;
-  hasActiveReservations: boolean;
+  hasUpcomingReservations: boolean;
 };
