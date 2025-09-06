@@ -42,14 +42,7 @@ export default function BottomSheetPeopleCount({ capacity }: Props) {
           </button>
           <Txt size={30}>{count} 명</Txt>
           <button
-            onClick={() =>
-              setCount((prev) => {
-                if (capacity) {
-                  return Math.min(capacity, prev + 1);
-                }
-                return prev + 1;
-              })
-            }
+            onClick={() => setCount(prev => capacity ? Math.min(capacity, prev + 1) : prev + 1)}
           >
             <CirclePlus
               size={40}
