@@ -45,16 +45,20 @@ export default function CityActionBar({
   const handleReserve = async () => {
     try {
       const req = {
-        startDate: '20' + searchParams.schedule.split('\n-')[0].replaceAll('.', '-'),
-        endDate: '20' + searchParams.schedule.split('\n-')[1].replaceAll('.', '-'),
-        personCnt: searchParams.peopleCount,
+        startDate: '20' + displaySchedule.split('-')[0].replaceAll('.', '-'),
+        endDate: '20' + displaySchedule.split('-')[1].replaceAll('.', '-'),
+        personCnt: searchParams.peopleCount ?? 2,
       };
 
       const res = await privateApi.post(`/api/stays/${id}/reservations`, req);
 
+      const params = new URLSearchParams(searchParams);
+      params.set('schedule', displaySchedule);
+      params.set('peopleCount', displayPeopleCount);
+
       if (res.status === 201) {
         router.push(
-          `/stays/${id}/booking?${new URLSearchParams(searchParams).toString()}&reservationId=${res.data.reservationId}`,
+          `/stays/${id}/booking?${params.toString()}&reservationId=${res.data.reservationId}`,
         );
       } else {
         alert(res.data.message);
