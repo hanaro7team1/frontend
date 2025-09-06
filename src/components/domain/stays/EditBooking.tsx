@@ -43,7 +43,7 @@ export default function EditBooking({ data }: Props) {
       } else {
         alert('예약에 실패했습니다. 다른 사용자가 먼저 예약했을 수 있습니다. 다시 시도해주세요.');
       }
-    } catch (error) {
+    } catch {
       alert('예약 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };

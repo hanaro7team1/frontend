@@ -13,7 +13,7 @@ export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-  const { login, isAdmin } = useAuth();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

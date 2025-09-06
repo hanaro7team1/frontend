@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Input, ShadowBox, Txt } from '@/components/atoms';
-import { FixedBottomButton, Modal } from '@/components/common';
+import { FixedBottomButton } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
 import { InfoRow } from '../../reservations';
 import { BottomSheetArea, BottomSheetCapacity } from '../../stays';
@@ -41,7 +41,7 @@ export default function EditStay({ data }: Props) {
       await privateApi.patch(`api/admin/stays/${stayId}`, payload);
       showToast('수정이 완료되었습니다', 'success');
       router.replace(`/stays/${stayId}`);
-    } catch (e) {
+    } catch {
       showToast('수정 중 오류가 발생했습니다 \n 다시 시도해 주세요', 'error');
     }
   };

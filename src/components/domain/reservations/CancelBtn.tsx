@@ -29,7 +29,7 @@ export default function CancelBtn({ id }: Props) {
         alert('예약 취소에 실패했습니다. 다시 시도해주세요.');
         setModalOpened(false);
       }
-    } catch (error) {
+    } catch {
       alert('예약 취소 중 오류가 발생했습니다. 다시 시도해주세요.');
       setModalOpened(false);
     }
