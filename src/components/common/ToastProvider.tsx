@@ -22,7 +22,7 @@ const iconSrcMap: Record<ToastType, string> = {
 const positionMap: Record<ToastPosition, string> = {
   top: 'top-1/3',
   middle: 'top-1/2 -translate-y-1/2',
-  bottom: 'top-2/3',
+  bottom: 'top-4/5',
 } as const;
 
 /**
@@ -38,7 +38,7 @@ export function ToastProvider({ children }: PropsWithChildren<Props>) {
   const showToast = (
     msg: string,
     type: ToastType = 'success',
-    customPosition: ToastPosition = 'middle',
+    customPosition: ToastPosition = 'bottom',
   ) => {
     setMessage(msg);
     setToastType(type);
@@ -68,7 +68,7 @@ export function ToastProvider({ children }: PropsWithChildren<Props>) {
           )}
         >
           {/* Toast UI */}
-          <div className='bg-gray-070/70 flex w-full items-center gap-4 rounded-lg px-4 py-2 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)] backdrop-blur-md'>
+          <div className='bg-gray-070/70 flex w-full items-center gap-4 rounded-lg px-4 py-3 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)] backdrop-blur-md'>
             <Image
               src={iconSrcMap[toastType]}
               alt='check'
@@ -76,7 +76,9 @@ export function ToastProvider({ children }: PropsWithChildren<Props>) {
               height={28}
               className='flex-shrink-0'
             />
-            <Txt className='whitespace-pre-line text-white'>{message}</Txt>
+            <Txt size={22} className='whitespace-pre-line text-white'>
+              {message}
+            </Txt>
           </div>
         </div>
       )}

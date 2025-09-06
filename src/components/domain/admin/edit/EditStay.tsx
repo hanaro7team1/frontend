@@ -27,8 +27,6 @@ export default function EditStay({ data }: Props) {
   const [newCapacity, setNewCapacity] = useState(capacity);
   const [newDescription, setNewDescription] = useState(description);
 
-  const [isOpen, setIsOpened] = useState(false);
-
   const payload = {
     capacity: newCapacity,
     areaSize: newArea[0],
@@ -38,11 +36,13 @@ export default function EditStay({ data }: Props) {
   const { showToast } = useToast();
 
   const submitHandler = async () => {
+    router.refresh();
     try {
       await privateApi.patch(`api/admin/stays/${stayId}`, payload);
-      setIsOpened(true);
+      showToast('수정이 완료되었습니다', 'success');
+      router.replace(`/stays/${stayId}`);
     } catch (e) {
-      showToast('수정 중 오류가 발생했습니다\n다시 시도해 주세요', 'error');
+      showToast('수정 중 오류가 발생했습니다 \n 다시 시도해 주세요', 'error');
     }
   };
 
@@ -81,20 +81,6 @@ export default function EditStay({ data }: Props) {
         onClickRightBtn={() => submitHandler()}
         isPink
       />
-      {isOpen && (
-        <Modal
-          rightBtnText={'확인'}
-          leftBtnText={'취소'}
-          onClickRightBtn={() => {
-            setIsOpened(false);
-            router.back();
-          }}
-          onClickLeftBtn={() => setIsOpened(false)}
-          isPink
-        >
-          등록이 완료되었습니다
-        </Modal>
-      )}
     </>
   );
 }
