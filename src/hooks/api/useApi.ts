@@ -9,11 +9,11 @@ export const publicFetcher = (url: string) => publicApi.get(url).then((res) => r
 export const privateFetcher = (url: string) => privateApi.get(url).then((res) => res.data);
 
 // 공개 API 훅
-export const usePublicData = <T = any>(endpoint: string): SWRResponse<T, any> => {
+export const usePublicData = <T>(endpoint: string): SWRResponse<T> => {
   return useSWR<T>(endpoint, publicFetcher);
 };
 
 // 인증 필요한 API 훅
-export const usePrivateData = <T = any>(endpoint: string): SWRResponse<T, any> => {
+export const usePrivateData = <T>(endpoint: string): SWRResponse<T> => {
   return useSWR<T>(endpoint, privateFetcher);
 };
