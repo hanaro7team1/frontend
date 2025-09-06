@@ -20,9 +20,7 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
 
   const api = await serverPrivateApi();
   const { data } = await api.get<StayDetailResponseType>(`/api/stays/${stayId}`, {
-    params: {
-      schedule: searchParam.schedule ?? undefined,
-    },
+    params: { schedule: searchParam.schedule },
   });
 
   const { id, title, stayResrvStatus, address, capacity, areaSize, images, description } = data;
