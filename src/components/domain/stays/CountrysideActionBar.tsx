@@ -2,7 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { privateApi } from '@/lib/axios-client';
 import { FixedBottomButton, Modal } from '@/components/common';
+import { StayDeleteResponse } from '@/types/stays';
 
 type Props = {
   id: number;
@@ -13,10 +15,51 @@ type Props = {
 export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isResultModalOpen, setIsResultModalOpen] = useState(false);
+
+  const [deleted, setDeleted] = useState<boolean | null>(null);
+  const [hasActiveReservations, setHasActiveReservations] = useState<boolean | null>(null);
+  const [deleteMsg, setDeleteMsg] = useState<string | null>(null);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenResultModal = () => setIsResultModalOpen(true);
+  const handleCloseResultModal = () => setIsResultModalOpen(false);
 
+  const handleDelete = async () => {
+    try {
+      const { data } = await privateApi.delete<StayDeleteResponse>(`/api/admin/stays/${id}`);
+
+      let msg: string;
+      if (data.deleted === false) {
+        msg = '이미 삭제된 사랑방입니다.';
+      } else if (data.deleted === true && data.hasActiveReservations === true) {
+        msg = '방문 전 예약이 있습니다.\n[예약 관리하기]를 통해\n예약자에게 연락 바랍니다.';
+      } else {
+        msg = '삭제가 완료되었습니다.';
+      }
+
+      setDeleted(data.deleted);
+      setHasActiveReservations(data.hasActiveReservations);
+      setDeleteMsg(msg);
+    } catch {
+      setDeleted(null);
+      setHasActiveReservations(null);
+      setDeleteMsg('삭제 요청 중 오류가 발생했습니다.');
+    } finally {
+      handleCloseModal();
+      handleOpenResultModal();
+    }
+  };
+
+  const goList = () => {
+    handleCloseResultModal();
+    if (deleted === true && hasActiveReservations === true) {
+      router.push('/reservations');
+    } else {
+      router.push('/admin/stays');
+    }
+  };
   return (
     <>
       <FixedBottomButton
@@ -38,12 +81,21 @@ export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
           leftBtnText='취소'
           rightBtnText='삭제하기'
           onClickLeftBtn={handleCloseModal}
-          onClickRightBtn={() => {
-            if (onDelete) onDelete();
-            handleCloseModal();
-          }}
+          onClickRightBtn={handleDelete}
         >
           사랑방을 삭제하시겠습니까?
+        </Modal>
+      )}
+
+      {/* 삭제 결과 모달 */}
+      {isResultModalOpen && (
+        <Modal
+          leftBtnText='닫기'
+          rightBtnText='확인'
+          onClickLeftBtn={handleCloseResultModal}
+          onClickRightBtn={goList}
+        >
+          <span className='whitespace-pre-line'>{deleteMsg}</span>
         </Modal>
       )}
     </>

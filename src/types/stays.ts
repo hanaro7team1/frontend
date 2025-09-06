@@ -76,3 +76,8 @@ export type PreviewImageItem = {
   previewUrl: string;
 };
 export type PresignResp = { url: string; key: string };
+
+export type StayDeleteResponse = {
+  deleted: boolean;
+  hasActiveReservations: boolean;
+};
