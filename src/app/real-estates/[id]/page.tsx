@@ -14,7 +14,6 @@ export default async function RealEstateDetailPage({ params }: Props) {
 
   const { location, price, imageUrls, capacity, area, description, areaSize, roomCount, house } =
     data;
-  console.log('🚀 ~ RealEstateDetailPage ~ data:', data);
 
   return (
     <div className='flex flex-col'>
