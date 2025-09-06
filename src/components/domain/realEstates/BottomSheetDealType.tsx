@@ -13,36 +13,44 @@ export default function BottomSheetDealType() {
 
   const prevSearchParam = searchParams.get('tradeType');
 
-  const handleDone = (newDealType: '전세' | '매매') => {
+  const handleSelectDealType = (newDealType: '전세' | '매매') => {
     const params = new URLSearchParams(searchParams);
     params.set('tradeType', newDealType);
     router.replace(`${pathname}?${params.toString()}`);
   };
 
+  const handleSelectEntire = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete('tradeType');
+    router.replace(`${pathname}?${params.toString()}`);
+  };
+
   return (
     <BottomSheet>
-      <div className='flex flex-col gap-4 p-4'>
-        <Txt size={24} align='center'>
-          거래 형태를 선택하세요
-        </Txt>
+      <div className='flex flex-col items-center gap-4 p-4'>
+        <Txt size={24}>거래 형태를 선택하세요</Txt>
 
-        <div className='flex items-center gap-20'>
-          <SheetClose className='flex items-center gap-3 p-4' onClick={() => handleDone('전세')}>
+        <div className='flex w-full items-center justify-around'>
+          <SheetClose className='flex shrink-0 items-center gap-3 p-4' onClick={handleSelectEntire}>
             <div
               className={cn(
-                'border-green-49d flex h-7 w-7 items-center justify-center rounded-full border-2',
-                { 'border-black-626/15': prevSearchParam === '매매' },
+                'border-black-626/15 flex h-7 w-7 items-center justify-center rounded-full border-2',
+                { 'border-green-49d': !prevSearchParam },
               )}
             >
               <div
-                className={cn('bg-green-49d h-4 w-4 rounded-full', {
-                  'bg-black-626/15': prevSearchParam === '매매',
+                className={cn('bg-black-626/15 h-4 w-4 rounded-full', {
+                  'bg-green-49d': !prevSearchParam,
                 })}
               />
             </div>
-            <Txt>전세</Txt>
+            <Txt>전체</Txt>
           </SheetClose>
-          <SheetClose className='flex items-center gap-3 p-4' onClick={() => handleDone('매매')}>
+
+          <SheetClose
+            className='flex shrink-0 items-center gap-3 p-4'
+            onClick={() => handleSelectDealType('매매')}
+          >
             <div
               className={cn(
                 'border-black-626/15 flex h-7 w-7 items-center justify-center rounded-full border-2',
@@ -56,6 +64,25 @@ export default function BottomSheetDealType() {
               />
             </div>
             <Txt>매매</Txt>
+          </SheetClose>
+
+          <SheetClose
+            className='flex shrink-0 items-center gap-3 p-4'
+            onClick={() => handleSelectDealType('전세')}
+          >
+            <div
+              className={cn(
+                'border-black-626/15 flex h-7 w-7 items-center justify-center rounded-full border-2',
+                { 'border-green-49d': prevSearchParam === '전세' },
+              )}
+            >
+              <div
+                className={cn('bg-black-626/15 h-4 w-4 rounded-full', {
+                  'bg-green-49d': prevSearchParam === '전세',
+                })}
+              />
+            </div>
+            <Txt>전세</Txt>
           </SheetClose>
         </div>
       </div>

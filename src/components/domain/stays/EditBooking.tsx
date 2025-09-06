@@ -15,11 +15,12 @@ type Props = {
     stayId: number;
     schedule: string;
     peopleCount: string;
+    capacity: number;
   };
 };
 
 export default function EditBooking({ data }: Props) {
-  const { schedule, peopleCount } = data;
+  const { schedule, peopleCount, capacity } = data;
 
   const [wantsFarmExperience, setWantsFarmExperience] = useState(true);
 
@@ -58,7 +59,7 @@ export default function EditBooking({ data }: Props) {
           </ShadowBox>
           <ShadowBox className='gap-3.5 px-3.5 py-3'>
             <InfoRow icon={Users} label='인원' value={peopleCount} />
-            <BottomSheetPeopleCount />
+            <BottomSheetPeopleCount capacity={capacity} />
           </ShadowBox>
         </div>
       </div>
