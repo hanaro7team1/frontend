@@ -6,6 +6,7 @@ import { Txt } from '@/components/atoms';
 import { BottomSheet } from '@/components/common';
 import { DoubleSlider } from '@/components/ui/doubleSlider';
 import { SheetClose } from '@/components/ui/sheet';
+import { formatPriceRange } from '@/utils/realEstates/formatPriceRange';
 
 export default function BottomSheetPriceRange() {
   const router = useRouter();
@@ -14,18 +15,14 @@ export default function BottomSheetPriceRange() {
 
   const prevSearchParam = searchParams.get('priceRange');
 
-  const [newPriceRange, setNewPriceRange] = useState(
-    prevSearchParam
-      ? prevSearchParam
-          .split('-')
-          .map((v) => v.replace('만원', ''))
-          .map(Number)
-      : [4000, 6000],
+  const [newPriceRange, setNewPriceRange] = useState<number[]>(
+    prevSearchParam ? prevSearchParam.split('-').map(Number) : [0, 200000000],
   );
 
   const handleDone = () => {
     const params = new URLSearchParams(searchParams);
-    params.set('priceRange', newPriceRange[0] + '만원' + '\n-\n' + newPriceRange[1] + '만원');
+
+    params.set('priceRange', `${newPriceRange[0]}-${newPriceRange[1]}`);
     router.replace(`${pathname}?${params.toString()}`);
   };
 
@@ -39,9 +36,9 @@ export default function BottomSheetPriceRange() {
             value={newPriceRange}
             defaultValue={newPriceRange}
             onValueChange={setNewPriceRange}
-            max={10000}
+            max={200000000}
             min={0}
-            step={1000}
+            step={1000000}
             className='z-10'
           />
         </div>
@@ -50,7 +47,9 @@ export default function BottomSheetPriceRange() {
           onClick={handleDone}
           className='bg-green-49d flex h-[50px] w-full items-center justify-center rounded-[10px] py-[11px]'
         >
-          <Txt className='text-white'>완료</Txt>
+          <Txt className='text-white'>
+            {formatPriceRange(newPriceRange[0], newPriceRange[1])} 적용하기
+          </Txt>
         </SheetClose>
       </div>
     </BottomSheet>

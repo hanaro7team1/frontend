@@ -3,6 +3,7 @@
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { formatPrice, formatPriceRange } from '@/utils/realEstates/formatPriceRange';
 import { Txt } from '../atoms';
 
 function DoubleSlider({
@@ -44,10 +45,7 @@ function DoubleSlider({
         >
           {/* 툴팁 */}
           <div className='absolute -top-16 left-1/2 z-50 -translate-x-1/2 rounded-md border border-gray-300 bg-white px-2 py-1 whitespace-nowrap shadow-md'>
-            <Txt size={18}>
-              {_values[0] !== 0 && '최소 ' + _values[0] + '만원' + ' - '}
-              {_values[1] === 10000 ? '최대 1억' : '최대 ' + _values[1] + '만원'}
-            </Txt>
+            <Txt size={18}>{formatPriceRange(_values[0], _values[1])}</Txt>
             <div className='absolute -bottom-2 left-1/2 h-0 w-0 -translate-x-1/2 border-x-6 border-t-6 border-x-transparent border-t-white drop-shadow-sm'></div>
           </div>
         </SliderPrimitive.Range>
@@ -55,7 +53,7 @@ function DoubleSlider({
       <div className='absolute -bottom-13 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1'>
         <div className='bg-black-626/30 h-4 w-0.5' />
         <Txt size={16} className='text-black-626/30'>
-          {max / 2 + '만원'}
+          {formatPrice(max / 2)}
         </Txt>
       </div>
       {Array.from({ length: _values.length }, (_, index) => (
