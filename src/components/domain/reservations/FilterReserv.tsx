@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Txt } from '@/components/atoms';
-import { ReservationsSearchParams } from '@/app/reservations/page';
 import { RESERV_STATUSES } from '@/constants/reservations/reservation';
+import { ReservationsSearchParams } from '@/types/reservation';
 
 type Props = {
   searchParams: ReservationsSearchParams;

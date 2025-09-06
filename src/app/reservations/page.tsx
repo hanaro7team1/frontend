@@ -2,17 +2,21 @@ import { Header } from '@/components/common';
 import FilterReserv from '@/components/domain/reservations/FilterReserv';
 import ReservationCard from '@/components/domain/reservations/ReservationCard';
 import { getIsAdmin } from '@/utils/auth/auth-server';
-import { ReservationsResponse } from '@/types/reservation';
+import { ReservationsListResponse, ReservationsResponse, ReservationsSearchParams } from '@/types/reservation';
 import { serverPrivateApi } from '@/lib/axios-server';
-
-export type ReservationStatus = '예약됨' | '방문 완료' | '취소됨';
-export type ReservationsSearchParams = {
-  reservationStatus?: ReservationStatus | '전체';
-};
 
 type Props = {
   searchParams: Promise<ReservationsSearchParams>;
 };
+
+const STATUS_TO_FILTER: Record<
+  ReservationsListResponse['viewStatus'],
+  '예약됨' | '방문 완료' | '취소됨' > = {
+    '방문 중':  '예약됨',
+    '방문 전':  '예약됨',
+    '방문 완료':  '방문 완료',
+    '예약 취소':  '취소됨',
+} as const;
 
 export default async function ReservationsPage({ searchParams }: Props) {
   const searchParam = await searchParams;
@@ -23,12 +27,16 @@ export default async function ReservationsPage({ searchParams }: Props) {
     params: searchParam,
   });
 
+  const filtered = !searchParam.reservationStatus || searchParam.reservationStatus === '전체'
+    ? data.dtoList
+    : data.dtoList.filter(item => STATUS_TO_FILTER[item.viewStatus] === searchParam.reservationStatus);
+
   return (
     <>
       <Header title={isAdmin ? '우리 마을 사랑방 예약 목록' : '나의 예약 목록'} withoutBorder />
       <FilterReserv searchParams={searchParam} isAdmin={isAdmin} />
       <div className='flex flex-col gap-3 p-3'>
-        {data.dtoList.map((reservation) => (
+        {filtered.map((reservation) => (
           <ReservationCard key={reservation.reservationId} data={reservation} />
         ))}
       </div>

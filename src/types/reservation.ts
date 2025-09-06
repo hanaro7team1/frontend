@@ -1,4 +1,3 @@
-import { ReservationStatus } from '@/enums/reservation';
 import { Paged } from './common';
 
 export type ReservationInfo = {
@@ -56,3 +55,8 @@ export type ReservationsListResponse = {
 };
 export type ReservationsResponse = Paged<ReservationsListResponse>;
 
+// 예약됨 -> 방문 번, 방문 중 | 방문완료 -> 방문완료 | 예약 취소 -> 최소됨
+export type ReservationStatus = '예약됨' | '방문 완료' | '취소됨';
+export type ReservationsSearchParams = {
+  reservationStatus?: ReservationStatus | '전체';
+};
