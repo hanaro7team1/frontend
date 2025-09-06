@@ -3,10 +3,11 @@ import Txt from '@/components/atoms/Text';
 
 type Props = {
   price: string;
+  tradeType: string;
   location: string;
 };
 
-export default function StayHeader({ price, location }: Props) {
+export default function StayHeader({ price, tradeType, location }: Props) {
   return (
     <div className='flex flex-col gap-2'>
       <div className='flex items-center justify-between'>
@@ -19,7 +20,9 @@ export default function StayHeader({ price, location }: Props) {
         <div className='justify-end'></div>
       </div>
 
-      <Txt size={28}>{price}</Txt>
+      <Txt size={28}>
+        {tradeType} {price}
+      </Txt>
     </div>
   );
 }
