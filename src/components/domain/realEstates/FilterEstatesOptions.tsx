@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { Txt } from '@/components/atoms';
+import { formatPriceRange } from '@/utils/realEstates/formatPriceRange';
 import { OptionFilter } from '@/types/stays';
 import { BottomSheetDealType, BottomSheetPriceRange } from '.';
 import { BottomSheetLocation } from '../stays';
@@ -31,7 +32,11 @@ export default function FilterEstatesOptions() {
       key: 'priceRange',
       label: '가격',
       valueSize: 16,
-      defaultValue: priceRange?.replace('10000만원', '1억') || '4000만원\n~ 6000만원',
+      defaultValue: (() => {
+        if (!priceRange) return '전체';
+        const [min, max] = priceRange.split('-').map(Number);
+        return formatPriceRange(min, max);
+      })(),
       BottomSheetType: <BottomSheetPriceRange />,
     },
   ];
@@ -48,8 +53,10 @@ export default function FilterEstatesOptions() {
           </Txt>
           <Txt
             align='center'
-            size={valueSize}
-            className={valueSize === 16 ? 'leading-5 whitespace-pre-line' : ''}
+            size={defaultValue === '전체' ? 22 : valueSize}
+            className={
+              valueSize === 16 && defaultValue !== '전체' ? 'leading-5 whitespace-pre-line' : ''
+            }
           >
             {defaultValue}
           </Txt>
