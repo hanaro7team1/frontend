@@ -1,4 +1,5 @@
 import { serverPrivateApi } from '@/lib/axios-server';
+import { Txt } from '@/components/atoms';
 import { Header } from '@/components/common';
 import {
   CancelBtn,
@@ -43,7 +44,14 @@ export default async function ReservationDetailPage({ params }: Props) {
 
   return (
     <div className='flex flex-col gap-4'>
-      <Header title='예약 자세히 보기' />
+      <div>
+        <Header title='예약 자세히 보기' />
+        {isCancelled && (
+          <div className='bg-gray-6d6 flex justify-center py-2'>
+            <Txt>* 취소된 예약입니다 *</Txt>
+          </div>
+        )}
+      </div>
 
       <main className='flex flex-col gap-9 px-5'>
         <StayInfoCard data={{ imageUrl, stayId, title, address }} />
