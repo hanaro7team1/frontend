@@ -12,8 +12,18 @@ export default async function RealEstateDetailPage({ params }: Props) {
   const { id: estateId } = await params;
   const { data } = await publicApi.get<EstatesItemResponse>(`/api/real-estates/${estateId}`);
 
-  const { location, price, imageUrls, capacity, area, description, areaSize, roomCount, house } =
-    data;
+  const {
+    location,
+    price,
+    tradeType,
+    imageUrls,
+    capacity,
+    area,
+    description,
+    areaSize,
+    roomCount,
+    house,
+  } = data;
 
   return (
     <div className='flex flex-col'>
@@ -25,7 +35,7 @@ export default async function RealEstateDetailPage({ params }: Props) {
         <Carousel images={imageUrls || '/images/sample1.png'} />
 
         <div className='mt-8 space-y-5 p-5'>
-          <EstateHeader price={price} location={location} />
+          <EstateHeader tradeType={tradeType} price={price} location={location} />
           <StayInfoChips capacity={capacity} area={area} />
           <EstateDescription
             description={description}
