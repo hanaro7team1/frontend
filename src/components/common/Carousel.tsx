@@ -25,12 +25,12 @@ export default function Carousel({ images, className }: Props) {
   return (
     <div className={cn('relative mt-5 flex h-52 w-full justify-center', className)}>
       <Image
-        src={images[current]}
+        src={images[current] ?? '/images/sample1.png'}
         alt={`carousel-${current}`}
         width={0}
         height={0}
         sizes='100vw'
-        className='px-8 h-auto w-full object-cover'
+        className='h-auto w-full object-cover px-8'
       />
 
       <CarouselArrow direction='left' onClick={prevSlide} disabled={current === 0} />
