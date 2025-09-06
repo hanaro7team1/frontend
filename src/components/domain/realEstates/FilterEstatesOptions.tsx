@@ -46,11 +46,7 @@ export default function FilterEstatesOptions() {
           <Txt align='center' className='text-gray-070'>
             {label}
           </Txt>
-          <Txt
-            align='center'
-            size={valueSize}
-            className={valueSize === 16 ? 'leading-5 whitespace-pre-line' : ''}
-          >
+          <Txt align='center' size={valueSize} className={valueSize === 16 ? 'leading-5' : ''}>
             {defaultValue}
           </Txt>
           {BottomSheetType}
