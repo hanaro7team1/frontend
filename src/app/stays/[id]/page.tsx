@@ -1,4 +1,4 @@
-import { publicApi } from '@/lib/axios';
+import { serverPrivateApi } from '@/lib/axios-server';
 import { Carousel, Header } from '@/components/common';
 import {
   StayActionBar,
@@ -18,8 +18,14 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
   const { id: stayId } = await params;
   const searchParam = await searchParams;
 
-  const { data } = await publicApi.get<StayDetailResponseType>(`/api/stays/${stayId}`);
+  const api = await serverPrivateApi();
+  const { data } = await api.get<StayDetailResponseType>(`/api/stays/${stayId}`, {
+    params: {
+      schedule: searchParam.schedule ?? undefined,
+    },
+  });
 
+  console.log('schedule: ', searchParam.schedule);
   const { id, title, stayResrvStatus, address, capacity, areaSize, images, description } = data;
 
   const isAdmin = await getIsAdmin();
