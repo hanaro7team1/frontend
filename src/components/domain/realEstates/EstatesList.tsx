@@ -12,7 +12,7 @@ export default async function EstatesList({ searchParams }: Props) {
   });
 
   return (
-    <div className='m-4 space-y-4'>
+    <div className='m-4 space-y-4 pb-20'>
       {data.dtoList.map((room) => (
         <EstateItem key={room.id} data={room} />
       ))}
