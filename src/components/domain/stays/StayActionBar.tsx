@@ -11,6 +11,7 @@ type Props = {
   onDelete?: () => void;
   schedule?: string;
   peopleCount?: string;
+  capacity: number;
 };
 
 export default function StayActionBar({ mode = 'city', ...props }: Props) {

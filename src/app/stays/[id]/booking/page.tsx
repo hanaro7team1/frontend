@@ -14,7 +14,7 @@ export default async function StayBookingPage({ params, searchParams }: Props) {
   const { schedule, peopleCount } = await searchParams;
 
   const { data } = await publicApi.get<StayDetailResponseType>(`/api/stays/${id}`);
-  const { title, address, images, id: stayId } = data;
+  const { title, address, images, id: stayId, capacity } = data;
 
   return (
     <div className='flex flex-col gap-4'>
@@ -22,7 +22,7 @@ export default async function StayBookingPage({ params, searchParams }: Props) {
 
       <main className='flex flex-col gap-10 px-5'>
         <StayInfoCard data={{ imageUrl: images[0], stayId, title, address }} isAdmin />
-        <EditBooking data={{ stayId, schedule, peopleCount }} />
+        <EditBooking data={{ stayId, schedule, peopleCount, capacity }} />
       </main>
     </div>
   );

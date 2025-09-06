@@ -13,10 +13,12 @@ export default async function StaysPage({ searchParams }: Props) {
 
   return (
     <>
-      <Header title='사랑방 찾기' bgColor={isAdmin ? 'white' : 'green'} />
+      <Header title='사랑방 찾기' bgColor={isAdmin ? 'white' : 'green'} withoutBorder />
       <FilterRoomType searchParams={searchParam} isAdmin={isAdmin} />
       <FilterStayOptions />
-      <RoomList searchParams={searchParam} />
+      <div className={isAdmin ? '' : 'pb-20'}>
+        <RoomList searchParams={searchParam} />
+      </div>
       {!isAdmin && <BottomTabNav />}
     </>
   );

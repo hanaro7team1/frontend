@@ -25,7 +25,7 @@ export default function FilterStayOptions() {
     {
       key: 'date',
       label: '일정',
-      valueSize: 18,
+      valueSize: 16,
       defaultValue: schedule || `${formatDate(today)}\n-${formatDate(twoDaysLater)}`,
       BottomSheetType: <BottomSheetSchedule />,
     },
@@ -48,7 +48,7 @@ export default function FilterStayOptions() {
           <Txt align='center' className='text-gray-070'>
             {label}
           </Txt>
-          <Txt align='center' size={valueSize} className={valueSize === 16 ? 'leading-4' : ''}>
+          <Txt align='center' size={valueSize} className={valueSize === 16 ? 'leading-5' : ''}>
             {defaultValue + (label === '인원' ? '명' : '')}
           </Txt>
           {BottomSheetType}

@@ -47,6 +47,7 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
           mode={mode}
           schedule={searchParam.schedule}
           peopleCount={searchParam.peopleCount}
+          capacity={capacity}
         />
       </footer>
     </div>

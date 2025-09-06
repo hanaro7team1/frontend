@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
 import { Modal } from '@/components/common';
+import { useToast } from '@/components/common/ToastContext';
 
 type Props = {
   id: string;
@@ -12,6 +13,7 @@ type Props = {
 
 export default function CancelBtn({ id }: Props) {
   const router = useRouter();
+  const { showToast } = useToast();
 
   const [isModalOpened, setModalOpened] = useState(false);
 
@@ -20,7 +22,7 @@ export default function CancelBtn({ id }: Props) {
       const { status } = await privateApi.delete(`/api/reservations/${id}`);
 
       if (status === 204) {
-        alert('예약이 취소되었습니다.');
+        showToast('예약이 취소되었습니다.', 'success');
         setModalOpened(false);
         router.push('/reservations?reservationStatus=취소됨');
       } else {

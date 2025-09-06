@@ -1,6 +1,11 @@
 import { ReactElement } from 'react';
 import { Paged } from './common';
 
+export type Regions = {
+  region: string;
+  detailRegions: string[];
+}[];
+
 export type RoomInfo = {
   id: number;
   name: string;
