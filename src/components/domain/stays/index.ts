@@ -18,6 +18,7 @@ export { default as BottomSheetCapacity } from './BottomSheetCapacity';
 export { default as BottomSheetLocation } from './BottomSheetLocation';
 export { default as BottomSheetPeopleCount } from './BottomSheetPeopleCount';
 export { default as BottomSheetSchedule } from './BottomSheetSchedule';
+export { default as BottomSheetScheduleDetail } from './BottomSheetScheduleDetail';
 
 export { default as StayActionBar } from './StayActionBar';
 export { default as StayDescription } from './StayDescription';
