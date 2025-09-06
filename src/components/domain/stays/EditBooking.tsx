@@ -7,7 +7,7 @@ import { privateApi } from '@/lib/axios-client';
 import { cn } from '@/lib/utils';
 import { ShadowBox, Txt } from '@/components/atoms';
 import { FixedBottomButton } from '@/components/common';
-import { BottomSheetPeopleCount, BottomSheetSchedule } from '.';
+import { BottomSheetPeopleCount, BottomSheetScheduleDetail } from '.';
 import { InfoRow } from '../reservations';
 
 type Props = {
@@ -32,10 +32,14 @@ export default function EditBooking({ data }: Props) {
 
   const handleBooking = async () => {
     try {
-      const { status } = await privateApi.patch(`/api/reservations/${reservationId}/confirm`, {
-        ...searchParamsObj,
+      const req = {
+        startDate: '20' + searchParamsObj.schedule.split('-')[0].replaceAll('.', '-'),
+        endDate: '20' + searchParamsObj.schedule.split('-')[1].replaceAll('.', '-'),
+        personCnt: searchParamsObj.peopleCount ?? 2,
         isFarm: wantsFarmExperience,
-      });
+      };
+
+      const { status } = await privateApi.patch(`/api/reservations/${reservationId}/confirm`, req);
 
       if (status === 200) {
         alert('예약이 완료되었습니다!');
@@ -55,7 +59,7 @@ export default function EditBooking({ data }: Props) {
         <div className='flex flex-col gap-3'>
           <ShadowBox className='gap-3.5 px-3.5 py-3'>
             <InfoRow icon={CalendarCheck} label='일정' value={schedule} />
-            <BottomSheetSchedule />
+            <BottomSheetScheduleDetail />
           </ShadowBox>
           <ShadowBox className='gap-3.5 px-3.5 py-3'>
             <InfoRow icon={Users} label='인원' value={peopleCount} />

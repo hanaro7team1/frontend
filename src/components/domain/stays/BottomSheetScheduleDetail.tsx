@@ -27,7 +27,7 @@ export default function BottomSheetScheduleDetail() {
     to: new Date(defaultTo),
   });
 
-  const stayId = pathname.split('/').at(-1);
+  const stayId = pathname.split('/')[2];
   const { data: disabledDates } = usePublicData<StayAvailableDatesResponse>(
     `/api/stays/${stayId}/available-dates`,
   );
