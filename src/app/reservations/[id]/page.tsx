@@ -33,7 +33,11 @@ export default async function ReservationDetailPage({ params }: Props) {
     startDate,
     stayId,
     title,
+    resrvStatus,
   } = data;
+
+  const isFinished = new Date(startDate) < new Date();
+  const isCancelled = resrvStatus === 'CANCELLED';
 
   const isAdmin = await getIsAdmin();
 
@@ -45,7 +49,7 @@ export default async function ReservationDetailPage({ params }: Props) {
         <StayInfoCard data={{ imageUrl, stayId, title, address }} />
         <GuestInfoCard data={{ memberName, startDate, endDate, personCnt, isFarm, memberPhone }} />
         {isHomestay && <HostInfoCard data={{ ownerName, ownerPhone }} />}
-        {!isAdmin && <CancelBtn id={id} />}
+        {!isAdmin && !isCancelled && !isFinished && <CancelBtn id={id} />}
       </main>
     </div>
   );
