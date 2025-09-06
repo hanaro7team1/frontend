@@ -52,8 +52,8 @@ export function ToastProvider({ children }: PropsWithChildren<Props>) {
       setIsAnimating(false);
       setTimeout(() => {
         setIsVisible(false);
-      }, 150);
-    }, 1500);
+      }, 3000);
+    }, 3000);
   };
 
   return (
@@ -62,7 +62,7 @@ export function ToastProvider({ children }: PropsWithChildren<Props>) {
       {isVisible && (
         <div
           className={cn(
-            'fixed z-1000 transform transition-all duration-150',
+            'fixed z-1000 transform transition-all duration-3000',
             positionMap[position],
             isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0',
           )}
