@@ -2,6 +2,7 @@
 
 import { ChevronRight } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { BottomSheet } from '@/components/common';
 import {
@@ -11,7 +12,8 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { SheetClose } from '@/components/ui/sheet';
-import { dummyRegions } from '../../../../public/dummy';
+import { usePublicData } from '@/hooks/api/useApi';
+import { Regions } from '@/types/stays';
 
 export default function BottomSheetLocation() {
   const router = useRouter();
@@ -26,6 +28,15 @@ export default function BottomSheetLocation() {
     router.replace(`${pathname}?${params.toString()}`);
   };
 
+  const { data } = usePublicData<Regions>(`/api/regions${pathname}`);
+  const [regions, setRegions] = useState<Regions>([]);
+
+  useEffect(() => {
+    if (data) {
+      setRegions(data);
+    }
+  }, [data]);
+
   return (
     <BottomSheet>
       <div className='flex flex-col gap-4 p-4'>
@@ -38,7 +49,7 @@ export default function BottomSheetLocation() {
           collapsible
           defaultValue={prevSearchParam ? prevSearchParam.split(' ')[0] : undefined}
         >
-          {dummyRegions.map(({ region, detailRegions }) => (
+          {regions.map(({ region, detailRegions }) => (
             <AccordionItem key={region} value={region}>
               <AccordionTrigger className='px-2'>
                 <Txt>{region}</Txt>
