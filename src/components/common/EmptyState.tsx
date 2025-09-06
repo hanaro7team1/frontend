@@ -15,7 +15,9 @@ export default function EmptyState({ children }: Props) {
         width={150}
         height={150}
       />
-      <Txt className='text-gray-070'>{children}</Txt>
+      <Txt className='text-gray-070' align='center'>
+        {children}
+      </Txt>
     </div>
   );
 }
