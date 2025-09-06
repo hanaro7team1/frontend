@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
-import { BottomSheetPeopleCount, BottomSheetScheduleDetail } from '@/components/domain/stays';
+import { BottomSheetPeopleCount, BottomSheetSchedule } from '@/components/domain/stays';
 import { formatDate, getDefaultDates } from '@/utils/stays/stays';
 
 type Props = {
@@ -87,7 +87,7 @@ export default function CityActionBar({
               <Txt size={16}>일정</Txt>
               <Txt>{displaySchedule}</Txt>
             </div>
-            <BottomSheetScheduleDetail />
+            <BottomSheetSchedule />
           </div>
 
           {/* 인원 */}
