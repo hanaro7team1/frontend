@@ -25,7 +25,6 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
     },
   });
 
-  console.log('schedule: ', searchParam.schedule);
   const { id, title, stayResrvStatus, address, capacity, areaSize, images, description } = data;
 
   const isAdmin = await getIsAdmin();
