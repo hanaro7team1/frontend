@@ -73,13 +73,13 @@ export default function AdminCalendarModal({ stayId, closeModal }: Props) {
         <div className='flex flex-col gap-2'>
           <div className='flex items-center justify-around gap-4'>
             <div className='flex gap-2'>
-              <div className='bg-pink-a76/50 size-6 rounded-[5px]' />
+              <div className='bg-orange-85a/50 size-6 rounded-[5px]' />
               <Txt size={16} className='text-gray-070'>
                 이미 예약된 날
               </Txt>
             </div>
             <div className='flex gap-2'>
-              <div className='bg-pink-a76 size-6 rounded-[5px]' />
+              <div className='bg-orange-85a size-6 rounded-[5px]' />
               <Txt size={16} className='text-gray-070'>
                 예약 가능한 날
               </Txt>
