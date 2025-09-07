@@ -77,6 +77,10 @@ export type PreviewImageItem = {
 };
 export type PresignResp = { url: string; key: string };
 
+export type StayDeleteResponse = {
+  deleted: boolean;
+  hasUpcomingReservations: boolean;
+};
 export type StayAvailableDatesResponse = {
   dates: string[]; // [ "2025-09" ]
 };
