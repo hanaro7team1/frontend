@@ -29,13 +29,13 @@ export default function Bankbook({ accountName, accountNumber, balance }: Props)
         <Button
           title='이체하기'
           color='gray'
-          onClick={() => alert('이체하기 버튼 클릭')}
+          onClick={() => router.push('/hana')}
           className='w-full'
         />
         <Button
           title='거래 내역 조회'
           color='green'
-          onClick={() => alert('조회 버튼 클릭')}
+          onClick={() => router.push('/hana')}
           className='w-full'
         />
       </section>
