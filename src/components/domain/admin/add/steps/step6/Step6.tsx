@@ -96,14 +96,18 @@ export default function StayPreview() {
   return (
     <div className='flex flex-col'>
       <header>
-        <Header title='미리 보기' />
+        <Header title='사랑방 등록 전 미리 보기' />
       </header>
 
       <main className='flex-1'>
         <Carousel images={stay.images} />
 
         <div className='mt-8 space-y-5 p-5'>
-          <StayHeader title={'OO마을 사랑방'} address={stay.address} />
+          <StayHeader
+            title={'OO마을 사랑방'}
+            address={stay.address}
+            stayResrvStatus={'예약 가능'}
+          />
           <StayInfoChips capacity={stay.capacity} area={stay.areaSize} />
           <StayDescription item={stay.description} />
         </div>
