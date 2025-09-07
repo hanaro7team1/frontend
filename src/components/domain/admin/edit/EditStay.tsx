@@ -41,10 +41,12 @@ export default function EditStay({ data }: Props) {
       await privateApi.patch(`api/admin/stays/${stayId}`, payload);
       showToast('수정이 완료되었습니다', 'success');
       router.replace(`/stays/${stayId}`);
-    } catch (e) {
+    } catch {
       showToast('수정 중 오류가 발생했습니다 \n 다시 시도해 주세요', 'error');
     }
   };
+
+  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -76,11 +78,24 @@ export default function EditStay({ data }: Props) {
 
       <FixedBottomButton
         leftBtnText='취소하기'
-        onClickLeftBtn={() => alert('취소')}
+        onClickLeftBtn={() => setModalOpen(true)}
         rightBtnText='수정 완료하기'
-        onClickRightBtn={() => submitHandler()}
+        onClickRightBtn={submitHandler}
         isPink
       />
+
+      {isModalOpen && (
+        <Modal
+          rightBtnText='네'
+          leftBtnText='아니요'
+          onClickRightBtn={() => router.back()}
+          onClickLeftBtn={() => setModalOpen(false)}
+        >
+          변경사항이 반영되지 않아요
+          <br />
+          정말 취소할까요?
+        </Modal>
+      )}
     </>
   );
 }

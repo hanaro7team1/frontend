@@ -66,7 +66,7 @@ export default function WizardProvider({ children }: { children: React.ReactNode
     try {
       const r = await guard();
       return r !== false;
-    } catch (e) {
+    } catch {
       return false;
     }
   };

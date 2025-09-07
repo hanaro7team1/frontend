@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { publicApi } from '@/lib/axios';
-import { FixedBottomButton, Header, Modal } from '@/components/common';
+import { FixedBottomButton, Header } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
 import { StepProgressBar } from '@/components/domain/admin/add';
 import WizardProvider, { useWizard } from '@/components/domain/admin/add/wizard/WizardProvider';
@@ -65,7 +65,7 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
 
       showToast('회원 가입이 완료되었습니다', 'success');
       router.replace('/auth/signin');
-    } catch (e) {
+    } catch {
       showToast('오류가 발생했습니다 처음부터 다시 시도해 주세요', 'error');
       router.replace('/auth/signup');
     } finally {
