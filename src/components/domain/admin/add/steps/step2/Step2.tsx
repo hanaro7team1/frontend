@@ -11,7 +11,6 @@ import { usePhotoUpload } from '@/hooks/admin/usePhotoUpload';
 import { SLOT_COUNT } from '@/constants/admin/Admin';
 import HiddenFileInput from './HiddenFileInput';
 import ImageUploadLoading from './ImageUploadLoading';
-// ⬇️ 기존 PhotoGrid가 urls만 받는 인터페이스라면 그대로 사용
 import PhotoGrid from './PhotoGrid';
 import UploadBarButton from './UploadBarButton';
 import UplaodInfo from './UploadInfo';
@@ -21,19 +20,18 @@ export default function AddPhoto() {
   const { showToast } = useToast();
   const { uploadAll } = usePhotoUpload('temp');
 
-  // ✅ 훅에서 상태·행동 전부 가져옴 (items 하나로 통합)
+  // 훅에서 상태/행동 전부 가져옴 (items 하나로 통합)
   const {
-    items, // 대기(파일 있고 s3Key 없음) 먼저 보이는 뷰. 원본 순서 쓰려면 items 사용
+    items,
     inputRef,
     openPicker,
-    onInputChange, // 파일 추가 → STEP2_ADD_FILES
-    removeById, // 삭제 → STEP2_REMOVE_ITEM (+revoke)
+    onInputChange, // 파일 추가: STEP2_ADD_FILES
+    removeById, // 삭제: STEP2_REMOVE_ITEM (+revoke)
     getDisplayUrl,
     pending, // 업로드 대기열 (file && !s3Key)
-    commitKeys, // 업로드 결과 반영 → STEP2_COMMIT_KEYS
+    commitKeys, // 업로드 결과 반영: STEP2_COMMIT_KEYS
   } = usePhotoPreview(SLOT_COUNT);
 
-  // 단일 그리드 렌더용 URL (blob 우선 → s3Key URL)
   const urls = useMemo(
     () => items.map(getDisplayUrl).filter((u): u is string => !!u),
     [items, getDisplayUrl],
@@ -50,7 +48,7 @@ export default function AddPhoto() {
     setNextDisabled(currentStep, uploadingRef.current || !hasAnything);
 
     const cleanup = registerBeforeNext(currentStep, async () => {
-      // 커밋만 있고 임시 없음 → 통과
+      // 커밋(이미 다음 버튼 눌러서 s3 temp에 올라간 것들)만 있고 임시 없음, 통과
       if (!hasTemp && hasCommitted) return true;
 
       // 아무것도 없음
@@ -85,7 +83,7 @@ export default function AddPhoto() {
           return false;
         }
 
-        // ✅ 업로드 결과 단번에 반영
+        // 업로드 결과 단번에 반영
         commitKeys(pairs);
         return true;
       } catch {
@@ -120,7 +118,7 @@ export default function AddPhoto() {
       {/* inputRef 하나를 여러 트리거에서 사용 */}
       <HiddenFileInput inputRef={inputRef} onChange={onInputChange} capture='environment' />
 
-      {/* 단일 그리드만 렌더 (blob + s3Key 통합) */}
+      {/* blob + s3Key 통합(이미 전에 올린 것 + 새로 추가할 것들) */}
       <PhotoGrid
         urls={urls}
         onPick={openPicker}
