@@ -18,17 +18,21 @@ export default function AdminContactPage() {
   const { showToast } = useToast();
 
   useEffect(() => {
-    const fetchAdminInfo = async () => {
+    let cancelled = false;
+
+    (async () => {
       try {
         const data = await getAdminInfoClient();
-        setPhone(formatPhone(data.phone));
+        if (!cancelled) setPhone(formatPhone(data.phone));
       } catch {
         showToast('관리자 정보를 불러오는 데 실패했습니다.', 'error');
       }
-    };
+    })();
 
-    fetchAdminInfo();
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [showToast]);
 
   // 전화번호 변경 API 호출 함수
   const handleUpdatePhone = async () => {
