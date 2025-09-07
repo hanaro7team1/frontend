@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Button, Input, Txt } from '@/components/atoms';
+import { Button, Txt } from '@/components/atoms';
 import { Header, Modal } from '@/components/common';
 import { PasswordField } from '@/components/domain/admin/auth/PasswordField';
 

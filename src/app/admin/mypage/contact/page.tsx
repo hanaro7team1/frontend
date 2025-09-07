@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Button, Input, Txt } from '@/components/atoms';
 import { Header } from '@/components/common';
+import { useToast } from '@/components/common/ToastContext';
 import NoticeModal from '@/components/domain/admin/mypage/NoticeModal';
 import { coercePhoneRaw, formatPhone, toDigits } from '@/utils/common/phoneHyphen';
 import { getAdminInfoClient, updateAdminPhone } from '@/app/api/mypage';
@@ -14,16 +15,15 @@ export default function AdminContactPage() {
   const [newPhone, setNewPhone] = useState('');
   const [openNotice, setOpenNotice] = useState(false);
   const router = useRouter();
+  const { showToast } = useToast();
 
   useEffect(() => {
     const fetchAdminInfo = async () => {
       try {
         const data = await getAdminInfoClient();
         setPhone(formatPhone(data.phone));
-      } catch (error) {
-        console.error('관리자 정보 조회 실패:', error);
-        alert('관리자 정보를 불러오는 데 실패했습니다.');
-      } finally {
+      } catch {
+        showToast('관리자 정보를 불러오는 데 실패했습니다.', 'error');
       }
     };
 
@@ -42,10 +42,8 @@ export default function AdminContactPage() {
       setPhone(formatPhone(newPhone));
       setNewPhone('');
       setOpenNotice(true);
-    } catch (error) {
-      console.error('전화번호 변경 실패:', error);
-      alert('전화번호 변경에 실패했습니다. 다시 시도해주세요.');
-    } finally {
+    } catch {
+      showToast('전화번호 변경에 실패했습니다. 다시 시도해주세요.', 'error');
     }
   };
 

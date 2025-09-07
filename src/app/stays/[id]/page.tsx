@@ -1,4 +1,5 @@
 import { serverPrivateApi } from '@/lib/axios-server';
+import { Txt } from '@/components/atoms';
 import { Carousel, Header } from '@/components/common';
 import {
   StayActionBar,
@@ -20,12 +21,20 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
 
   const api = await serverPrivateApi();
   const { data } = await api.get<StayDetailResponseType>(`/api/stays/${stayId}`, {
-    params: {
-      schedule: searchParam.schedule ?? undefined,
-    },
+    params: { schedule: searchParam.schedule },
   });
 
-  const { id, title, stayResrvStatus, address, capacity, areaSize, images, description } = data;
+  const {
+    id,
+    title,
+    stayResrvStatus,
+    address,
+    capacity,
+    areaSize,
+    images,
+    description,
+    isDeleted,
+  } = data;
 
   const isAdmin = await getIsAdmin();
   const mode = isAdmin ? 'countryside' : 'city';
@@ -34,6 +43,12 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
     <div className='flex flex-col'>
       <header>
         <Header title='사랑방 자세히 보기' />
+
+        {isDeleted && (
+          <div className='bg-gray-6d6 flex justify-center py-2'>
+            <Txt>* 삭제된 사랑방입니다 *</Txt>
+          </div>
+        )}
       </header>
 
       <main className='flex-1'>
@@ -47,13 +62,15 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
       </main>
 
       <footer>
-        <StayActionBar
-          id={id}
-          mode={mode}
-          schedule={searchParam.schedule}
-          peopleCount={searchParam.peopleCount}
-          capacity={capacity}
-        />
+        {!isDeleted && (
+          <StayActionBar
+            id={id}
+            mode={mode}
+            schedule={searchParam.schedule}
+            peopleCount={searchParam.peopleCount}
+            capacity={capacity}
+          />
+        )}
       </footer>
     </div>
   );

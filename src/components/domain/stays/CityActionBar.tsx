@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
-import { BottomSheetPeopleCount, BottomSheetSchedule } from '@/components/domain/stays';
+import { useToast } from '@/components/common/ToastContext';
+import { BottomSheetPeopleCount, BottomSheetScheduleDetail } from '@/components/domain/stays';
 import { formatDate, getDefaultDates } from '@/utils/stays/stays';
 
 type Props = {
@@ -27,6 +28,7 @@ export default function CityActionBar({
   capacity,
 }: Props) {
   const router = useRouter();
+  const { showToast } = useToast();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -61,13 +63,14 @@ export default function CityActionBar({
           `/stays/${id}/booking?${params.toString()}&reservationId=${res.data.reservationId}`,
         );
       } else {
-        alert(res.data.message);
+        showToast(res.data.message, 'error');
       }
     } catch (error) {
       const axiosError = error as AxiosError;
-      alert(
+      showToast(
         (axiosError.response?.data as { message?: string })?.message ??
           '예약에 실패했습니다. 다시 시도해주세요.',
+        'error',
       );
     }
   };
@@ -87,7 +90,7 @@ export default function CityActionBar({
               <Txt size={16}>일정</Txt>
               <Txt>{displaySchedule}</Txt>
             </div>
-            <BottomSheetSchedule />
+            <BottomSheetScheduleDetail />
           </div>
 
           {/* 인원 */}
