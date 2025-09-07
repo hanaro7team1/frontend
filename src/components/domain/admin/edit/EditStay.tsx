@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Input, ShadowBox, Txt } from '@/components/atoms';
-import { FixedBottomButton } from '@/components/common';
+import { FixedBottomButton, Modal } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
 import { InfoRow } from '../../reservations';
 import { BottomSheetArea, BottomSheetCapacity } from '../../stays';
@@ -46,6 +46,8 @@ export default function EditStay({ data }: Props) {
     }
   };
 
+  const [isModalOpen, setModalOpen] = useState(false);
+
   return (
     <>
       <div className='flex flex-col gap-4'>
@@ -76,11 +78,24 @@ export default function EditStay({ data }: Props) {
 
       <FixedBottomButton
         leftBtnText='취소하기'
-        onClickLeftBtn={() => alert('취소')}
+        onClickLeftBtn={() => setModalOpen(true)}
         rightBtnText='수정 완료하기'
-        onClickRightBtn={() => submitHandler()}
+        onClickRightBtn={submitHandler}
         isPink
       />
+
+      {isModalOpen && (
+        <Modal
+          rightBtnText='네'
+          leftBtnText='아니요'
+          onClickRightBtn={() => router.back()}
+          onClickLeftBtn={() => setModalOpen(false)}
+        >
+          변경사항이 반영되지 않아요
+          <br />
+          정말 취소할까요?
+        </Modal>
+      )}
     </>
   );
 }
