@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Carousel, Header, Modal } from '@/components/common';
+import { useToast } from '@/components/common/ToastContext';
 import { StayDescription, StayInfoChips } from '@/components/domain/stays';
 import StayHeader from '@/components/domain/stays/StayHeader';
 import { keyToPublicUrl } from '@/utils/stays/stays';
@@ -18,6 +19,8 @@ export default function StayPreview() {
   const { data } = useWizardData();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { showToast } = useToast();
 
   const submittingRef = useRef(false);
 
@@ -82,7 +85,7 @@ export default function StayPreview() {
 
         return false; // 이동 금지! (registerBeforeNext가 preventDefault 하게)
       } catch (err: any) {
-        alert(err?.response?.data?.message ?? '등록 중 오류가 발생했어요.');
+        showToast(err?.response?.data?.message ?? '등록 중 오류가 발생했어요.', 'error');
         // 실패했으니 다시 열어줌
         submittingRef.current = false;
         setNextDisabled(currentStep, false);
@@ -118,7 +121,7 @@ export default function StayPreview() {
           leftBtnText='아니요'
           rightBtnText='네'
           onClickLeftBtn={() => router.replace('/admin')}
-          onClickRightBtn={() => router.replace('/admin/stays')}
+          onClickRightBtn={() => router.push('/admin/stays')}
           isPink={true}
         >
           사랑방이 등록되었어요 <br /> 예약 가능 날짜 선택하러 갈까요
