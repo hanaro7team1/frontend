@@ -3,7 +3,6 @@
 import { ChevronDown } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import * as React from 'react';
-import { useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { Button } from '@/components/ui/button';
 import {
@@ -43,7 +42,6 @@ export default function DropdownFilterStay() {
   // 선택된 사랑방 상태 관리
   const stayId = searchParams.get('stayId') ?? '0';
   const stayName = stayList?.find(({ id }) => id.toString() === stayId)?.title ?? '모든 사랑방';
-  const [selectedStay, setSelectedStay] = useState(stayName);
 
   return (
     <div className='flex justify-end'>
@@ -58,13 +56,9 @@ export default function DropdownFilterStay() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuRadioGroup value={selectedStay} onValueChange={setSelectedStay}>
+          <DropdownMenuRadioGroup value={stayName}>
             {stayList?.map(({ id, title }) => (
-              <DropdownMenuRadioItem
-                key={id}
-                value={id.toString()}
-                onSelect={() => handleFilterStay(id)}
-              >
+              <DropdownMenuRadioItem key={id} value={title} onSelect={() => handleFilterStay(id)}>
                 <Txt>{title}</Txt>
               </DropdownMenuRadioItem>
             ))}
