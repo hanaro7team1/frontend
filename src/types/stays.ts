@@ -45,8 +45,8 @@ export type StayDetailResponseType = {
   capacity: number;
   areaSize: number;
   description: string;
+  isDeleted: boolean;
   isHomestay: boolean;
-  isActiveMsg: string;
   images: string[];
 };
 
