@@ -60,7 +60,7 @@ export default function AdminCalendarModal({ stayId, closeModal }: Props) {
 
   return (
     <Modal
-      rightBtnText='수정 완료'
+      rightBtnText='선택 완료'
       leftBtnText='취소'
       onClickRightBtn={handleDone}
       onClickLeftBtn={closeModal}
