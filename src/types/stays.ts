@@ -79,7 +79,4 @@ export type PresignResp = { url: string; key: string };
 
 export type StayAvailableDatesResponse = {
   dates: string[]; // [ "2025-09" ]
-  hasNext: boolean;
-  hasPrev: boolean;
-  yearMonth: string; // "2025-09"
 };
