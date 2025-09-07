@@ -18,7 +18,7 @@ export default async function ReservationsPage({ searchParams }: Props) {
   const { data } = await api.get<ReservationsResponse>(
     isAdmin ? '/api/admin/reservations' : '/api/reservations',
     {
-      params: { filter: STATUS_MAP[searchParam.reservationStatus ?? '전체'] },
+      params: { filter: STATUS_MAP[searchParam.reservationStatus] ?? STATUS_MAP['전체'] },
     },
   );
 
