@@ -19,9 +19,6 @@ import { BeforeNextFn, WizardContext } from '@/types/wizard';
 
 const wizardContext = createContext<WizardContext | null>(null);
 
-// 세션 키 (완료 후 재진입 방지)
-const COMPLETED_KEY = 'wizard:stay:completed';
-
 export default function WizardProvider({ children }: { children: React.ReactNode }) {
   const search = useSearchParams();
 
@@ -37,20 +34,6 @@ export default function WizardProvider({ children }: { children: React.ReactNode
 
   //  진짜 스텝은 내부 상태로만
   const [currentStep, _setStep] = useState<number>(1);
-
-  //  완료 시 재진입 막기
-  useEffect(() => {
-    if (sessionStorage.getItem(COMPLETED_KEY) === '1') {
-      router.replace('/admin/stay', { scroll: false });
-    }
-  }, [router]);
-
-  // URL에 step이 붙어 있으면 표준 URL로 즉시 교정 (URL 조작 무력화)
-  useEffect(() => {
-    if (search.size > 0) {
-      router.replace(pathName, { scroll: false });
-    }
-  }, [pathName, router, search]);
 
   const isNextDisable = disabledByStep[currentStep] ?? true;
 
@@ -91,11 +74,6 @@ export default function WizardProvider({ children }: { children: React.ReactNode
 
   const tryProceed = useCallback(() => stepGuard(currentStep), [currentStep]);
 
-  const finish = useCallback(async () => {
-    sessionStorage.setItem(COMPLETED_KEY, '1');
-    router.replace('/admin/stay', { scroll: false });
-  }, [router]);
-
   const value = useMemo(
     () => ({
       registerBeforeNext,
@@ -104,9 +82,8 @@ export default function WizardProvider({ children }: { children: React.ReactNode
       setNextDisabled,
       isNextDisable,
       tryProceed,
-      finish,
     }),
-    [registerBeforeNext, currentStep, goToStep, setNextDisabled, isNextDisable, tryProceed, finish],
+    [registerBeforeNext, currentStep, goToStep, setNextDisabled, isNextDisable, tryProceed],
   );
 
   return <wizardContext.Provider value={value}>{children}</wizardContext.Provider>;

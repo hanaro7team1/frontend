@@ -40,7 +40,7 @@ export default function EditStay({ data }: Props) {
     try {
       await privateApi.patch(`api/admin/stays/${stayId}`, payload);
       showToast('수정이 완료되었습니다', 'success');
-      router.replace(`/stays/${stayId}`);
+      router.back();
     } catch {
       showToast('수정 중 오류가 발생했습니다 \n 다시 시도해 주세요', 'error');
     }
