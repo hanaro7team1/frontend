@@ -1,14 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { useToast } from '@/components/common/ToastContext';
+import { useWizard } from '@/components/domain/admin/add/wizard/WizardProvider';
 import { usePhotoPreview } from '@/hooks/admin/usePhotoPreview';
 import { usePhotoUpload } from '@/hooks/admin/usePhotoUpload';
 import { SLOT_COUNT } from '@/constants/admin/Admin';
-import { useWizardData } from '../../wizard/WizardDataProvider';
-import { useWizard } from '../../wizard/WizardProvider';
-import AiInfo from '../step5/AiInfo';
 import HiddenFileInput from './HiddenFileInput';
 import ImageUploadLoading from './ImageUploadLoading';
 import PhotoGrid from './PhotoGrid';
@@ -17,89 +15,119 @@ import UplaodInfo from './UploadInfo';
 
 export default function AddPhoto() {
   const { currentStep, registerBeforeNext, setNextDisabled } = useWizard();
-
-  const { data, dispatch } = useWizardData();
-
-  const { items, urls, inputRef, openPicker, onInputChange, removeAt } =
-    usePhotoPreview(SLOT_COUNT);
-
-  const [isPhotoGridVisible, setPhotoGridVisible] = useState(false);
-
+  const { showToast } = useToast();
   const { uploadAll } = usePhotoUpload('temp');
 
-  // 중복 업로드/재진입 방지
+  // 훅에서 상태/행동 전부 가져옴 (items 하나로 통합)
+  const {
+    items,
+    inputRef,
+    openPicker,
+    onInputChange, // 파일 추가: STEP2_ADD_FILES
+    removeById, // 삭제: STEP2_REMOVE_ITEM (+revoke)
+    getDisplayUrl,
+    pending, // 업로드 대기열 (file && !s3Key)
+    commitKeys, // 업로드 결과 반영: STEP2_COMMIT_KEYS
+  } = usePhotoPreview(SLOT_COUNT);
+
+  const urls = useMemo(
+    () => items.map(getDisplayUrl).filter((u): u is string => !!u),
+    [items, getDisplayUrl],
+  );
+
   const uploadingRef = useRef(false);
-
-  // 이미 업로드 성공했는지
-  const uploadedOnceRef = useRef(false);
-
-  //로딩 화면
   const [loading, setLoading] = useState(false);
 
-  const { showToast } = useToast();
+  const hasTemp = pending.length > 0;
+  const hasCommitted = items.some((x) => !!x.s3Key);
+  const hasAnything = hasTemp || hasCommitted;
 
   useEffect(() => {
-    const hasLocal = (items?.length ?? 0) > 0; //이번 스텝 파일
-    const hasSaved = (data.step2?.s3Keys?.length ?? 0) > 0; //전역에 이미 저장된 키
-    const uploading = uploadingRef.current; //사진 업로드 중인지
-
-    //파일이 없고, 저장된 키가 없거나 업로드 중이거나
-    setNextDisabled(currentStep, (!hasLocal && !hasSaved) || uploading);
+    setNextDisabled(currentStep, uploadingRef.current || !hasAnything);
 
     const cleanup = registerBeforeNext(currentStep, async () => {
-      if (!items.length) {
+      // 커밋(이미 다음 버튼 눌러서 s3 temp에 올라간 것들)만 있고 임시 없음, 통과
+      if (!hasTemp && hasCommitted) return true;
+
+      // 아무것도 없음
+      if (!hasAnything) {
         showToast('사진을 한 장 이상 올려주세요', 'warning');
         return false;
       }
-      // 이미 한 번 업로드에 성공해서 키 보관해둔 상태라면 통과
-      if (uploadedOnceRef.current) return true;
-
-      // 업로드 중이면 중복 실행 막기
-      if (uploadingRef.current) return false;
 
       try {
         uploadingRef.current = true;
-        setLoading(true); // 업로드 중에는 로딩창
-        setNextDisabled(currentStep, true); // 업로드 중 잠금
+        setLoading(true);
+        setNextDisabled(currentStep, true);
 
-        const uploaded = await uploadAll(items);
+        // 대기열만 업로드 (id 포함)
+        const payload = pending.map((it) => ({ id: it.id, file: it.file! }));
+        const result = (await uploadAll(payload)) as { id: string; s3Key: string }[] | string[];
 
-        const prev = Array.isArray(data?.step2?.s3Keys) ? data.step2.s3Keys : [];
+        let pairs: { id: string; s3Key: string }[] = [];
+        if (Array.isArray(result) && result.length > 0 && typeof result[0] === 'object') {
+          pairs = result as { id: string; s3Key: string }[];
+        } else if (Array.isArray(result)) {
+          const keys = result as string[];
+          const useLen = Math.min(keys.length, pending.length);
+          pairs = Array.from({ length: useLen }, (_, i) => ({
+            id: pending[i].id,
+            s3Key: keys[i],
+          }));
+        }
 
-        const merged = Array.from(new Set([...prev, ...uploaded]));
+        if (!pairs.length) {
+          showToast('업로드 결과를 확인할 수 없습니다. 다시 시도해 주세요.', 'error');
+          return false;
+        }
 
-        dispatch({ type: 'SET_STEP2', payload: { s3Keys: merged } });
-
-        uploadedOnceRef.current = true;
-
+        // 업로드 결과 단번에 반영
+        commitKeys(pairs);
         return true;
-      } catch (err) {
+      } catch {
         showToast('업로드 중 오류가 발생했습니다 \n 잠시 후 다시 시도해 주세요', 'error');
         return false;
       } finally {
         uploadingRef.current = false;
-        setNextDisabled(currentStep, false); // disabled 해제
+        setLoading(false);
+        setNextDisabled(currentStep, false);
       }
     });
 
     return cleanup;
-  }, [items, uploadAll, registerBeforeNext, setNextDisabled]);
+  }, [
+    currentStep,
+    hasAnything,
+    hasTemp,
+    hasCommitted,
+    pending,
+    uploadAll,
+    registerBeforeNext,
+    setNextDisabled,
+    showToast,
+    commitKeys,
+  ]);
 
   return (
     <>
       <Txt>사랑방의 내부 외부 사진을 첨부해 주세요</Txt>
       <UplaodInfo />
-      {/* inputRef로 제어, 빈 그리드나 하단 버튼을 누를 시 openPicker 열리는 구조 (input은 하나고 여러 버튼이 접근 가능함)  */}
+
+      {/* inputRef 하나를 여러 트리거에서 사용 */}
       <HiddenFileInput inputRef={inputRef} onChange={onInputChange} capture='environment' />
-      {/* 현재까지 선택된 사진 그리드 형식으로 보여줌 없을 시 사진 업로드 그리드  */}
-      {isPhotoGridVisible && <PhotoGrid urls={urls} onPick={openPicker} onRemoveAt={removeAt} />}
-      {/* 사진 업로드용 버튼, 그리드와 같은 동작을 함  */}
-      <UploadBarButton
-        onClick={() => {
-          openPicker();
-          setPhotoGridVisible(true);
+
+      {/* blob + s3Key 통합(이미 전에 올린 것 + 새로 추가할 것들) */}
+      <PhotoGrid
+        urls={urls}
+        onPick={openPicker}
+        onRemoveAt={(idx) => {
+          const target = items[idx];
+          if (!target) return;
+          removeById(target.id); // 훅이 revoke + STEP2_REMOVE_ITEM까지 처리
         }}
       />
+
+      <UploadBarButton onClick={openPicker} />
 
       {loading && <ImageUploadLoading />}
     </>

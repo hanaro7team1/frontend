@@ -33,7 +33,7 @@ export default function AddOwner() {
   }, [currentStep, isValid, setNextDisabled]);
 
   //step2에서 저장한 s3key 하나 넘겨주기
-  const step2FirstKey = data.step2?.s3Keys?.[0];
+  const step2FirstKey = data.step2?.items.find((it) => !!it.s3Key)?.s3Key ?? '';
 
   const { loading } = useStep5Prefill({
     currentStep,
@@ -41,7 +41,7 @@ export default function AddOwner() {
     setNextDisabled,
     dispatch,
     isValid,
-    step4: { hostName, hostPhone: phoneRaw },
+    step4: { hostName, hostPhone: formatPhone(phoneRaw) },
     s3Key: step2FirstKey,
   });
 
@@ -60,7 +60,7 @@ export default function AddOwner() {
       </div>
       <Txt>사랑방 주인의 전화번호를 입력하세요</Txt>
       <Input
-        placeholder='예시) 01012345567'
+        placeholder='예시) 010-1234-5678'
         value={formatPhone(phoneRaw)}
         onChange={onPhoneChange}
       />
