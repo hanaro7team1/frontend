@@ -21,7 +21,7 @@ export default function DropdownFilterStay() {
 
   // 사랑방 이름 목록에 "모든 사랑방" 옵션 추가
   const entireOption = { title: '모든 사랑방', id: 0 };
-  const stayList = data && [entireOption, ...data?.dtoList];
+  const stayList = data && [entireOption, ...data?.dtoList].sort((a, b) => a.id - b.id);
 
   const router = useRouter();
   const pathname = usePathname();
