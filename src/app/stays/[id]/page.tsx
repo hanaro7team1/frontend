@@ -54,7 +54,7 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
       <main className='flex-1'>
         <Carousel images={images} />
 
-        <div className='mt-8 space-y-5 p-5'>
+        <div className='mt-8 space-y-5 p-5 pb-40'>
           <StayHeader title={title} address={address} stayResrvStatus={stayResrvStatus} />
           <StayInfoChips capacity={capacity} area={areaSize} />
           <StayDescription item={description} mode={mode} />

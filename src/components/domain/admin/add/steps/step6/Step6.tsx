@@ -133,7 +133,7 @@ export default function StayPreview() {
       <main className='flex-1'>
         <Carousel images={stay.images} />
 
-        <div className='mt-8 space-y-5 p-5'>
+        <div className='mt-8 space-y-5 p-5 pb-40'>
           <StayHeader
             title={`${villageName} 사랑방 `}
             address={stay.address}

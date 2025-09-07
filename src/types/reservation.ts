@@ -25,7 +25,6 @@ export type ReservationPayload = ReservationNotification & {
   status: ReservationStatus;
 };
 
-
 export type ReservationDetail = {
   address: string;
   endDate: string;
@@ -45,18 +44,19 @@ export type ReservationDetail = {
 };
 
 export type ReservationsListResponse = {
-    reservationId: number;
-    title: string;
-    imageUrl: string;
-    viewStatus: '방문 중' | '방문 전' | '방문 완료' | '예약 취소';
-    dDay: number;
-    startDate: string;
-    endDate: string;
+  reservationId: number;
+  title: string;
+  imageUrl: string;
+  viewStatus: '방문 중' | '방문 전' | '방문 완료' | '예약 취소';
+  dDay: number;
+  startDate: string;
+  endDate: string;
 };
 export type ReservationsResponse = Paged<ReservationsListResponse>;
 
-// 예약됨 -> 방문 번, 방문 중 | 방문완료 -> 방문완료 | 예약 취소 -> 최소됨
+// 예약됨 -> 방문 전, 방문 중 | 방문완료 -> 방문완료 | 예약 취소 -> 취소됨
 export type ReservationStatus = '예약됨' | '방문 완료' | '취소됨';
 export type ReservationsSearchParams = {
-  reservationStatus?: ReservationStatus | '전체';
+  stayId?: number;
+  status?: ReservationStatus | '전체';
 };

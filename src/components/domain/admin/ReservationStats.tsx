@@ -51,7 +51,7 @@ export default function ReservationStats({ upcomingCnt, inProgressCnt, completed
       <Button
         title='예약 관리하기'
         color='gray'
-        onClick={() => router.push('/reservations')}
+        onClick={() => router.push('/admin/reservations')}
         className='w-full'
       />
     </ShadowBox>
