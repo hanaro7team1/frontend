@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronLeft } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Txt } from '../atoms';
 
@@ -28,8 +28,10 @@ export default function Header({
 }: Props) {
   const router = useRouter();
 
+  const pathname = usePathname();
+
   const handleBack = () => {
-    if (window.location.pathname.includes('/admin/stays')) {
+    if (pathname.startsWith('/admin/stays')) {
       router.replace('/admin');
     } else {
       router.back();
