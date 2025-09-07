@@ -23,7 +23,7 @@ export default function AdminRoomItem({ data }: Props) {
 
   return (
     <ShadowBox>
-      <div className='relative h-[140px] overflow-hidden'>
+      <div className='relative h-[140px] overflow-hidden' onClick={goToDetailPage}>
         <Image src={imageURL} alt={title} fill className='object-cover' />
       </div>
       <div className='space-y-4 p-3'>
