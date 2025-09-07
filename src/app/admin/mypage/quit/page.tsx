@@ -1,10 +1,15 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Txt } from '@/components/atoms';
 import { Header, Modal } from '@/components/common';
 import { PasswordField } from '@/components/domain/admin/auth/PasswordField';
+import { usePrivateData } from '@/hooks/api/useApi';
+
+export type pwdCheck = {
+  checkPassword: string;
+};
 
 export default function AdminQuitPage() {
   const router = useRouter();
@@ -12,7 +17,12 @@ export default function AdminQuitPage() {
   const openModal = () => {
     setIsModalOpen(true);
   };
-  const [password, setPassword] = useState('');
+  const { data } = usePrivateData<pwdCheck>('/api/admin/mypage/quit');
+  
+  const [password, setPassword] = useState<string>('');
+  useEffect(() => {
+    if (data?.checkPassword) setPassword(data.checkPassword);
+  }, [data]);
 
   return (
     <>
@@ -30,6 +40,7 @@ export default function AdminQuitPage() {
 
       {isModalOpen && (
         <Modal
+          isPink
           leftBtnText='아니요'
           rightBtnText='네'
           onClickLeftBtn={() => router.back()}
