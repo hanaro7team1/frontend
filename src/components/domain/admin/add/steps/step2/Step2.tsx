@@ -1,7 +1,5 @@
 'use client';
 
-import { Item } from '@radix-ui/react-accordion';
-import { INSPECT_MAX_BYTES } from 'buffer';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { useToast } from '@/components/common/ToastContext';

@@ -3,28 +3,35 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
-import { Carousel, Header, Modal } from '@/components/common';
+import { Carousel, Header } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
-import { StayDescription, StayInfoChips } from '@/components/domain/stays';
+import { AdminCalendarModal, StayDescription, StayInfoChips } from '@/components/domain/stays';
 import StayHeader from '@/components/domain/stays/StayHeader';
 import { keyToPublicUrl } from '@/utils/stays/stays';
+import { getAdminInfoClient } from '@/app/api/mypage';
 import { TOTAL_STEP_NUM } from '@/constants/admin/Admin';
+import { StayDetailResponseType } from '@/types/stays';
 import { useWizardData } from '../../wizard/WizardDataProvider';
 import { useWizard } from '../../wizard/WizardProvider';
 
 export default function StayPreview() {
-  const router = useRouter();
+  //wizard context
   const { currentStep, registerBeforeNext, setNextDisabled } = useWizard();
-
   const { data } = useWizardData();
 
+  const [createdStay, setCreatedStay] = useState<StayDetailResponseType | null>(null);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [villageName, setVillageName] = useState('');
 
   const { showToast } = useToast();
 
   const submittingRef = useRef(false);
 
-  // ✅ 마지막 스텝 진입 시 버튼은 기본적으로 활성화
+  const router = useRouter();
+
+  // 마지막 스텝 진입 시 버튼은 기본적으로 활성화
   useEffect(() => {
     setNextDisabled(currentStep, false);
   }, [currentStep, setNextDisabled]);
@@ -33,6 +40,11 @@ export default function StayPreview() {
   useEffect(() => {
     setNextDisabled(currentStep, isModalOpen || submittingRef.current);
   }, [isModalOpen, currentStep, setNextDisabled]);
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+    router.replace('/admin/stays', { scroll: false });
+  };
 
   // 전역 Wizard 데이터에서 필요한 값 모아서 화면에 렌더링
   const stay = useMemo(() => {
@@ -65,6 +77,19 @@ export default function StayPreview() {
   }, [data]);
 
   useEffect(() => {
+    const fetchAdminInfo = async () => {
+      try {
+        const data = await getAdminInfoClient();
+        setVillageName(data.villageName);
+      } catch {
+        showToast('관리자 정보를 불러오는 데 실패했습니다.', 'error');
+      }
+    };
+
+    fetchAdminInfo();
+  }, []);
+
+  useEffect(() => {
     const cleanup = registerBeforeNext(currentStep, async () => {
       // 공통: 저장 등 사전 작업 (예: step5 dispatch)
       if (currentStep !== TOTAL_STEP_NUM) return;
@@ -78,8 +103,8 @@ export default function StayPreview() {
       try {
         const { images, ...payload } = stay;
 
-        await privateApi.post('/api/admin/stays', payload);
-
+        const { data } = await privateApi.post<StayDetailResponseType>('/api/admin/stays', payload);
+        setCreatedStay(data);
         setIsModalOpen(true); // 모달 먼저 띄우기
         setNextDisabled(currentStep, true); // 모달 떠있는 동안 Next 잠금
 
@@ -107,7 +132,7 @@ export default function StayPreview() {
 
         <div className='mt-8 space-y-5 p-5'>
           <StayHeader
-            title={'OO마을 사랑방'}
+            title={`${villageName} 사랑방 `}
             address={stay.address}
             stayResrvStatus={'예약 가능'}
           />
@@ -116,17 +141,9 @@ export default function StayPreview() {
         </div>
       </main>
 
-      {isModalOpen && (
-        <Modal
-          leftBtnText='아니요'
-          rightBtnText='네'
-          onClickLeftBtn={() => router.replace('/admin')}
-          onClickRightBtn={() => router.push('/admin/stays')}
-          isPink={true}
-        >
-          사랑방이 등록되었어요 <br /> 예약 가능 날짜 선택하러 갈까요
-        </Modal>
-      )}
+      {isModalOpen && createdStay ? (
+        <AdminCalendarModal stayId={createdStay.id} closeModal={handleClose} />
+      ) : null}
     </div>
   );
 }
