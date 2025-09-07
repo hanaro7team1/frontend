@@ -4,3 +4,4 @@ export { default as ReservationStatsContainer } from './ReservationStatsContaine
 export { default as MenuTabs } from './MenuTabs';
 export { default as ReservationListener } from './ReservationListener';
 export { default as ReservationModal } from './ReservationModal';
+export { default as AddStayBtn } from './AddStayButton';

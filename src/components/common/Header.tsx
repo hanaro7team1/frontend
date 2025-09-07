@@ -27,6 +27,7 @@ export default function Header({
   className,
 }: Props) {
   const router = useRouter();
+
   const handleBack = () => router.back();
 
   const isWhiteBg = bgColor === 'white';
