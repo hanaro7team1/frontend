@@ -1,23 +1,17 @@
-'use client';
-
 import { List } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Txt } from '@/components/atoms';
 
 export default function ReservationButton() {
-  const router = useRouter();
-
   return (
-    <button
-      className={
-        'bg-green-49d flex w-full items-center gap-3 rounded-[10px] py-[21px] pl-5'
-      }
-      onClick={() => router.push('/reservations')}
+    <Link
+      href='/reservations'
+      className='bg-green-49d flex w-full items-center gap-3 rounded-[10px] py-[21px] pl-5'
     >
-      <List className='items-center text-white' size={32} />
+      <List className='text-white' size={32} />
       <Txt className='text-white' size={22} weight='bold'>
         나의 예약 목록 보기
       </Txt>
-    </button>
+    </Link>
   );
 }

@@ -1,4 +1,5 @@
 import { Header } from '@/components/common';
+import { AddStayBtn } from '@/components/domain/admin';
 import { AdminRoomList, FilterRoomStatus } from '@/components/domain/stays';
 import { AdminStaysSearchParams } from '@/types/stays';
 
@@ -13,6 +14,7 @@ export default async function AdminStaysPage({ searchParams }: Props) {
     <>
       <Header title='우리 마을 사랑방' withoutBorder />
       <FilterRoomStatus searchParams={searchParam} />
+      <AddStayBtn />
       <AdminRoomList searchParams={searchParam} />
     </>
   );
