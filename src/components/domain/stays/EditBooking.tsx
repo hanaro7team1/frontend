@@ -7,6 +7,7 @@ import { privateApi } from '@/lib/axios-client';
 import { cn } from '@/lib/utils';
 import { ShadowBox, Txt } from '@/components/atoms';
 import { FixedBottomButton } from '@/components/common';
+import { useToast } from '@/components/common/ToastContext';
 import { BottomSheetPeopleCount, BottomSheetScheduleDetail } from '.';
 import { InfoRow } from '../reservations';
 
@@ -29,6 +30,7 @@ export default function EditBooking({ data }: Props) {
   const reservationId = searchParams.get('reservationId');
 
   const router = useRouter();
+  const { showToast } = useToast();
 
   const handleBooking = async () => {
     try {
@@ -42,13 +44,16 @@ export default function EditBooking({ data }: Props) {
       const { status } = await privateApi.patch(`/api/reservations/${reservationId}/confirm`, req);
 
       if (status === 200) {
-        alert('예약이 완료되었습니다!');
+        showToast('예약이 완료되었어요', 'success');
         router.push('/reservations');
       } else {
-        alert('예약에 실패했습니다. 다른 사용자가 먼저 예약했을 수 있습니다. 다시 시도해주세요.');
+        showToast(
+          '예약에 실패했습니다. 다른 사용자가 먼저 예약했을 수 있습니다. 다시 시도해주세요.',
+          'error',
+        );
       }
     } catch {
-      alert('예약 중 오류가 발생했습니다. 다시 시도해주세요.');
+      showToast('예약 중 오류가 발생했습니다. 다시 시도해주세요.', 'error');
     }
   };
 
