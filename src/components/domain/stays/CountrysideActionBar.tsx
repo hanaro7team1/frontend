@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { FixedBottomButton, Modal } from '@/components/common';
+import { useToast } from '@/components/common/ToastContext';
 import { StayDeleteResponse } from '@/types/stays';
 
 type Props = {
@@ -12,55 +13,39 @@ type Props = {
   onDelete?: () => void;
 };
 
-export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
+export default function CountrysideActionBar({ id, onEdit }: Props) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isResultModalOpen, setIsResultModalOpen] = useState(false);
+  const [isUpcomingModalOpen, setIsUpcomingModalOpen] = useState(false);
 
-  const [deleted, setDeleted] = useState<boolean | null>(null);
-  const [hasUpcomingReservations, setHasUpcomingReservations] = useState<boolean | null>(null);
-  const [deleteMsg, setDeleteMsg] = useState<string | null>(null);
+  const { showToast } = useToast();
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
-  const handleOpenResultModal = () => setIsResultModalOpen(true);
-  const handleCloseResultModal = () => setIsResultModalOpen(false);
+  const handleOpenUpcomingModal = () => setIsUpcomingModalOpen(true);
+  const handleCloseUpcomingModal = () => setIsUpcomingModalOpen(false);
 
   const handleDelete = async () => {
     try {
       const { data } = await privateApi.delete<StayDeleteResponse>(`/api/admin/stays/${id}`);
 
-      let msg: string;
-      if (data.deleted === false) {
-        msg = '이미 삭제된 사랑방입니다.';
-      } else if (data.deleted === true && data.hasUpcomingReservations === true) {
-        msg = '방문 전 예약이 있습니다.\n[예약 관리하기]를 통해\n예약자에게 연락 바랍니다.';
+      if (data.deleted && !data.hasUpcomingReservations) {
+        showToast('삭제가 완료되었어요', 'success', 'middle');
+        router.refresh();
+        router.replace('/admin/stays');
+      } else if (!data.deleted && !data.hasUpcomingReservations) {
+        showToast('이미 삭제된 사랑방이에요', 'success', 'middle');
+        router.refresh();
+        router.replace('/admin/stays');
+      } else if (!data.deleted && data.hasUpcomingReservations) {
+        handleOpenUpcomingModal();
       } else {
-        msg = '삭제가 완료되었습니다.';
+        showToast('삭제 요청 중 오류가 발생했습니다.', 'error', 'middle');
       }
-
-      setDeleted(data.deleted);
-      setHasUpcomingReservations(data.hasUpcomingReservations);
-      setDeleteMsg(msg);
     } catch {
-      setDeleted(null);
-      setHasUpcomingReservations(null);
-      setDeleteMsg('삭제 요청 중 오류가 발생했습니다.');
+      showToast('삭제 요청 중 오류가 발생했습니다.', 'error', 'middle');
     } finally {
       handleCloseModal();
-      handleOpenResultModal();
-    }
-  };
-
-  const goList = () => {
-    handleCloseResultModal();
-
-    if (deleted === null) return;
-
-    if (deleted === true && hasUpcomingReservations === true) {
-      router.push('/reservations');
-    } else {
-      router.push('/admin/stays');
     }
   };
 
@@ -92,16 +77,19 @@ export default function CountrysideActionBar({ id, onEdit, onDelete }: Props) {
         </Modal>
       )}
 
-      {/* 삭제 결과 모달 */}
-      {isResultModalOpen && (
+      {/* 방문 예정 예약 있을 때 모달 */}
+      {isUpcomingModalOpen && (
         <Modal
           leftBtnText='닫기'
-          rightBtnText='확인'
-          onClickLeftBtn={handleCloseResultModal}
-          onClickRightBtn={goList}
+          rightBtnText='예약 목록 보기'
+          onClickLeftBtn={handleCloseUpcomingModal}
+          onClickRightBtn={() => {
+            handleCloseUpcomingModal();
+            router.push('/reservations');
+          }}
           isPink
         >
-          <span className='whitespace-pre-line'>{deleteMsg}</span>
+          이 사랑방에 예정된 예약이 남아있어 <br /> 삭제할 수 없어요
         </Modal>
       )}
     </>
