@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
 import { Modal } from '@/components/common';
+import { useToast } from '@/components/common/ToastContext';
 import { Calendar } from '@/components/ui/calendar';
 import { usePrivateData } from '@/hooks/api/useApi';
 import { AdminStayAvailableDatesResponse } from '@/types/admin';
@@ -17,6 +18,7 @@ type Props = {
 
 export default function AdminCalendarModal({ stayId, closeModal }: Props) {
   const router = useRouter();
+  const { showToast } = useToast();
 
   const { data } = usePrivateData<AdminStayAvailableDatesResponse>(
     `/api/admin/stays/${stayId}/open-dates`,
@@ -37,11 +39,11 @@ export default function AdminCalendarModal({ stayId, closeModal }: Props) {
     closeModal();
 
     if (status !== 200) {
-      alert('예약 가능 날짜 수정에 실패했습니다. 다시 시도해주세요.');
+      showToast('변경에 실패했습니다. 다시 시도해주세요.', 'error');
       return;
     }
 
-    alert('예약 가능 날짜가 수정되었습니다.');
+    showToast('변경되었습니다.', 'success');
     router.refresh();
   };
 
