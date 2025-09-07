@@ -15,7 +15,7 @@ export default function WizardNav() {
   const router = useRouter();
 
   const prevStep = () =>
-    currentStep === FIRST_STEP_NUM ? router.push('/admin') : goToStep(currentStep - 1);
+    currentStep === FIRST_STEP_NUM ? router.push('/admin/stays') : goToStep(currentStep - 1);
 
   //다음 step으로 이동하기 전에 이벤트 실행
   const nextStep = async () => {
