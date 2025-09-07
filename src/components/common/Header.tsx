@@ -27,7 +27,14 @@ export default function Header({
   className,
 }: Props) {
   const router = useRouter();
-  const handleBack = () => router.back();
+
+  const handleBack = () => {
+    if (window.location.pathname.includes('/admin/stays')) {
+      router.replace('/admin');
+    } else {
+      router.back();
+    }
+  };
 
   const isWhiteBg = bgColor === 'white';
 
