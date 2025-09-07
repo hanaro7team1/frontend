@@ -1,4 +1,4 @@
-import { WizardActions, WizardData } from '@/types/wizard';
+import { Step2Item, WizardActions, WizardData } from '@/types/wizard';
 
 /**
  * Date객체를 YY.MM.DD 형태로 format해주는 함수
@@ -65,11 +65,13 @@ export function getExtFromFile(file: File): string | null {
 //스텝 데이터 초기화 함수
 export const makeInitial = (): WizardData => ({
   step1: { address: '', detailAddress: '' },
-  step2: { s3Keys: [] },
+  step2: { items: [] },
   step3: { capacity: 2, areaSize: 25 },
   step4: { hostName: '', hostPhone: '' },
   step5: { description: '' },
 });
+
+//wizard 관련 함수
 
 export function reducer(state: WizardData, action: WizardActions): WizardData {
   switch (action.type) {
@@ -83,6 +85,35 @@ export function reducer(state: WizardData, action: WizardActions): WizardData {
       return { ...state, step4: { ...state.step4, ...action.payload } };
     case 'SET_STEP5':
       return { ...state, step5: { ...state.step5, ...action.payload } };
+    case 'STEP2_ADD_FILES': {
+      const appended = action.payload.files.map(
+        (file) =>
+          ({
+            id: crypto.randomUUID(),
+            file,
+            blobUrl: URL.createObjectURL(file),
+          }) satisfies Step2Item,
+      );
+      return { ...state, step2: { items: [...state.step2.items, ...appended] } };
+    }
+    case 'STEP2_COMMIT_KEYS': {
+      const keyById = new Map(action.payload.pairs.map((p) => [p.id, p.s3Key]));
+      const nextItems = state.step2.items.map((it) =>
+        keyById.has(it.id) ? { ...it, s3Key: keyById.get(it.id)! } : it,
+      );
+      return { ...state, step2: { items: nextItems } };
+    }
+    case 'STEP2_REMOVE_ITEM': {
+      const next = state.step2.items.filter((it) => it.id !== action.payload.id);
+      return { ...state, step2: { items: next } };
+    }
+    case 'STEP2_CLEAR': {
+      state.step2.items.forEach((it) => {
+        if (it.blobUrl) URL.revokeObjectURL(it.blobUrl);
+      });
+      return { ...state, step2: { items: [] } };
+    }
+
     case 'RESET':
       return makeInitial();
     default:

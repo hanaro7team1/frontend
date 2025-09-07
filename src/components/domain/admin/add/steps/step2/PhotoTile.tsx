@@ -1,4 +1,5 @@
 import { Plus, X } from 'lucide-react';
+import Image from 'next/image';
 
 type Props = {
   preview?: string | null;
@@ -16,7 +17,9 @@ export default function PhotoTile({ preview, onPick, onRemove }: Props) {
       >
         {preview ? (
           <>
-            <img
+            <Image
+              width={50}
+              height={50}
               src={preview}
               alt='사진을 등록하거나 등록한 사진을 확인할 수 있습니다'
               className='h-full w-full object-cover'

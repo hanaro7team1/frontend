@@ -33,7 +33,7 @@ export default function AddOwner() {
   }, [currentStep, isValid, setNextDisabled]);
 
   //step2에서 저장한 s3key 하나 넘겨주기
-  const step2FirstKey = data.step2?.s3Keys?.[0];
+  const step2FirstKey = data.step2?.items.find((it) => !!it.s3Key)?.s3Key ?? '';
 
   const { loading } = useStep5Prefill({
     currentStep,

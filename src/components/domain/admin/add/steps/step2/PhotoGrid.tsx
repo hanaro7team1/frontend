@@ -13,14 +13,17 @@ type Props = {
 export default function PhotoGrid({ urls, slots = SLOT_COUNT, onPick, onRemoveAt }: Props) {
   return (
     <div className='border-gray-6d6 grid grid-cols-3 gap-2 rounded-[10px] border p-2'>
-      {Array.from({ length: slots }).map((_, i) => (
-        <PhotoTile
-          key={i}
-          preview={urls[i] ?? null}
-          onPick={onPick}
-          onRemove={urls[i] ? () => onRemoveAt?.(i) : undefined}
-        />
-      ))}
+      {Array.from({ length: slots }).map((_, i) => {
+        const url = urls[i];
+        return (
+          <PhotoTile
+            key={url ?? `slot-${i}`}
+            preview={url ?? null}
+            onPick={onPick}
+            onRemove={url ? () => onRemoveAt?.(i) : undefined}
+          />
+        );
+      })}
     </div>
   );
 }

@@ -38,17 +38,17 @@ export default function StayPreview() {
   const stay = useMemo(() => {
     const {
       step1: { address = '주소 미정', detailAddress = '상세 주소 미정' } = {},
-      step2: { s3Keys = [] } = {},
+      step2: { items = [] } = {},
       step3: { capacity = 0, areaSize = 0 } = {},
       step4: { hostName = '', hostPhone = '' } = {},
       step5: { description = '' } = {},
     } = data ?? {};
 
-    const rawKeys = data.step2?.s3Keys ?? [];
+    const rawKeys = items.filter((it) => !!it.s3Key).map((it) => it.s3Key!);
 
     const previewImages =
-      s3Keys.length > 0
-        ? s3Keys.map((k) => keyToPublicUrl(k))
+      rawKeys.length > 0
+        ? rawKeys.map((k) => keyToPublicUrl(k))
         : ['/images/sample1.png', '/images/sample2.png']; // 미리 보기 이미지
 
     return {
