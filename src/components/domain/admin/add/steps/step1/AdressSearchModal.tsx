@@ -43,7 +43,7 @@ export default function AddressSearchModal({ open, onClose, onSelect }: Props) {
       <div className='fixed top-24 left-1/2 z-[100] w-full -translate-x-1/2 p-2 sm:w-sm'>
         <header className='border-black-626/15 sticky top-0 z-50 flex h-[50px] w-full items-center border-b bg-gray-200 px-2'>
           <Txt size={24} align='center' className='flex-1'>
-            {'주소 찾기'}
+            주소 찾기
           </Txt>
         </header>
         <div className='grid h-[480px] place-items-center bg-white'>

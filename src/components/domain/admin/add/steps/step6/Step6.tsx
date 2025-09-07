@@ -3,7 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
-import { Carousel, Header } from '@/components/common';
+import { Txt } from '@/components/atoms';
+import { Carousel } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
 import { AdminCalendarModal, StayDescription, StayInfoChips } from '@/components/domain/stays';
 import StayHeader from '@/components/domain/stays/StayHeader';
@@ -123,8 +124,10 @@ export default function StayPreview() {
 
   return (
     <div className='flex flex-col'>
-      <header>
-        <Header title='사랑방 등록 전 미리 보기' />
+      <header className='border-black-626/15 sticky top-0 z-50 flex h-[50px] items-center border-b bg-white'>
+        <Txt size={24} align='center' className='flex-1'>
+          사랑방 등록 전 미리보기
+        </Txt>
       </header>
 
       <main className='flex-1'>

@@ -42,7 +42,7 @@ export default function AddDescription() {
           onChange={(e) => setText(e.target.value)}
           className='border-gray-6d6 resize-none border'
         />
-        <div className='absolute right-3 bottom-2 text-gray-400'>
+        <div className='text-gray-070 mt-1 flex justify-end'>
           {text.length} / {MAX_LENGTH}
         </div>
       </div>
