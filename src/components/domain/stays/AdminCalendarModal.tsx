@@ -79,7 +79,7 @@ export default function AdminCalendarModal({ stayId, closeModal }: Props) {
               </Txt>
             </div>
             <div className='flex gap-2'>
-              <div className='bg-orange-85a size-6 rounded-[5px]' />
+              <div className='bg-orange-85a size-6 rounded-full' />
               <Txt size={16} className='text-gray-070'>
                 예약 가능한 날
               </Txt>
