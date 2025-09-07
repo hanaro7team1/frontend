@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
 import { serverPrivateApi } from '@/lib/axios-server';
 import { Txt } from '@/components/atoms';
 import {
@@ -8,16 +7,9 @@ import {
   ReservationListener,
   ReservationStatsContainer,
 } from '@/components/domain/admin';
-import { getIsAdmin } from '@/utils/auth/auth-server';
 import { AdminReservationResponse } from '@/types/admin';
 
 export default async function AdminHomePage() {
-  const isAdmin = await getIsAdmin();
-
-  if (!isAdmin) {
-    redirect('/auth');
-  }
-
   const api = await serverPrivateApi();
   const { data } = await api.get<AdminReservationResponse>('/api/admin/reservations/overview');
   const account = {
