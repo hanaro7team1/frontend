@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
 import { Carousel } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';

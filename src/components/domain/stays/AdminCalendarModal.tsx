@@ -3,7 +3,6 @@
 import { ko } from 'react-day-picker/locale';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
 import { Modal } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
