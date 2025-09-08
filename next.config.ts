@@ -1,6 +1,11 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  webpack: (config) => {
+    config.resolve.alias['@'] = __dirname;
+    return config;
+  },
+
   images: {
     remotePatterns: [
       {
@@ -10,6 +15,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  output: 'standalone',
 };
 
 export default nextConfig;
