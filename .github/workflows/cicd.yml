@@ -33,9 +33,6 @@ jobs:
       - name: Build with Next.js
         run: pnpm build
 
-      - name: next folder check
-        run: ls -al .next
-
         # 제일 중요한 부분!!!
       - name: cp modules not include standalone
         run: |
