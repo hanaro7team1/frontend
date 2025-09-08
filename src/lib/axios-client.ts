@@ -78,3 +78,9 @@ export const authApi = {
     localStorage.removeItem('user');
   },
 };
+
+export const withdrawApi = {
+  quit: (password: string) =>
+    privateApi.delete('/api/admin/mypage/quit', { data: { password } 
+  }),
+};

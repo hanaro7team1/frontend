@@ -6,6 +6,7 @@ import { Button, Txt } from '@/components/atoms';
 import { Header, Modal } from '@/components/common';
 import { PasswordField } from '@/components/domain/admin/auth/PasswordField';
 import { usePrivateData } from '@/hooks/api/useApi';
+import { authApi, withdrawApi } from '@/lib/axios-client';
 
 export type pwdCheck = {
   checkPassword: string;
@@ -14,15 +15,22 @@ export type pwdCheck = {
 export default function AdminQuitPage() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-  const { data } = usePrivateData<pwdCheck>('/api/admin/mypage/quit');
   
+  const { data } = usePrivateData<pwdCheck>('/api/admin/mypage/quit');
   const [password, setPassword] = useState<string>('');
   useEffect(() => {
     if (data?.checkPassword) setPassword(data.checkPassword);
   }, [data]);
+
+  const handleQuitLogout = async () => {
+      try {
+        await withdrawApi.quit(password);
+        await authApi.logout();
+        router.replace('/auth');
+      } catch (err) {
+        console.error('탈퇴 실패:', err);
+      }
+  };
 
   return (
     <>
@@ -35,7 +43,7 @@ export default function AdminQuitPage() {
           placeholder={'비밀번호를 입력해 주세요'}
           onChange={setPassword}
         />
-        <Button title='탈퇴하기' color='pink' onClick={openModal} />
+        <Button title='탈퇴하기' color='pink' onClick={() => setIsModalOpen(true)} />
       </div>
 
       {isModalOpen && (
@@ -44,7 +52,7 @@ export default function AdminQuitPage() {
           leftBtnText='아니요'
           rightBtnText='네'
           onClickLeftBtn={() => router.back()}
-          onClickRightBtn={() => router.push('/auth')}
+          onClickRightBtn={handleQuitLogout}
         >
           정말 탈퇴하시겠어요?
         </Modal>
