@@ -63,6 +63,6 @@ jobs:
         run: |
           ssh ec2-user@${{ secrets.WAS }} '
             cd /home/ec2-user/workspace
-            rm -rf my-app
-            unzip -q next.zip -d my-app
+            rm -rf frontend
+            unzip -q next.zip -d frontend
           '
