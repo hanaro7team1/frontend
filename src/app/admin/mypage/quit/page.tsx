@@ -6,6 +6,7 @@ import { Button, Txt } from '@/components/atoms';
 import { Header, Modal } from '@/components/common';
 import { PasswordField } from '@/components/domain/admin/auth/PasswordField';
 import { authApi, privateApi } from '@/lib/axios-client';
+import { useToast } from '@/components/common/ToastContext';
 
 export type pwdCheck = {
   checkPassword: string;
@@ -15,6 +16,7 @@ export default function AdminQuitPage() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);  
   const [password, setPassword] = useState<string>('');
+  const { showToast } = useToast();
 
   const handleQuitLogout = async () => {
     try {
@@ -27,9 +29,12 @@ export default function AdminQuitPage() {
     }
 
       await authApi.logout();
+      showToast('회원탈퇴가 완료되었습니다');
       router.replace('/auth');
     } catch (err) {
-      console.error('탈퇴 실패:', err);
+      
+      showToast('탈퇴에 실패했습니다. 비밀번호, 혹은 예약을 확인해 주세요.', 'error');
+      setIsModalOpen(false);
     }
   };
 
