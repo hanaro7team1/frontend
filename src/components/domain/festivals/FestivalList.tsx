@@ -830,7 +830,7 @@ export default async function FestivalList() {
   //   io.observe(el);
   //   return () => io.disconnect();
   // }, [hasNext, isValidating, setSize]);
-  const { data } = await publicApi<FestivalListResponse>('/api/festivals');
+  const { data } = await publicApi.get<FestivalListResponse>('/api/festivals');
 
   return (
     <div className='flex flex-col gap-8 p-5 pb-25'>
