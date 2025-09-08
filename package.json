@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@next/env": "^15.5.2",
+    "@swc/helpers": "^0.5.17",
     "next": "15.5.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
