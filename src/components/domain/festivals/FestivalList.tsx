@@ -1,26 +1,20 @@
 // 'use client'
-
 // import { usePublicData } from "@/hooks/api/useApi";
 // import useSWRInfinite from 'swr/infinite'
 // import ListBox from "./ListBox";
 // import { FestivalListItemResponse, FestivalListResponse } from "@/types/festivals";
 // import { useEffect, useMemo, useRef } from "react";
-
 // type Props = {
 //     firstList: FestivalListResponse;
 // };
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 // export default function FestivalList({ firstList }: Props) {
 //     // const { data } = usePublicData<FestivalListResponse>('/api/festivals');
-
 //     const { data } = useSWRInfinite( () => `/api/festivals?page=${1 + page}&litSize=5`, fetcher)
-
 //     const getKey = (pageIndex, prevPageData) => {
 //         const nextPage = pageIndex + 2;
 //         const totalPages = (prevData?.pages ?? firstList.pages) || 1;
 //     }
-
 //     return <>
 //         <div className='flex flex-col gap-8 p-5 pb-25'>
 //             {data?.dtoList.map((festival) => (
@@ -29,30 +23,23 @@
 //         </div>
 //     </>;
 // }
-
 // 'use client'
-
 // import { usePublicData } from "@/hooks/api/useApi";
 // import useSWRInfinite from 'swr/infinite'
 // import ListBox from "./ListBox";
 // import { FestivalListItemResponse, FestivalListResponse } from "@/types/festivals";
 // import { useEffect, useMemo, useRef } from "react";
-
 // type Props = {
 //     firstList: FestivalListResponse;
 // };
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 // export default function FestivalList({ firstList }: Props) {
 //     // const { data } = usePublicData<FestivalListResponse>('/api/festivals');
-
 //     const { data } = useSWRInfinite( () => `/api/festivals?page=${1 + page}&litSize=5`, fetcher)
-
 //     const getKey = (pageIndex, prevPageData) => {
 //         const nextPage = pageIndex + 2;
 //         const totalPages = (prevData?.pages ?? firstList.pages) || 1;
 //     }
-
 //     return <>
 //         <div className='flex flex-col gap-8 p-5 pb-25'>
 //             {data?.dtoList.map((festival) => (
@@ -61,30 +48,23 @@
 //         </div>
 //     </>;
 // }
-
 // 'use client'
-
 // import { usePublicData } from "@/hooks/api/useApi";
 // import useSWRInfinite from 'swr/infinite'
 // import ListBox from "./ListBox";
 // import { FestivalListItemResponse, FestivalListResponse } from "@/types/festivals";
 // import { useEffect, useMemo, useRef } from "react";
-
 // type Props = {
 //     firstList: FestivalListResponse;
 // };
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 // export default function FestivalList({ firstList }: Props) {
 //     // const { data } = usePublicData<FestivalListResponse>('/api/festivals');
-
 //     const { data } = useSWRInfinite( () => `/api/festivals?page=${1 + page}&litSize=5`, fetcher)
-
 //     const getKey = (pageIndex, prevPageData) => {
 //         const nextPage = pageIndex + 2;
 //         const totalPages = (prevData?.pages ?? firstList.pages) || 1;
 //     }
-
 //     return <>
 //         <div className='flex flex-col gap-8 p-5 pb-25'>
 //             {data?.dtoList.map((festival) => (
@@ -93,30 +73,23 @@
 //         </div>
 //     </>;
 // }
-
 // 'use client'
-
 // import { usePublicData } from "@/hooks/api/useApi";
 // import useSWRInfinite from 'swr/infinite'
 // import ListBox from "./ListBox";
 // import { FestivalListItemResponse, FestivalListResponse } from "@/types/festivals";
 // import { useEffect, useMemo, useRef } from "react";
-
 // type Props = {
 //     firstList: FestivalListResponse;
 // };
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 // export default function FestivalList({ firstList }: Props) {
 //     // const { data } = usePublicData<FestivalListResponse>('/api/festivals');
-
 //     const { data } = useSWRInfinite( () => `/api/festivals?page=${1 + page}&litSize=5`, fetcher)
-
 //     const getKey = (pageIndex, prevPageData) => {
 //         const nextPage = pageIndex + 2;
 //         const totalPages = (prevData?.pages ?? firstList.pages) || 1;
 //     }
-
 //     return <>
 //         <div className='flex flex-col gap-8 p-5 pb-25'>
 //             {data?.dtoList.map((festival) => (
@@ -125,30 +98,23 @@
 //         </div>
 //     </>;
 // }
-
 // 'use client'
-
 // import { usePublicData } from "@/hooks/api/useApi";
 // import useSWRInfinite from 'swr/infinite'
 // import ListBox from "./ListBox";
 // import { FestivalListItemResponse, FestivalListResponse } from "@/types/festivals";
 // import { useEffect, useMemo, useRef } from "react";
-
 // type Props = {
 //     firstList: FestivalListResponse;
 // };
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 // export default function FestivalList({ firstList }: Props) {
 //     // const { data } = usePublicData<FestivalListResponse>('/api/festivals');
-
 //     const { data } = useSWRInfinite( () => `/api/festivals?page=${1 + page}&litSize=5`, fetcher)
-
 //     const getKey = (pageIndex, prevPageData) => {
 //         const nextPage = pageIndex + 2;
 //         const totalPages = (prevData?.pages ?? firstList.pages) || 1;
 //     }
-
 //     return <>
 //         <div className='flex flex-col gap-8 p-5 pb-25'>
 //             {data?.dtoList.map((festival) => (
@@ -157,30 +123,23 @@
 //         </div>
 //     </>;
 // }
-
 // 'use client'
-
 // import { usePublicData } from "@/hooks/api/useApi";
 // import useSWRInfinite from 'swr/infinite'
 // import ListBox from "./ListBox";
 // import { FestivalListItemResponse, FestivalListResponse } from "@/types/festivals";
 // import { useEffect, useMemo, useRef } from "react";
-
 // type Props = {
 //     firstList: FestivalListResponse;
 // };
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 // export default function FestivalList({ firstList }: Props) {
 //     // const { data } = usePublicData<FestivalListResponse>('/api/festivals');
-
 //     const { data } = useSWRInfinite( () => `/api/festivals?page=${1 + page}&litSize=5`, fetcher)
-
 //     const getKey = (pageIndex, prevPageData) => {
 //         const nextPage = pageIndex + 2;
 //         const totalPages = (prevData?.pages ?? firstList.pages) || 1;
 //     }
-
 //     return <>
 //         <div className='flex flex-col gap-8 p-5 pb-25'>
 //             {data?.dtoList.map((festival) => (
@@ -189,13 +148,9 @@
 //         </div>
 //     </>;
 // }
-
 // export const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8082';
-
 // export const apiUrl = (path: string) => (path.startsWith('http') ? path : `${API_BASE}${path}`);
-
 // type Page = FestivalListResponse;
-
 // // JSON 파싱 fetcher (native fetch 그대로 넘기지 말기)
 // const fetcher = async (path: string) => {
 //   const res = await fetch(apiUrl(path), { credentials: 'include' });
@@ -205,14 +160,9 @@
 //   }
 //   return res.json();
 // };
-
-'use client';
-
 import { publicApi } from '@/lib/axios';
 import type { FestivalListResponse } from '@/types/festivals';
 import ListBox from './ListBox';
-
-// 'use client'
 
 // import { usePublicData } from "@/hooks/api/useApi";
 // import useSWRInfinite from 'swr/infinite'
