@@ -8,6 +8,7 @@ import { Carousel } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
 import { AdminCalendarModal, StayDescription, StayInfoChips } from '@/components/domain/stays';
 import StayHeader from '@/components/domain/stays/StayHeader';
+import { postStay } from '@/utils/stays/postStay';
 import { keyToPublicUrl } from '@/utils/stays/stays';
 import { getAdminInfoClient } from '@/app/api/mypage';
 import { TOTAL_STEP_NUM } from '@/constants/admin/Admin';
@@ -107,7 +108,7 @@ export default function StayPreview() {
           Object.entries(stay).filter(([k]) => k !== 'images'),
         ) as Omit<typeof stay, 'images'>;
 
-        const { data } = await privateApi.post<StayDetailResponseType>('/api/admin/stays', payload);
+        const data = await postStay(payload);
         setCreatedStay(data);
         setIsModalOpen(true); // 모달 먼저 띄우기
         setNextDisabled(currentStep, true); // 모달 떠있는 동안 Next 잠금
