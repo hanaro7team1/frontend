@@ -27,14 +27,12 @@ export default async function RealEstateDetailPage({ params }: Props) {
 
   return (
     <div className='flex flex-col'>
-      <header>
-        <Header title='매물 자세히 보기' />
-      </header>
+      <Header title='매물 자세히 보기' />
 
       <main className='flex-1'>
         <Carousel images={imageUrls || '/images/sample1.png'} />
 
-        <div className='mt-8 space-y-5 p-5'>
+        <div className='mt-8 space-y-5 p-5 pb-25'>
           <EstateHeader tradeType={tradeType} price={price} location={location} />
           <StayInfoChips capacity={capacity} area={area} />
           <EstateDescription
