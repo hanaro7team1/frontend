@@ -1,7 +1,7 @@
-export enum ReservationStatus {
-  PENDING = 'PENDING', // 예약하기
-  RESERVED = 'RESERVED', // 예약 확정
-  CANCELLED = 'CANCELLED', // 예약 취소
+export enum ReservationStatusEnum {
+  PENDING = '예약 중', // 예약하기
+  RESERVED = '예약 확정', // 예약 확정
+  CANCELLED = '예약 취소', // 예약 취소
 }
 
 export enum ReservationViewStatus {
