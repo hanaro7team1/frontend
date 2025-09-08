@@ -1,12 +1,12 @@
 import Image from 'next/image';
+import { publicApi } from '@/lib/axios';
 import { Txt } from '@/components/atoms';
 import { BottomTabNav, Header } from '@/components/common';
-import { FestivalListResponse } from '@/types/festivals';
-import { publicApi } from '@/lib/axios';
 import FestivalList from '@/components/domain/festivals/FestivalList';
+import { FestivalListResponse } from '@/types/festivals';
 
-export default async function FestivalsPage() { 
-  const { data } = await publicApi<FestivalListResponse>('/api/festivals?page=1&listSize=5');
+export default async function FestivalsPage() {
+  const { data } = await publicApi<FestivalListResponse>('/api/festivals?page=1&listSize=15');
 
   return (
     <>
@@ -29,8 +29,8 @@ export default async function FestivalsPage() {
         </div>
       </div>
 
-      <FestivalList firstList={data}/>
-      
+      <FestivalList firstList={data} />
+
       <BottomTabNav />
     </>
   );
