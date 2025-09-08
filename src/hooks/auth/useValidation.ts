@@ -49,5 +49,5 @@ export default function useValidation() {
     setErrors((e) => ({ ...e, confirmPassword: matchMsg }));
   }, [debouncePassword, debounceConfirm]);
 
-  return { form, errors, handleChange };
+  return { form, setForm, errors, handleChange };
 }
