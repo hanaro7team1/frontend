@@ -8,6 +8,7 @@ import { Carousel } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
 import { AdminCalendarModal, StayDescription, StayInfoChips } from '@/components/domain/stays';
 import StayHeader from '@/components/domain/stays/StayHeader';
+import { postStay } from '@/utils/stays/postStay';
 import { keyToPublicUrl } from '@/utils/stays/stays';
 import { getAdminInfoClient } from '@/app/api/mypage';
 import { TOTAL_STEP_NUM } from '@/constants/admin/Admin';
@@ -44,7 +45,7 @@ export default function StayPreview() {
 
   const handleClose = () => {
     setIsModalOpen(false);
-    router.replace('/admin/stays', { scroll: false });
+    router.back();
   };
 
   // 전역 Wizard 데이터에서 필요한 값 모아서 화면에 렌더링
@@ -88,7 +89,7 @@ export default function StayPreview() {
     };
 
     fetchAdminInfo();
-  }, []);
+  }, [showToast]);
 
   useEffect(() => {
     const cleanup = registerBeforeNext(currentStep, async () => {
@@ -102,16 +103,19 @@ export default function StayPreview() {
 
       // 마지막 스텝에 모달 오픈
       try {
-        const { images, ...payload } = stay;
+        //images 제외하고 보내기
+        const payload = Object.fromEntries(
+          Object.entries(stay).filter(([k]) => k !== 'images'),
+        ) as Omit<typeof stay, 'images'>;
 
-        const { data } = await privateApi.post<StayDetailResponseType>('/api/admin/stays', payload);
+        const data = await postStay(payload);
         setCreatedStay(data);
         setIsModalOpen(true); // 모달 먼저 띄우기
         setNextDisabled(currentStep, true); // 모달 떠있는 동안 Next 잠금
 
         return false; // 이동 금지! (registerBeforeNext가 preventDefault 하게)
-      } catch (err: any) {
-        showToast(err?.response?.data?.message ?? '등록 중 오류가 발생했어요.', 'error');
+      } catch {
+        showToast('등록 중 오류가 발생했어요.', 'error');
         // 실패했으니 다시 열어줌
         submittingRef.current = false;
         setNextDisabled(currentStep, false);
@@ -120,7 +124,7 @@ export default function StayPreview() {
     });
 
     return cleanup;
-  }, [currentStep, registerBeforeNext, stay, setNextDisabled]);
+  }, [currentStep, registerBeforeNext, stay, setNextDisabled, showToast]);
 
   return (
     <div className='flex flex-col'>

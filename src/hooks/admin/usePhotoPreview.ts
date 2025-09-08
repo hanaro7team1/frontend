@@ -7,7 +7,7 @@ import { SLOT_COUNT } from '@/constants/admin/Admin';
 
 export function usePhotoPreview(max = SLOT_COUNT) {
   const { data, dispatch } = useWizardData();
-  const items = data.step2?.items ?? [];
+  const items = useMemo(() => data.step2?.items ?? [], [data.step2?.items]);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const openPicker = () => inputRef.current?.click();

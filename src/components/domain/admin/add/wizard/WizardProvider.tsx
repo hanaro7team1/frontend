@@ -1,15 +1,6 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { clampNum } from '@/lib/utils';
 import { BeforeNextFn, WizardContext } from '@/types/wizard';
 
@@ -20,12 +11,6 @@ import { BeforeNextFn, WizardContext } from '@/types/wizard';
 const wizardContext = createContext<WizardContext | null>(null);
 
 export default function WizardProvider({ children }: { children: React.ReactNode }) {
-  const search = useSearchParams();
-
-  const pathName = usePathname();
-
-  const router = useRouter();
-
   const [disabledByStep, setDisabledByStep] = useState<Record<number, boolean>>({});
 
   const setNextDisabled = useCallback((step: number, disabled: boolean) => {
@@ -33,14 +18,12 @@ export default function WizardProvider({ children }: { children: React.ReactNode
   }, []);
 
   //  진짜 스텝은 내부 상태로만
-  const [currentStep, _setStep] = useState<number>(1);
+  const [currentStep, setStep] = useState<number>(1);
 
   const isNextDisable = disabledByStep[currentStep] ?? true;
 
   //step 번호가 key, 다음으로 이동하기 전에 실행할 함수 BeforeNextFn
   const req = useRef(new Map<number, BeforeNextFn>());
-
-  //url 허용 범위 넘는 것 방지
 
   //다음 스텝으로 넘어가기 전에 만족하지 않은 조건 있는지 확인!!
   const stepGuard = async (step: number) => {
@@ -61,9 +44,9 @@ export default function WizardProvider({ children }: { children: React.ReactNode
         const ok = await stepGuard(currentStep);
         if (!ok) return; // 막기
       }
-      _setStep(next);
+      setStep(next);
     },
-    [router, pathName, search],
+    [currentStep],
   );
 
   const registerBeforeNext: WizardContext['registerBeforeNext'] = useCallback((step, fn) => {

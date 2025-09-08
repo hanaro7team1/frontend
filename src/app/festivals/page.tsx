@@ -1,14 +1,12 @@
-'use client';
-
 import Image from 'next/image';
 import { Txt } from '@/components/atoms';
 import { BottomTabNav, Header } from '@/components/common';
-import ListBox from '@/components/domain/festivals/ListBox';
-import { usePublicData } from '@/hooks/api/useApi';
 import { FestivalListResponse } from '@/types/festivals';
+import { publicApi } from '@/lib/axios';
+import FestivalList from '@/components/domain/festivals/FestivalList';
 
-export default function FestivalsPage() {
-  const { data } = usePublicData<FestivalListResponse>('/api/festivals');
+export default async function FestivalsPage() { 
+  const { data } = await publicApi<FestivalListResponse>('/api/festivals?page=1&listSize=5');
 
   return (
     <>
@@ -31,11 +29,7 @@ export default function FestivalsPage() {
         </div>
       </div>
 
-      <div className='flex flex-col gap-8 p-5 pb-25'>
-        {data?.dtoList.map((festival) => (
-          <ListBox key={festival.id} data={festival} />
-        ))}
-      </div>
+      <FestivalList firstList={data}/>
       
       <BottomTabNav />
     </>

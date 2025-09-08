@@ -60,6 +60,7 @@ export function useStep5Prefill({
 
     return cleanup;
   }, [
+    s3Key,
     currentStep,
     dispatch,
     isValid,

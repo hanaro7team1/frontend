@@ -55,7 +55,7 @@ export type ReservationsListResponse = {
 export type ReservationsResponse = Paged<ReservationsListResponse>;
 
 // 예약됨 -> 방문 전, 방문 중 | 방문완료 -> 방문완료 | 예약 취소 -> 취소됨
-export type ReservationStatus = '예약됨' | '방문 완료' | '취소됨';
+export type ReservationStatus = '예약 중' | '예약 확정' | '예약 취소';
 export type ReservationsSearchParams = {
   stayId?: number;
   status?: ReservationStatus | '전체';

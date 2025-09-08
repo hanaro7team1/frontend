@@ -3,10 +3,10 @@
 import { SquareRoundCorner, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { privateApi } from '@/lib/axios-client';
 import { Input, ShadowBox, Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
+import { updateStayAction } from '@/utils/stays/updateStayActions';
 import { InfoRow } from '../../reservations';
 import { BottomSheetArea, BottomSheetCapacity } from '../../stays';
 
@@ -36,9 +36,8 @@ export default function EditStay({ data }: Props) {
   const { showToast } = useToast();
 
   const submitHandler = async () => {
-    router.refresh();
     try {
-      await privateApi.patch(`api/admin/stays/${stayId}`, payload);
+      await updateStayAction(stayId, payload);
       showToast('수정이 완료되었습니다', 'success');
       router.back();
     } catch {
@@ -90,6 +89,7 @@ export default function EditStay({ data }: Props) {
           leftBtnText='아니요'
           onClickRightBtn={() => router.back()}
           onClickLeftBtn={() => setModalOpen(false)}
+          isPink
         >
           변경사항이 반영되지 않아요
           <br />

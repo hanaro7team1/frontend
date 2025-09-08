@@ -9,10 +9,11 @@ import { Modal } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
 import { Calendar } from '@/components/ui/calendar';
 import { usePrivateData } from '@/hooks/api/useApi';
+import { updateOpenDatesAction } from '@/utils/stays/updateOpenDateAction';
 import { AdminStayAvailableDatesResponse } from '@/types/admin';
 
 type Props = {
-  stayId?: number;
+  stayId: number;
   closeModal: () => void;
 };
 
@@ -34,7 +35,7 @@ export default function AdminCalendarModal({ stayId, closeModal }: Props) {
   const handleDone = async () => {
     const newDates = dates?.map((d) => d.toISOString().split('T')[0]) || [];
 
-    const { status } = await privateApi.post(`/api/admin/stays/${stayId}/open-dates`, newDates);
+    const status = await updateOpenDatesAction(stayId, newDates);
 
     closeModal();
 

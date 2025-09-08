@@ -47,7 +47,12 @@ export default function AddOwner() {
 
   return (
     <>
-      <Txt>사랑방 주인의 성함은 무엇인가요?</Txt>
+      <div className='flex items-center gap-2'>
+        <Txt>사랑방 주인의 성함은 무엇인가요?</Txt>
+        <Txt size={18} className='text-pink-a76'>
+          *필수
+        </Txt>
+      </div>
       <div className='mb-10 flex gap-4'>
         <Input
           placeholder={''}
@@ -58,7 +63,13 @@ export default function AddOwner() {
           님
         </Txt>
       </div>
-      <Txt>사랑방 주인의 전화번호를 입력하세요</Txt>
+
+      <div className='flex items-center gap-2'>
+        <Txt>사랑방 주인의 전화번호를 입력하세요</Txt>
+        <Txt size={18} className='text-pink-a76'>
+          *필수
+        </Txt>
+      </div>
       <Input
         placeholder='예시) 010-1234-5678'
         value={formatPhone(phoneRaw)}
