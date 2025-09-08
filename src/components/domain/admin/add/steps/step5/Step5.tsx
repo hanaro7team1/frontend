@@ -32,7 +32,12 @@ export default function AddDescription() {
 
   return (
     <>
-      <Txt>사랑방에 대해서 상세하게 알려주세요</Txt>
+      <div className='flex items-center gap-2'>
+        <Txt>사랑방에 대해서 상세하게 알려주세요</Txt>
+        <Txt size={18} className='text-pink-a76'>
+          *필수
+        </Txt>
+      </div>
       <div className='relative w-full'>
         <Input
           placeholder={''}

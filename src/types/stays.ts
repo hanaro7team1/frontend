@@ -65,6 +65,12 @@ export type StayPatchResponse = {
   description: string;
 };
 
+export type StayPatchRequest = {
+  capacity: number;
+  areaSize: number;
+  description: string;
+};
+
 export type AdminStayListItemResponse = {
   hostName: string;
 } & Omit<StayListItemResponse, 'address'>;

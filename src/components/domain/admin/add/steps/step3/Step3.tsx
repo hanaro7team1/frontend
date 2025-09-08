@@ -32,31 +32,46 @@ export default function AddCapacity() {
   }, [capacity, areaSize, currentStep, dispatch, isValid, registerBeforeNext]);
 
   return (
-    <>
-      <Txt>사랑방의 최대 수용 가능 인원은 몇 명인가요?</Txt>
-      <div className='flex gap-4 px-[81px]'>
-        <Input
-          type='number'
-          max={100}
-          step={1}
-          placeholder={''}
-          value={capacity}
-          onChange={(e) => setCapacity(e.target.value)}
-        />
-        <Txt size={30}>명</Txt>
+    <div className='flex flex-col gap-20'>
+      <div className='flex flex-col gap-4'>
+        <div className='flex items-center gap-2'>
+          <Txt>사랑방의 수용 가능 인원은 몇 명인가요?</Txt>
+          <Txt size={18} className='text-pink-a76'>
+            *필수
+          </Txt>
+        </div>
+        <div className='flex gap-4 px-[81px]'>
+          <Input
+            type='number'
+            max={100}
+            step={1}
+            placeholder={''}
+            value={capacity}
+            onChange={(e) => setCapacity(e.target.value)}
+          />
+          <Txt size={30}>명</Txt>
+        </div>
       </div>
-      <Txt>사랑방의 면적을 입력하세요</Txt>
-      <div className='flex gap-4 px-[81px]'>
-        <Input
-          type='number'
-          step={1}
-          placeholder={''}
-          value={areaSize}
-          onChange={(e) => setArea(e.target.value)}
-          inputMode='decimal'
-        />
-        <Txt size={30}>평</Txt>
+
+      <div className='flex flex-col gap-4'>
+        <div className='flex items-center gap-2'>
+          <Txt>사랑방의 면적을 입력하세요</Txt>
+          <Txt size={18} className='text-pink-a76'>
+            *필수
+          </Txt>
+        </div>
+        <div className='flex gap-4 px-[81px]'>
+          <Input
+            type='number'
+            step={1}
+            placeholder={''}
+            value={areaSize}
+            onChange={(e) => setArea(e.target.value)}
+            inputMode='decimal'
+          />
+          <Txt size={30}>평</Txt>
+        </div>
       </div>
-    </>
+    </div>
   );
 }

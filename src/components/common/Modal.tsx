@@ -44,7 +44,7 @@ export default function Modal({
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
+  }, [onClickLeftBtn]);
 
   return (
     <div

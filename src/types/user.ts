@@ -5,7 +5,7 @@ export type UserReservationResponse = {
   reservationId: number;
 
   title: string;
-  imgUrl: string;
+  imageUrl: string;
   viewStatus: ReservationViewStatus;
   dDay: number;
   startDate: string;

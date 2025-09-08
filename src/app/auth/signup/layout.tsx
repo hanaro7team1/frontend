@@ -10,6 +10,7 @@ import WizardProvider, { useWizard } from '@/components/domain/admin/add/wizard/
 import { formatPhone } from '@/utils/common/phoneHyphen';
 import { FIRST_STEP_NUM, TOTAL_SIGN_UP_NUM } from '@/constants/admin/Admin';
 import { SignUpFormProvider, useSignUpForm } from '@/contexts/SignUpFormContext';
+import { SignupForm } from '@/types/auth';
 
 function InnerLayout({ children }: { children: React.ReactNode }) {
   const { currentStep, goToStep } = useWizard();
@@ -24,21 +25,21 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
 
   const { showToast } = useToast();
 
-  //스텝별 필수 입력값 검사
-  const requiredByStep: Record<number, (keyof typeof form)[]> = {
-    1: ['loginId', 'password', 'confirmPassword'],
-    2: ['villageName', 'region', 'phone'],
-  };
-
   //필수 입력값 있는지 체크
   const isValid = useMemo(() => {
+    const requiredByStep: Record<number, readonly (keyof SignupForm)[]> = {
+      1: ['loginId', 'password', 'confirmPassword'],
+      2: ['villageName', 'region', 'phone'],
+    } as const;
+
     const must = requiredByStep[currentStep] ?? [];
-    const allFilled = must.every((k) => {
-      const v = (form as any)[k];
-      return typeof v === 'string' ? v.trim().length > 0 : Boolean(v);
-    });
-    const noErrors = must.every((k) => !(errors as any)[k]);
-    return allFilled && noErrors;
+    for (const field of must) {
+      const v = form[field];
+      const hasValue = typeof v === 'string' ? v.trim().length > 0 : Boolean(v);
+      const hasError = Boolean(errors[field]); // <-- 현재 스텝 필드만 에러 확인
+      if (!hasValue || hasError) return false;
+    }
+    return true;
   }, [form, errors, currentStep]);
 
   //아이디 중복 체크

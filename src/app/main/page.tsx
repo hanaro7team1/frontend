@@ -9,7 +9,7 @@ export default async function HomePage() {
   const api = await serverPrivateApi();
   const { data } = await api.get<UserReservationResponse>('/api/reservations/next');
 
-  const { reservationId, memberName, imgUrl, title, viewStatus, startDate, endDate, dDay } = data;
+  const { reservationId, memberName, imageUrl, title, viewStatus, startDate, endDate, dDay } = data;
 
   return (
     <div className='relative flex flex-col'>
@@ -27,7 +27,7 @@ export default async function HomePage() {
           title={title}
           startDate={startDate}
           endDate={endDate}
-          imgUrl={imgUrl || '/images/sample2.png'}
+          imgUrl={imageUrl}
           viewStatus={viewStatus}
           dDay={dDay}
         />
