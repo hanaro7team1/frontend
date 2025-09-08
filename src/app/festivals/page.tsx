@@ -1,56 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { Txt } from '@/components/atoms';
 import { BottomTabNav, Header } from '@/components/common';
 import ListBox from '@/components/domain/festivals/ListBox';
 import { usePublicData } from '@/hooks/api/useApi';
 import { FestivalListResponse } from '@/types/festivals';
 
-const PAGE_SIZE = 5;
-
 export default function FestivalsPage() {
   const { data } = usePublicData<FestivalListResponse>('/api/festivals');
-
-  // const [events, setEvents] = useState<Festival[]>([]);
-  // const [hasNext, setHasNext] = useState(true);
-  // const [page, setPage] = useState(0);
-  // const [load, setLoad] = useState(false);
-  // const sentinelRef = useRef<HTMLDivElement | null>(null);
-
-  // const loadData = useCallback(() => {
-  //   if(load || !hasNext) return;
-  //   setLoad(true);
-
-  //   const start = page * PAGE_SIZE;
-  //   const end = start + PAGE_SIZE;
-  //   const chunk = dummyFestivals.slice(start, end);
-
-  //   setEvents(prev => [...prev, ...chunk]);
-  //   setHasNext(dummyFestivals[end] !== undefined);
-  //   setPage(prev => prev + 1);
-  //   setLoad(false);
-  // }, [page, load, hasNext]);
-
-  // useEffect(() => {
-  //   void loadData();
-  // }, [loadData]);
-
-  // useEffect(() => {
-  //   const el = sentinelRef.current;
-  //   if(!el) return;
-
-  //   const io = new IntersectionObserver(([entry]) => {
-  //     if(entry.isIntersecting) {
-  //       loadData();
-  //     }
-  //   }, {root: null,
-  //     rootMargin: '150px'});
-
-  //   io.observe(el);
-  //   return () => io.disconnect();
-  // }, [loadData]);
 
   return (
     <>
@@ -78,11 +36,7 @@ export default function FestivalsPage() {
           <ListBox key={festival.id} data={festival} />
         ))}
       </div>
-
-      {/* <div ref={sentinelRef} className='flex items-center justify-center text-gray-6d6'>
-      {load ? '불러오는중...' : hasNext ? '스크롤하여 더보기' : '마지막 페이지 입니다'}
-    </div> */}
-
+      
       <BottomTabNav />
     </>
   );
