@@ -6,7 +6,7 @@ import { publicApi } from '@/lib/axios';
 import FestivalList from '@/components/domain/festivals/FestivalList';
 
 export default async function FestivalsPage() { 
-  const { data } = await publicApi<FestivalListResponse>('/api/festivals');
+  const { data } = await publicApi<FestivalListResponse>('/api/festivals?page=1&listSize=5');
 
   return (
     <>
