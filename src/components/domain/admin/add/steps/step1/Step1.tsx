@@ -18,7 +18,7 @@ export default function AddAdress() {
   useEffect(() => {
     setNextDisabled(currentStep, !isValid);
     return registerBeforeNext(currentStep, () => isValid || false);
-  }, [isValid, setNextDisabled, registerBeforeNext]);
+  }, [isValid, currentStep, setNextDisabled, registerBeforeNext]);
 
   return (
     <>

@@ -37,14 +37,17 @@ export default function WizardProvider({ children }: { children: React.ReactNode
     }
   };
 
-  const goToStep = useCallback(async (n: number) => {
-    const next = clampNum({ n });
-    if (next > currentStep) {
-      const ok = await stepGuard(currentStep);
-      if (!ok) return; // 막기
-    }
-    setStep(next);
-  }, []);
+  const goToStep = useCallback(
+    async (n: number) => {
+      const next = clampNum({ n });
+      if (next > currentStep) {
+        const ok = await stepGuard(currentStep);
+        if (!ok) return; // 막기
+      }
+      setStep(next);
+    },
+    [currentStep],
+  );
 
   const registerBeforeNext: WizardContext['registerBeforeNext'] = useCallback((step, fn) => {
     if (fn) req.current.set(step, fn);

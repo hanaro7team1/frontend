@@ -3,7 +3,6 @@
 import { SquareRoundCorner, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { privateApi } from '@/lib/axios-client';
 import { Input, ShadowBox, Txt } from '@/components/atoms';
 import { FixedBottomButton, Modal } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';

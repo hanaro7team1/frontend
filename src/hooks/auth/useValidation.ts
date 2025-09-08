@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { checkIdValidation, checkPasswordValidation } from '@/lib/authValidation';
+import { SignupErrors, SignupForm } from '@/types/auth';
 import { useDebounce } from './useDebounce';
 
 export default function useValidation() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<SignupForm>({
     loginId: '',
     password: '',
     confirmPassword: '',
@@ -12,8 +13,8 @@ export default function useValidation() {
     phone: '',
   });
 
-  const [errors, setErrors] = useState({
-    id: '',
+  const [errors, setErrors] = useState<SignupErrors>({
+    loginId: '',
     password: '',
     confirmPassword: '',
   });
@@ -23,7 +24,7 @@ export default function useValidation() {
   const debouncePassword = useDebounce(form.password, 300);
   const debounceConfirm = useDebounce(form.confirmPassword, 300);
 
-  const handleChange = (field: keyof typeof form, value: string, duplicated: boolean = false) => {
+  const handleChange = (field: keyof typeof form, value: string) => {
     // form을 업데이트 (순수 함수)
     setForm((prev) => ({ ...prev, [field]: value }));
   };

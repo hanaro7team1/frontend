@@ -1,10 +1,10 @@
 'use server';
 
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { serverPrivateApi } from '@/lib/axios-server';
-import { StayPatchResponse } from '@/types/stays';
+import { StayPatchRequest, StayPatchResponse } from '@/types/stays';
 
-export async function updateStayAction(id: number, payload: any) {
+export async function updateStayAction(id: number, payload: StayPatchRequest) {
   // 스프링 백엔드에 PATCH
   const api = await serverPrivateApi();
   try {

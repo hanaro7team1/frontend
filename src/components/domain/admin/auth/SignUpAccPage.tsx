@@ -14,9 +14,9 @@ export default function SignUpAccPage() {
           placeholder={'아이디를 입력해 주세요'}
           onChange={(e) => handleChange('loginId', e.target.value)}
         />
-        {errors.id && (
+        {errors.loginId && (
           <Txt size={18} className='text-pink-a76'>
-            {errors.id}
+            {errors.loginId}
           </Txt>
         )}
       </div>

@@ -2,14 +2,40 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+type PostcodeCloseState = 'COMPLETE_CLOSE' | 'FORCE_CLOSE';
+
+interface HTMLScriptElementWithReadyState extends HTMLScriptElement {
+  readyState?: 'loading' | 'loaded' | 'complete' | string;
+}
+
+interface DaumPostcodeData {
+  roadAddress?: string;
+  address?: string;
+  bname?: string;
+  buildingName?: string;
+  zonecode?: string;
+}
+
+interface DaumPostcodeOptions {
+  oncomplete: (data: DaumPostcodeData) => void;
+  onclose?: (state: PostcodeCloseState) => void;
+}
+
+interface DaumPostcodeInstance {
+  open: () => void;
+}
+
+interface DaumPostcodeConstructor {
+  new (opts: DaumPostcodeOptions): DaumPostcodeInstance;
+}
+
+interface DaumGlobal {
+  Postcode?: DaumPostcodeConstructor;
+}
+
 declare global {
   interface Window {
-    daum?: {
-      Postcode: new (opts: {
-        oncomplete: (data: any) => void;
-        onclose?: (state: 'COMPLETE_CLOSE' | 'FORCE_CLOSE') => void;
-      }) => { open: () => void };
-    };
+    daum?: DaumGlobal;
   }
 }
 
@@ -41,8 +67,10 @@ function useLoadDaumPostcodeScript() {
     };
 
     if (script) {
+      const s = script as HTMLScriptElementWithReadyState;
+
       // 이미 붙어있는데 load가 끝났을 수도 있음 -> readyState 체크
-      if ((script as any).readyState === 'loaded' || (script as any).readyState === 'complete') {
+      if (s.readyState === 'loaded' || s.readyState === 'complete') {
         onLoad();
       } else {
         script.addEventListener('load', onLoad, { once: true });
@@ -85,7 +113,7 @@ export function useDaumPostcodePopup() {
       };
 
       const pc = new window.daum.Postcode({
-        oncomplete: (data: any) => {
+        oncomplete: (data) => {
           // 주소 조합(건물명/법정동 포함) + 우편번호 반환
           const base = data.roadAddress || data.address;
           const extraParts: string[] = [];

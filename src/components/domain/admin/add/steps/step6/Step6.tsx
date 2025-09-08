@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
@@ -88,7 +88,7 @@ export default function StayPreview() {
     };
 
     fetchAdminInfo();
-  }, []);
+  }, [showToast]);
 
   useEffect(() => {
     const cleanup = registerBeforeNext(currentStep, async () => {
@@ -102,7 +102,10 @@ export default function StayPreview() {
 
       // 마지막 스텝에 모달 오픈
       try {
-        const { images, ...payload } = stay;
+        //images 제외하고 보내기
+        const payload = Object.fromEntries(
+          Object.entries(stay).filter(([k]) => k !== 'images'),
+        ) as Omit<typeof stay, 'images'>;
 
         const { data } = await privateApi.post<StayDetailResponseType>('/api/admin/stays', payload);
         setCreatedStay(data);
@@ -110,8 +113,8 @@ export default function StayPreview() {
         setNextDisabled(currentStep, true); // 모달 떠있는 동안 Next 잠금
 
         return false; // 이동 금지! (registerBeforeNext가 preventDefault 하게)
-      } catch (err: any) {
-        showToast(err?.response?.data?.message ?? '등록 중 오류가 발생했어요.', 'error');
+      } catch {
+        showToast('등록 중 오류가 발생했어요.', 'error');
         // 실패했으니 다시 열어줌
         submittingRef.current = false;
         setNextDisabled(currentStep, false);
@@ -120,7 +123,7 @@ export default function StayPreview() {
     });
 
     return cleanup;
-  }, [currentStep, registerBeforeNext, stay, setNextDisabled]);
+  }, [currentStep, registerBeforeNext, stay, setNextDisabled, showToast]);
 
   return (
     <div className='flex flex-col'>
