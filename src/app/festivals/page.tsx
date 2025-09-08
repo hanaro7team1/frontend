@@ -1,14 +1,12 @@
-'use client';
-
 import Image from 'next/image';
 import { Txt } from '@/components/atoms';
 import { BottomTabNav, Header } from '@/components/common';
 import ListBox from '@/components/domain/festivals/ListBox';
-import { usePublicData } from '@/hooks/api/useApi';
 import { FestivalListResponse } from '@/types/festivals';
+import { publicApi } from '@/lib/axios';
 
-export default function FestivalsPage() {
-  const { data } = usePublicData<FestivalListResponse>('/api/festivals');
+export default async function FestivalsPage() { 
+  const { data } = await publicApi<FestivalListResponse>('/api/festivals');
 
   return (
     <>
