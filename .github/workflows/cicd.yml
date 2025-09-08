@@ -1,7 +1,7 @@
 name: SpringDemo CI/CD
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
 
 jobs:
   build:
