@@ -22,7 +22,7 @@ export default function ReservationModal({ payload }: { payload: ReservationPayl
   // 예약 확정 상태이고, 사용자가 아직 확인하지 않은 경우에만 모달 오픈
   useEffect(() => {
     const seen = localStorage.getItem(`reservation_modal_${reservationId}_seen`);
-    if (status === 'RESERVED' && !seen) {
+    if (status === '예약 확정' && !seen) {
       setOpen(true);
     }
   }, [status, reservationId]);
