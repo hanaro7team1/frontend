@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { privateApi } from '@/lib/axios-client';
 import { Txt } from '@/components/atoms';
@@ -44,7 +44,7 @@ export default function StayPreview() {
 
   const handleClose = () => {
     setIsModalOpen(false);
-    router.replace('/admin/stays', { scroll: false });
+    router.back();
   };
 
   // 전역 Wizard 데이터에서 필요한 값 모아서 화면에 렌더링

@@ -44,9 +44,6 @@ importers:
       react:
         specifier: 19.1.0
         version: 19.1.0
-      react-daum-postcode:
-        specifier: ^3.2.0
-        version: 3.2.0(react@19.1.0)
       react-day-picker:
         specifier: ^9.9.0
         version: 9.9.0(react@19.1.0)
@@ -4051,11 +4048,6 @@ packages:
   range-parser@1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
-
-  react-daum-postcode@3.2.0:
-    resolution: {integrity: sha512-NHY8TUicZXMqykbKYT8kUo2PEU7xu1DFsdRmyWJrLEUY93Xhd3rEdoJ7vFqrvs+Grl9wIm9Byxh3bI+eZxepMQ==}
-    peerDependencies:
-      react: '>=16.8.0'
 
   react-day-picker@9.9.0:
     resolution: {integrity: sha512-NtkJbuX6cl/VaGNb3sVVhmMA6LSMnL5G3xNL+61IyoZj0mUZFWTg4hmj7PHjIQ8MXN9dHWhUHFoJWG6y60DKSg==}
@@ -9091,10 +9083,6 @@ snapshots:
       safe-buffer: 5.2.1
 
   range-parser@1.2.1: {}
-
-  react-daum-postcode@3.2.0(react@19.1.0):
-    dependencies:
-      react: 19.1.0
 
   react-day-picker@9.9.0(react@19.1.0):
     dependencies:
