@@ -1,12 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button, Txt } from '@/components/atoms';
 import { Header, Modal } from '@/components/common';
 import { PasswordField } from '@/components/domain/admin/auth/PasswordField';
-import { usePrivateData } from '@/hooks/api/useApi';
-import { authApi, withdrawApi } from '@/lib/axios-client';
+import { authApi, privateApi } from '@/lib/axios-client';
 
 export type pwdCheck = {
   checkPassword: string;
@@ -14,22 +13,24 @@ export type pwdCheck = {
 
 export default function AdminQuitPage() {
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const { data } = usePrivateData<pwdCheck>('/api/admin/mypage/quit');
+  const [isModalOpen, setIsModalOpen] = useState(false);  
   const [password, setPassword] = useState<string>('');
-  useEffect(() => {
-    if (data?.checkPassword) setPassword(data.checkPassword);
-  }, [data]);
 
   const handleQuitLogout = async () => {
-      try {
-        await withdrawApi.quit(password);
-        await authApi.logout();
-        router.replace('/auth');
-      } catch (err) {
-        console.error('탈퇴 실패:', err);
-      }
+    try {
+      const res = await privateApi.delete<pwdCheck>(`/api/admin/mypage/quit`, {
+        data: {checkPassword: password},
+    });
+
+    if (res.data?.checkPassword) {
+      setPassword(res.data.checkPassword);
+    }
+
+      await authApi.logout();
+      router.replace('/auth');
+    } catch (err) {
+      console.error('탈퇴 실패:', err);
+    }
   };
 
   return (
