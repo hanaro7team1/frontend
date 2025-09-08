@@ -32,7 +32,7 @@ export default function useValidation() {
   // 아이디 검증
   useEffect(() => {
     const { valid, message } = checkIdValidation(debounceId);
-    setErrors((e) => ({ ...e, id: valid ? '' : message }));
+    setErrors((e) => ({ ...e, loginId: valid ? '' : message }));
   }, [debounceId]);
 
   // 비밀번호 규칙 검증
