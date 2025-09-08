@@ -57,7 +57,7 @@ jobs:
 
       - name: scp next to was
         run: |
-          scp /next.zip ec2-user@${{ secrets.WAS }}:/home/ec2-user/workspace/
+          scp next.zip ec2-user@${{ secrets.WAS }}:/home/ec2-user/workspace/
 
       - name: restart next
         run: |
