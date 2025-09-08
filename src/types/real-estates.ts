@@ -25,6 +25,6 @@ export type EstatesListItemResponse = {
   location: string;
   price: string;
   tradeType: '매매' | '전세';
-  imageUrls: string;
+  imageUrl: string;
 };
 export type EstatesListResponse = Paged<EstatesListItemResponse>;

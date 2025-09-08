@@ -8,14 +8,14 @@ type Props = {
 };
 
 export default function EstateItem({ data }: Props) {
-  const { id, tradeType, location, price, imageUrls } = data;
+  const { id, tradeType, location, price, imageUrl } = data;
 
   return (
     <ShadowBox>
       <Link href={`/real-estates/${id}`}>
         <div className='relative h-[140px] overflow-hidden'>
           <Image
-            src={imageUrls ? imageUrls[0] : '/images/sample1.png'}
+            src={imageUrl || '/images/sample1.png'}
             alt={location + tradeType + price}
             fill
             className='object-cover'
