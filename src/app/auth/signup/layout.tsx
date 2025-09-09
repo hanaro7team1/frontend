@@ -74,12 +74,14 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const isFinalStep = currentStep === TOTAL_SIGN_UP_NUM;
+
   const prevStep = () =>
     currentStep === FIRST_STEP_NUM ? router.push('/auth/signin') : goToStep(currentStep - 1);
 
   const nextStep = async () => {
     if (!isValid) return;
-    if (currentStep === TOTAL_SIGN_UP_NUM) submit();
+    if (isFinalStep) return;
     else {
       //넘어가기 전에 검사하기
       const exists = await idDuplicationCheck(form.loginId.trim());
@@ -92,21 +94,30 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
   };
 
   const leftButtonTxt = currentStep === FIRST_STEP_NUM ? '취소' : '이전';
-  const rightButtonTxt = currentStep === TOTAL_SIGN_UP_NUM ? '가입 완료' : '다음';
+  const rightButtonTxt = isFinalStep ? '가입 완료' : '다음';
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!isFinalStep) return; // 혹시 모를 방지(이론상 올 일 없음)
+    await submit(); // 최종 제출
+  };
 
   return (
     <>
       <Header title={'회원 가입'} bgColor='pink' />
       <StepProgressBar isSignUp={true} />
-      {children}
-      <FixedBottomButton
-        leftBtnText={leftButtonTxt}
-        rightBtnText={rightButtonTxt}
-        isPink={true}
-        disabled={!isValid}
-        onClickRightBtn={nextStep}
-        onClickLeftBtn={prevStep}
-      />
+      <form onSubmit={handleSubmit} noValidate className='pb-25'>
+        {children}
+        <FixedBottomButton
+          leftBtnText={leftButtonTxt}
+          rightBtnText={rightButtonTxt}
+          isPink={true}
+          disabled={!isValid}
+          onClickRightBtn={isFinalStep ? undefined : nextStep}
+          onClickLeftBtn={prevStep}
+          rightBtnType={isFinalStep ? 'submit' : 'button'}
+        />
+      </form>
     </>
   );
 }
