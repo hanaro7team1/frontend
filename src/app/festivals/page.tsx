@@ -1,15 +1,18 @@
-// import Image from 'next/image';
-// import { Txt } from '@/components/atoms';
-// import { BottomTabNav, Header } from '@/components/common';
-// import FestivalList from '@/components/domain/festivals/FestivalList';
-import { Header } from '@/components/common';
+import Image from 'next/image';
+import { Txt } from '@/components/atoms';
+import { BottomTabNav, Header } from '@/components/common';
+import FestivalList from '@/components/domain/festivals/FestivalList';
+import { publicApi } from '@/lib/axios';
+import { FestivalListResponse } from '@/types/festivals';
 
-export default async function FestivalsPage() {
+export default async function FestivalsPage() { 
+  const { data } = await publicApi.get<FestivalListResponse>('/api/festivals');
+
   return (
     <>
       <Header title='지역 축제' bgColor='green' />
 
-      {/* <div className='p-4'>
+      <div className='p-4'>
         <div className='border-green-edc bg-green-2f1 relative flex items-center justify-center rounded-[10px] border'>
           <Image
             src='/images/Img_Festival.svg'
@@ -26,9 +29,9 @@ export default async function FestivalsPage() {
         </div>
       </div>
 
-      <FestivalList />
+      <FestivalList firstList={data}/>
 
-      <BottomTabNav /> */}
+      <BottomTabNav />
     </>
   );
 }
