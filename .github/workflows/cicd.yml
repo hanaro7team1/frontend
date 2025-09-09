@@ -59,10 +59,12 @@ jobs:
         run: |
           scp next.zip ec2-user@${{ secrets.WAS }}:/home/ec2-user/workspace/
 
-      - name: restart next
+      - name: unzip & restart next
         run: |
           ssh ec2-user@${{ secrets.WAS }} '
             cd /home/ec2-user/workspace
             rm -rf frontend
+            cp -r frontend/public frontend/.next/standalone
             unzip -q next.zip -d frontend
+            pm2 reload frontend
           '
