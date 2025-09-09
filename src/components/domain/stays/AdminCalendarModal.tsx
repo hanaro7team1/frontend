@@ -8,7 +8,7 @@ import { Modal } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
 import { Calendar } from '@/components/ui/calendar';
 import { usePrivateData } from '@/hooks/api/useApi';
-import { updateOpenDatesAction } from '@/utils/stays/updateOpenDateAction';
+import { updateOpenDatesAction } from '@/app/api/updateOpenDateAction';
 import { AdminStayAvailableDatesResponse } from '@/types/admin';
 
 type Props = {

@@ -63,7 +63,7 @@ export default function EditStay({ data }: Props) {
         </div>
       </div>
 
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-4 pb-30'>
         <Txt size={22}>사랑방에 대해 상세하게 알려주세요</Txt>
 
         <Input

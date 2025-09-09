@@ -5,7 +5,7 @@ import { serverPrivateApi } from '@/lib/axios-server';
 
 export async function updateOpenDatesAction(stayId: number, dates: string[]) {
   const api = await serverPrivateApi();
-  const { status } = await api.post(`/stays/${stayId}/open-dates`, dates);
+  const { status } = await api.post(`/api/admin/stays/${stayId}/open-dates`, dates);
   revalidatePath('/admin/stays');
 
   return status;
