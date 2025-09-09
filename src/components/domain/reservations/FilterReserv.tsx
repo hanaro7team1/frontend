@@ -5,6 +5,7 @@ import {
   ADMIN_RESERV_URL,
   RESERV_STATUSES,
   RESERV_URL,
+  STATUS_FILTER,
 } from '@/constants/reservations/reservation';
 import { ReservationsSearchParams } from '@/types/reservation';
 
@@ -39,7 +40,7 @@ export default function FilterReserv({ searchParams, isAdmin = false }: Props) {
                 'text-pink-a76': isAdmin && isActive,
               })}
             >
-              {statusFilter}
+              {STATUS_FILTER[statusFilter]}
             </Txt>
             {isActive && (
               <div

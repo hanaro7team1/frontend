@@ -9,3 +9,10 @@ export const STATUS_MAP: Record<(typeof RESERV_STATUSES)[number], string> = {
   '예약 확정': 'COMPLETED',
   '예약 취소': 'CANCELLED',
 };
+
+export const STATUS_FILTER: Record<(typeof RESERV_STATUSES)[number], string> = {
+  전체: '전체',
+  '예약 중': '예약됨',
+  '예약 확정': '방문 완료',
+  '예약 취소': '취소됨',
+};
