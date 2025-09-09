@@ -63,6 +63,7 @@ jobs:
           ssh ec2-user@${{ secrets.WAS }} '
             cd /home/ec2-user/workspace
             rm -rf frontend
+            cp -r frontend/public frontend/.next/standalone
             unzip -q next.zip -d frontend
             cd frontend
             pm2 delete frontend || true
