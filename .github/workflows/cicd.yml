@@ -66,8 +66,8 @@ jobs:
             rm -rf frontend
             unzip -q next.zip -d frontend
             cp -r frontend/public frontend/.next/standalone/  
-            cd frontend
+            cd /home/ec2-user/workspace/frontend/.next/standalone
             pm2 delete frontend || true
-            pm2 start "node .next/standalone/server.js" --name frontend
+            pm2 start "node server.js" --name frontend
             pm2 save
           '
