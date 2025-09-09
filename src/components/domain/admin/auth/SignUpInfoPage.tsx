@@ -28,7 +28,7 @@ export default function SignUpInfoPage() {
           </Txt>
         </div>
         <Input
-          placeholder={'마을 이름을 입력해 주세요 '}
+          placeholder={'예시: 하나마을 '}
           value={form.villageName}
           onChange={(e) => handleChange('villageName', e.target.value)}
         />
@@ -57,7 +57,7 @@ export default function SignUpInfoPage() {
           </Txt>
         </div>
         <Input
-          placeholder={'예) 010-1234-5678'}
+          placeholder={'예시: 010-1234-5678'}
           value={formatPhone(form.phone)}
           onChange={(e) => handleChange('phone', e.target.value)}
         />

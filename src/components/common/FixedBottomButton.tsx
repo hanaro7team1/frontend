@@ -8,9 +8,9 @@ type Props = {
   leftBtnText?: string;
   isPink?: boolean;
   disabled?: boolean;
-  onClickRightBtn: () => void;
+  onClickRightBtn?: () => void;
   onClickLeftBtn?: () => void;
-  greenBtnType?: 'button' | 'submit' | 'reset';
+  rightBtnType?: 'button' | 'submit' | 'reset';
 };
 /**
  * 하단 고정 버튼 컴포넌트 (스크롤 있을 때도 고정)
@@ -29,7 +29,7 @@ export default function FixedBottomButton({
   disabled = false,
   onClickRightBtn,
   onClickLeftBtn,
-  greenBtnType = 'button',
+  rightBtnType: greenBtnType = 'button',
   children,
 }: PropsWithChildren<Props>) {
   return (

@@ -1,4 +1,5 @@
 import { serverPrivateApi } from '@/lib/axios-server';
+import { cn } from '@/lib/utils';
 import { Txt } from '@/components/atoms';
 import { Carousel, Header } from '@/components/common';
 import {
@@ -41,20 +42,18 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
 
   return (
     <div className='flex flex-col'>
-      <header>
-        <Header title='사랑방 자세히 보기' />
+      <Header title='사랑방 자세히 보기' />
 
-        {isDeleted && (
-          <div className='bg-gray-6d6 flex justify-center py-2'>
-            <Txt>* 삭제된 사랑방입니다 *</Txt>
-          </div>
-        )}
-      </header>
+      {isDeleted && (
+        <div className='bg-gray-6d6 flex justify-center py-2'>
+          <Txt>* 삭제된 사랑방입니다 *</Txt>
+        </div>
+      )}
 
       <main className='flex-1'>
         <Carousel images={images} />
 
-        <div className='mt-8 space-y-5 p-5 pb-40'>
+        <div className={cn('mt-8 space-y-5 p-5 pb-65', { 'pb-30': mode === 'countryside' })}>
           <StayHeader title={title} address={address} stayResrvStatus={stayResrvStatus} />
           <StayInfoChips capacity={capacity} area={areaSize} />
           <StayDescription item={description} mode={mode} />

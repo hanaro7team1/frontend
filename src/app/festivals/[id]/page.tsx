@@ -33,7 +33,6 @@ export default async function FestivalDetailPage({ params }: Props) {
     <div>
       <Header title='축제 자세히 보기' bgColor='white' />
       <div className='relative h-[320px] w-full shrink-0 overflow-hidden'>
-        {/* <Image src='/images/dummy_image.png' alt={title} fill className="object-cover"/> */}
         <Image src={imageUrl} alt={title} fill className='object-cover' />
       </div>
       <div className='flex flex-col gap-4 p-5'>

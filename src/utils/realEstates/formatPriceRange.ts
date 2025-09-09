@@ -12,5 +12,5 @@ export const formatPrice = (price: number): string => {
  * @example formatPriceRange(40000000, 60000000) -> "4,000만원 ~ 6,000만원"
  */
 export const formatPriceRange = (min: number, max: number): string => {
-  return `${formatPrice(min)} ~ ${formatPrice(max)}`;
+  return `${formatPrice(min)} ~\n ${formatPrice(max)}`;
 };
