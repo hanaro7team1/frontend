@@ -45,8 +45,7 @@ jobs:
           cp -r .next/static .next/standalone/.next/
 
       - name: zip next
-        run: zip -rq next.zip public .next/standalone
-
+        run: zip -rq next.zip public .next/standalone .next/static
       - name: setup ssh
         run: |
           mkdir -p ~/.ssh
@@ -59,10 +58,14 @@ jobs:
         run: |
           scp next.zip ec2-user@${{ secrets.WAS }}:/home/ec2-user/workspace/
 
-      - name: restart next
+      - name: unzip & restart next
         run: |
           ssh ec2-user@${{ secrets.WAS }} '
             cd /home/ec2-user/workspace
             rm -rf frontend
             unzip -q next.zip -d frontend
+            cd frontend
+            pm2 delete frontend || true
+            pm2 start "node .next/standalone/server.js" --name frontend
+            pm2 save
           '
