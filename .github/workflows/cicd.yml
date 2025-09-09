@@ -43,6 +43,7 @@ jobs:
           cp -r ./node_modules/@swc/helpers/* .next/standalone/node_modules/@swc/helpers/
           cp -r ./node_modules/@next/env/* .next/standalone/node_modules/@next/env/
           cp -r .next/static .next/standalone/.next/
+          cp -r public .next/standalone/
 
       - name: zip next
         run: zip -rq next.zip public .next/standalone .next/static
@@ -66,6 +67,6 @@ jobs:
             unzip -q next.zip -d frontend
             cd frontend
             pm2 delete frontend || true
-            pm2 start "node .next/standalone/server.js" --name frontend
+            pm2 start "node .next/standalone/server.js" --name frontend --cwd /home/ec2-user/workspace/frontend/.next/standalone
             pm2 save
           '
