@@ -20,12 +20,12 @@ export default function AdminQuitPage() {
 
   const handleQuitLogout = async () => {
     try {
-      const res = await privateApi.delete<pwdCheck>(`/api/admin/mypage/quit`, {
+      const { data } = await privateApi.delete<pwdCheck>(`/api/admin/mypage/quit`, {
         data: { checkPassword: password },
       });
 
-      if (res.data?.checkPassword) {
-        setPassword(res.data.checkPassword);
+      if (data.checkPassword) {
+        setPassword(data.checkPassword);
       }
 
       await authApi.logout();

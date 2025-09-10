@@ -6,14 +6,12 @@ import { useEffect, useState } from 'react';
 import { Button, Input, Txt } from '@/components/atoms';
 import { Header } from '@/components/common';
 import { useToast } from '@/components/common/ToastContext';
-import NoticeModal from '@/components/domain/admin/mypage/NoticeModal';
 import { coercePhoneRaw, formatPhone, toDigits } from '@/utils/common/phoneHyphen';
 import { getAdminInfoClient, updateAdminPhone } from '@/app/api/mypage';
 
 export default function AdminContactPage() {
   const [phone, setPhone] = useState('010-1234-5678');
   const [newPhone, setNewPhone] = useState('');
-  const [openNotice, setOpenNotice] = useState(false);
   const router = useRouter();
   const { showToast } = useToast();
 
@@ -45,7 +43,7 @@ export default function AdminContactPage() {
       // API 호출 성공 후, 상태 업데이트
       setPhone(formatPhone(newPhone));
       setNewPhone('');
-      setOpenNotice(true);
+      showToast('전화번호가 성공적으로 변경되었습니다.', 'success');
     } catch {
       showToast('전화번호 변경에 실패했습니다. 다시 시도해주세요.', 'error');
     }
@@ -95,8 +93,6 @@ export default function AdminContactPage() {
 
         <Button type='submit' title={'변경하기'} color='pink' disabled={isDisabled} />
       </form>
-
-      <NoticeModal open={openNotice} text='전화번호' />
     </>
   );
 }

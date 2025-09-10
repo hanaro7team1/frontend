@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Button, Input, Txt } from '@/components/atoms';
 import { useAuth } from '@/hooks/auth/useAuth';
 
-export default function LoginForm() {
+export default function SigninPage() {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -66,7 +66,7 @@ export default function LoginForm() {
         title={isLoading ? '로그인 중...' : '로그인'}
         color='pink'
         type='submit'
-        disabled={isLoading}
+        disabled={!loginId || !password || isLoading}
       />
 
       {error && <Txt className='text-red-500'>{error}</Txt>}

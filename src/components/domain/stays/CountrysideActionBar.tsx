@@ -85,7 +85,7 @@ export default function CountrysideActionBar({ id, onEdit }: Props) {
           onClickLeftBtn={handleCloseUpcomingModal}
           onClickRightBtn={() => {
             handleCloseUpcomingModal();
-            router.push('/reservations');
+            router.push('/admin/reservations');
           }}
           isPink
         >
