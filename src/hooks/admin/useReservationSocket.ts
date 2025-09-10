@@ -12,7 +12,7 @@ export function useReservationSocket(
     if (!memberId) return;
 
     const stompClient = new Client({
-      brokerURL: 'ws://localhost:8082/ws',
+      brokerURL: process.env.NEXT_PUBLIC_WS_URL ?? 'ws://localhost:8082/ws',
       reconnectDelay: 5000,
       onConnect: () => {
         stompClient.subscribe(`/topic/reservations/${memberId}`, (message) => {

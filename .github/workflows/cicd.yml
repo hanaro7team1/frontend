@@ -15,12 +15,12 @@ jobs:
         with:
           node-version: "20"
 
-      - name: setup node pnpm
+      - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      - name: make .env file
+      - name: Make .env file
         run: |
           cat > .env <<'EOF'
           ${{ secrets.ENV }}
@@ -29,40 +29,45 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install
+          pnpm add styled-jsx @swc/helpers @next/env
 
       - name: Build with Next.js
         run: pnpm build
 
-        # 제일 중요한 부분!!!
-      - name: cp modules not include standalone
+      - name: Copy modules not included in standalone
         run: |
           mkdir -p .next/standalone/node_modules/styled-jsx
           mkdir -p .next/standalone/node_modules/@swc/helpers
           mkdir -p .next/standalone/node_modules/@next/env
-          cp -r ./node_modules/styled-jsx/* .next/standalone/node_modules/styled-jsx/
-          cp -r ./node_modules/@swc/helpers/* .next/standalone/node_modules/@swc/helpers/
-          cp -r ./node_modules/@next/env/* .next/standalone/node_modules/@next/env/
+          cp -r ./node_modules/styled-jsx/* .next/standalone/node_modules/styled-jsx/ || true
+          cp -r ./node_modules/@swc/helpers/* .next/standalone/node_modules/@swc/helpers/ || true
+          cp -r ./node_modules/@next/env/* .next/standalone/node_modules/@next/env/ || true
           cp -r .next/static .next/standalone/.next/
 
-      - name: zip next
+      - name: Zip next
         run: zip -rq next.zip public .next/standalone
 
-      - name: setup ssh
+      - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 400 ~/.ssh/id_rsa
-          ssh-keyscan ${{ secrets.WAS }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.WAS }} >> ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
 
-      - name: scp next to was
+      - name: SCP next to WAS
         run: |
           scp next.zip ec2-user@${{ secrets.WAS }}:/home/ec2-user/workspace/
 
-      - name: restart next
+      - name: Unzip & restart Next.js
         run: |
           ssh ec2-user@${{ secrets.WAS }} '
             cd /home/ec2-user/workspace
             rm -rf frontend
             unzip -q next.zip -d frontend
+            cp -r frontend/public frontend/.next/standalone/  
+            cd /home/ec2-user/workspace/frontend/.next/standalone
+            pm2 delete frontend || true
+            pm2 start "node server.js" --name frontend
+            pm2 save
           '
