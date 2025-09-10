@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { serverPrivateApi } from '@/lib/axios-server';
 import { Txt } from '@/components/atoms';
-import { BottomActions, BottomTabNav } from '@/components/common';
+import { BottomTabNav, LogoutBtn } from '@/components/common';
 import { LoanCard, ReservationBtn, UpcommingStayCard } from '@/components/domain/main';
 import { UserReservationResponse } from '@/types/user';
 
@@ -21,7 +21,7 @@ export default async function HomePage() {
         </Txt>
       </header>
 
-      <main className='z-1 space-y-5 px-4'>
+      <main className='z-1 flex flex-col items-center space-y-5 px-4 pb-20'>
         <UpcommingStayCard
           reservationId={reservationId}
           title={title}
@@ -33,10 +33,10 @@ export default async function HomePage() {
         />
         <ReservationBtn />
         <LoanCard />
+        <LogoutBtn />
       </main>
 
       <footer>
-        <BottomActions />
         <BottomTabNav />
       </footer>
     </div>
