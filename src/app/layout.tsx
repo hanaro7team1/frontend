@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang='ko' suppressHydrationWarning>
       <body className='flex h-screen items-center justify-center overflow-hidden antialiased'>
         <ToastProvider>
-          <main className='h-full w-full overflow-y-auto bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)] sm:max-w-sm [&::-webkit-scrollbar]:hidden'>
+          <main className='h-full w-full overflow-y-auto bg-white pb-4 shadow-[0_0_10px_rgba(0,0,0,0.3)] sm:max-w-sm [&::-webkit-scrollbar]:hidden'>
             {children}
           </main>
         </ToastProvider>
