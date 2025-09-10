@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Button, Txt } from '@/components/atoms';
 import { Header } from '@/components/common';
@@ -21,6 +22,7 @@ export default function AdminPwdPage() {
 
   // const [openNotice, setOpenNotice] = useState(false);
 
+  const router = useRouter();
   const { showToast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,7 +33,7 @@ export default function AdminPwdPage() {
       // 비밀번호 변경 API 호출
       await updateAdminPassword(currentPassword, form.password);
       showToast('비밀번호가 변경되었습니다', 'success');
-      // setOpenNotice(true);
+      router.back();
     } catch {
       showToast('비밀번호 변경에 실패했습니다 \n 다시 시도해 주세요', 'error');
     } finally {
@@ -102,8 +104,6 @@ export default function AdminPwdPage() {
           <Button type='submit' title='변경하기' color='pink' disabled={isDisabled} />
         </div>
       </form>
-
-      {/* <NoticeModal open={openNotice} text='비밀번호' /> */}
     </>
   );
 }

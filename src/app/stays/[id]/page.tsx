@@ -56,7 +56,7 @@ export default async function StayDetailPage({ params, searchParams }: Props) {
         <div className={cn('mt-8 space-y-5 p-5 pb-65', { 'pb-30': mode === 'countryside' })}>
           <StayHeader title={title} address={address} stayResrvStatus={stayResrvStatus} />
           <StayInfoChips capacity={capacity} area={areaSize} />
-          <StayDescription item={description} mode={mode} />
+          <StayDescription item={description} />
         </div>
       </main>
 

@@ -2,13 +2,12 @@ import Txt from '@/components/atoms/Text';
 
 type Props = {
   item: string;
-  mode?: 'city' | 'countryside';
 };
 
-export default function StayDescription({ item, mode }: Props) {
+export default function StayDescription({ item }: Props) {
   return (
-        <Txt size={18} className='text-gray-070'>
-          {item}
-        </Txt>
+    <Txt size={18} className='text-gray-070'>
+      {item}
+    </Txt>
   );
 }
