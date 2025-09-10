@@ -1,9 +1,13 @@
 import Image from 'next/image';
+import { publicApi } from '@/lib/axios';
 import { Txt } from '@/components/atoms';
 import { BottomTabNav, Header } from '@/components/common';
 import FestivalList from '@/components/domain/festivals/FestivalList';
+import { FestivalListResponse } from '@/types/festivals';
 
 export default async function FestivalsPage() {
+  const { data } = await publicApi.get<FestivalListResponse>('/api/festivals');
+
   return (
     <>
       <Header title='지역 축제' bgColor='green' />
@@ -25,7 +29,7 @@ export default async function FestivalsPage() {
         </div>
       </div>
 
-      <FestivalList />
+      <FestivalList initialData={data} />
 
       <BottomTabNav />
     </>
