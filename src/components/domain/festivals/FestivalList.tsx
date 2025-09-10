@@ -4,8 +4,8 @@ import useSWRInfinite from 'swr/infinite';
 import { useEffect, useRef } from 'react';
 import { publicApi } from '@/lib/axios';
 import { Txt } from '@/components/atoms';
+import { PageParams } from '@/types/common';
 import { FestivalListResponse } from '@/types/festivals';
-import { StaysSearchParams } from '@/types/stays';
 import ListBox from './ListBox';
 
 type Props = {
@@ -18,7 +18,7 @@ export default function FestivalList({ initialData }: Props) {
     return ['/api/festivals', { page: pageIndex + 1, listSize: 10 }];
   };
 
-  const fetcher = async ([url, params]: [string, StaysSearchParams]) => {
+  const fetcher = async ([url, params]: [string, PageParams]) => {
     const { data } = await publicApi.get<FestivalListResponse>(url, { params });
     return data;
   };

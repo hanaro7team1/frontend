@@ -1,10 +1,10 @@
-import { Paged } from './common';
+import { PageParams, Paged } from './common';
 
 export type RealEstatesSearchParams = {
   location?: string;
   tradeType?: '전세' | '매매';
   priceRange?: string;
-};
+} & PageParams;
 
 export type EstatesItemResponse = {
   id: string;

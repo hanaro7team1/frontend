@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Paged } from './common';
+import { PageParams, Paged } from './common';
 
 export type Regions = {
   region: string;
@@ -21,7 +21,7 @@ export type StaysSearchParams = {
   location?: string;
   schedule?: string;
   peopleCount?: string;
-};
+} & PageParams;
 
 export type RoomStatus = '예약 가능' | '예약 마감' | '예약 닫힘';
 export type AdminStaysSearchParams = {
