@@ -19,7 +19,7 @@ export default function RoomList({ searchParams, initialData }: Props) {
     return ['/api/stays', { ...searchParams, page: pageIndex + 1, listSize: 10 }];
   };
 
-  const fetcher = async ([url, params]: [string, any]) => {
+  const fetcher = async ([url, params]: [string, StaysSearchParams]) => {
     const { data } = await publicApi.get<StayListResponse>(url, { params });
     return data;
   };
